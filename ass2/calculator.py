@@ -4,14 +4,6 @@ import sys
 import ply.lex as lex
 import ply.yacc as yacc
 
-reserved = {
-    'plus': 'PLUS2',
-    'minus': 'MINUS2',
-    'times': 'TIMES2',
-    'divide': 'DIVIDE2',
-    'power': 'EXP2'
-}
-
 string_to_int = {
     'one': 1,
     'two': 2,
@@ -47,21 +39,39 @@ string_to_int = {
 tokens = [
         'NAME', 'NUMBER',
         'PLUS', 'MINUS', 'EXP', 'TIMES', 'DIVIDE', 'EQUALS',
-        'LPAREN', 'RPAREN', 'HUNDRED', 'THOUSAND', 'SNUMBER'
-] + list(reserved.values())
-
+        'LPAREN', 'RPAREN', 'HUNDRED', 'THOUSAND', 'SNUMBER', 'TENS', 'BIGTENS'
+]
 
 t_ignore = " \t\n"
 
-t_PLUS = r'\+'
-t_MINUS = r'-'
-t_EXP = r'\*\*'
-t_TIMES = r'\*'
-t_DIVIDE = r'/'
 t_EQUALS = r'='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 
+def t_PLUS(t):
+    r'\+|plus'
+    t.value = '+'
+    return t
+
+def t_MINUS(t):
+    r'\-|minus'
+    t.value = '-'
+    return t
+
+def t_EXP(t):
+    r'\+|power'
+    t.value = '**'
+    return t
+
+def t_TIMES(t):
+    r'\-|times'
+    t.value = '*'
+    return t
+
+def t_DIVIDE(t):
+    r'\-|divide'
+    t.value = '/'
+    return t
 
 def t_NUMBER(t):
     r'\d+'
@@ -82,12 +92,19 @@ def t_THOUSAND(t):
     return t
 
 def t_SNUMBER(t):
-    r'thousand|hundred|ninety|eighty|seventy|sixty|fifty|forty|thirty|twenty|nineteen|eighteen|seventeen|sixteen|fifteen|fourteen|thirteen|twelve|eleven|ten|nine|eight|seven|six|five|four|three|two|one'
+    r'nine|eight|seven|six|five|four|three|two|one'
+    return t
+
+def t_BIGTENS(t):
+    r'ninety|eighty|seventy|sixty|fifty|forty|thirty|twenty'
+    return t
+
+def t_TENS(t):
+    r'nineteen|eighteen|seventeen|sixteen|fifteen|fourteen|thirteen|twelve|eleven|ten'
     return t
 
 def t_NAME(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
-    t.type = reserved.get(t.value, 'NAME')
     return t
 
 def t_error(t):
@@ -95,17 +112,17 @@ def t_error(t):
 	t.lexer.skip(1)
 
 # Parsing rules
+# TODO - Check for correctness
 precedence = (
 	('left', 'PLUS', 'MINUS'),
-    ('left', 'PLUS2', 'MINUS2'),
-        ('left', 'TIMES', 'DIVIDE'),
-        ('left', 'TIMES2', 'DIVIDE2'),
-        ('left', 'EXP'),
-        ('left', 'EXP2'),
-        ('left', 'HUNDRED'),
-        ('left', 'THOUSAND'),
-        ('left', 'SNUMBER'),
-        ('right', 'UMINUS'),
+    ('left', 'TIMES', 'DIVIDE'),
+    ('left', 'EXP'),
+    ('left', 'HUNDRED'),
+    ('left', 'THOUSAND'),
+    ('left', 'SNUMBER'),
+    ('left', 'TENS'),
+    ('left', 'BIGTENS'),
+    ('right', 'UMINUS'),
 )
 
 def p_statement_assign(p):
@@ -113,8 +130,8 @@ def p_statement_assign(p):
 	p[1]=p[3]
 
 def p_statement_expr(p):
-        'statement : expression'
-        print(p[1])
+    'statement : expression'
+    print(p[1])
 
 def p_expression_binop(p):
     """
@@ -123,22 +140,17 @@ def p_expression_binop(p):
               | expression TIMES expression
               | expression DIVIDE expression
               | expression EXP expression
-              | expression PLUS2 expression
-              | expression MINUS2 expression
-              | expression TIMES2 expression
-              | expression DIVIDE2 expression
-              | expression EXP2 expression
     """
     print('plus', [repr(p[i]) for i in range(0,4)])
-    if p[2] == '+' or p[2] == 'plus':
+    if p[2] == '+':
         p[0] = p[1] + p[3]
-    elif p[2] == '-' or p[2] == 'minus':
+    elif p[2] == '-':
         p[0] = p[1] - p[3]
-    elif p[2] == '*' or p[2] == 'times':
+    elif p[2] == '*':
         p[0] = p[1] * p[3]
-    elif p[2] == '/' or p[2] == 'divide':
+    elif p[2] == '/':
         p[0] = p[1] / p[3]
-    elif p[2] == '**' or p[2] == 'power':
+    elif p[2] == '**':
         p[0] = p[1] ** p[3]
 
 def p_expression_uminus(p):

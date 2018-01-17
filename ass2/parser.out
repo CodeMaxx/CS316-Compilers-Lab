@@ -1,5 +1,10 @@
 Created by PLY version 3.10 (http://www.dabeaz.com/ply)
 
+Unused terminals:
+
+    TENS
+    BIGTENS
+
 Grammar
 
 Rule 0     S' -> statement
@@ -10,46 +15,38 @@ Rule 4     expression -> expression MINUS expression
 Rule 5     expression -> expression TIMES expression
 Rule 6     expression -> expression DIVIDE expression
 Rule 7     expression -> expression EXP expression
-Rule 8     expression -> expression PLUS2 expression
-Rule 9     expression -> expression MINUS2 expression
-Rule 10    expression -> expression TIMES2 expression
-Rule 11    expression -> expression DIVIDE2 expression
-Rule 12    expression -> expression EXP2 expression
-Rule 13    expression -> MINUS expression
-Rule 14    expression -> LPAREN expression RPAREN
-Rule 15    expression -> NUMBER
-Rule 16    expression -> NAME
-Rule 17    expression -> SNUMBER
-Rule 18    expression -> expression SNUMBER
-Rule 19    expression -> SNUMBER HUNDRED
-Rule 20    expression -> expression SNUMBER HUNDRED
-Rule 21    expression -> expression THOUSAND
+Rule 8     expression -> MINUS expression
+Rule 9     expression -> LPAREN expression RPAREN
+Rule 10    expression -> NUMBER
+Rule 11    expression -> NAME
+Rule 12    expression -> SNUMBER
+Rule 13    expression -> expression SNUMBER
+Rule 14    expression -> SNUMBER HUNDRED
+Rule 15    expression -> expression SNUMBER HUNDRED
+Rule 16    expression -> expression THOUSAND
 
 Terminals, with rules where they appear
 
+BIGTENS              : 
 DIVIDE               : 6
-DIVIDE2              : 11
 EQUALS               : 1
 EXP                  : 7
-EXP2                 : 12
-HUNDRED              : 19 20
-LPAREN               : 14
-MINUS                : 4 13
-MINUS2               : 9
-NAME                 : 1 16
-NUMBER               : 15
+HUNDRED              : 14 15
+LPAREN               : 9
+MINUS                : 4 8
+NAME                 : 1 11
+NUMBER               : 10
 PLUS                 : 3
-PLUS2                : 8
-RPAREN               : 14
-SNUMBER              : 17 18 19 20
-THOUSAND             : 21
+RPAREN               : 9
+SNUMBER              : 12 13 14 15
+TENS                 : 
+THOUSAND             : 16
 TIMES                : 5
-TIMES2               : 10
 error                : 
 
 Nonterminals, with rules where they appear
 
-expression           : 1 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10 11 11 12 12 13 14 18 20 21
+expression           : 1 2 3 3 4 4 5 5 6 6 7 7 8 9 13 15 16
 statement            : 0
 
 Parsing method: LALR
@@ -64,20 +61,15 @@ state 0
     (5) expression -> . expression TIMES expression
     (6) expression -> . expression DIVIDE expression
     (7) expression -> . expression EXP expression
-    (8) expression -> . expression PLUS2 expression
-    (9) expression -> . expression MINUS2 expression
-    (10) expression -> . expression TIMES2 expression
-    (11) expression -> . expression DIVIDE2 expression
-    (12) expression -> . expression EXP2 expression
-    (13) expression -> . MINUS expression
-    (14) expression -> . LPAREN expression RPAREN
-    (15) expression -> . NUMBER
-    (16) expression -> . NAME
-    (17) expression -> . SNUMBER
-    (18) expression -> . expression SNUMBER
-    (19) expression -> . SNUMBER HUNDRED
-    (20) expression -> . expression SNUMBER HUNDRED
-    (21) expression -> . expression THOUSAND
+    (8) expression -> . MINUS expression
+    (9) expression -> . LPAREN expression RPAREN
+    (10) expression -> . NUMBER
+    (11) expression -> . NAME
+    (12) expression -> . SNUMBER
+    (13) expression -> . expression SNUMBER
+    (14) expression -> . SNUMBER HUNDRED
+    (15) expression -> . expression SNUMBER HUNDRED
+    (16) expression -> . expression THOUSAND
 
     NAME            shift and go to state 2
     MINUS           shift and go to state 4
@@ -97,22 +89,17 @@ state 1
 state 2
 
     (1) statement -> NAME . EQUALS expression
-    (16) expression -> NAME .
+    (11) expression -> NAME .
 
     EQUALS          shift and go to state 8
-    PLUS            reduce using rule 16 (expression -> NAME .)
-    MINUS           reduce using rule 16 (expression -> NAME .)
-    TIMES           reduce using rule 16 (expression -> NAME .)
-    DIVIDE          reduce using rule 16 (expression -> NAME .)
-    EXP             reduce using rule 16 (expression -> NAME .)
-    PLUS2           reduce using rule 16 (expression -> NAME .)
-    MINUS2          reduce using rule 16 (expression -> NAME .)
-    TIMES2          reduce using rule 16 (expression -> NAME .)
-    DIVIDE2         reduce using rule 16 (expression -> NAME .)
-    EXP2            reduce using rule 16 (expression -> NAME .)
-    SNUMBER         reduce using rule 16 (expression -> NAME .)
-    THOUSAND        reduce using rule 16 (expression -> NAME .)
-    $end            reduce using rule 16 (expression -> NAME .)
+    PLUS            reduce using rule 11 (expression -> NAME .)
+    MINUS           reduce using rule 11 (expression -> NAME .)
+    TIMES           reduce using rule 11 (expression -> NAME .)
+    DIVIDE          reduce using rule 11 (expression -> NAME .)
+    EXP             reduce using rule 11 (expression -> NAME .)
+    SNUMBER         reduce using rule 11 (expression -> NAME .)
+    THOUSAND        reduce using rule 11 (expression -> NAME .)
+    $end            reduce using rule 11 (expression -> NAME .)
 
 
 state 3
@@ -123,14 +110,9 @@ state 3
     (5) expression -> expression . TIMES expression
     (6) expression -> expression . DIVIDE expression
     (7) expression -> expression . EXP expression
-    (8) expression -> expression . PLUS2 expression
-    (9) expression -> expression . MINUS2 expression
-    (10) expression -> expression . TIMES2 expression
-    (11) expression -> expression . DIVIDE2 expression
-    (12) expression -> expression . EXP2 expression
-    (18) expression -> expression . SNUMBER
-    (20) expression -> expression . SNUMBER HUNDRED
-    (21) expression -> expression . THOUSAND
+    (13) expression -> expression . SNUMBER
+    (15) expression -> expression . SNUMBER HUNDRED
+    (16) expression -> expression . THOUSAND
 
     $end            reduce using rule 2 (statement -> expression .)
     PLUS            shift and go to state 9
@@ -138,117 +120,92 @@ state 3
     TIMES           shift and go to state 11
     DIVIDE          shift and go to state 12
     EXP             shift and go to state 13
-    PLUS2           shift and go to state 14
-    MINUS2          shift and go to state 15
-    TIMES2          shift and go to state 16
-    DIVIDE2         shift and go to state 17
-    EXP2            shift and go to state 18
-    SNUMBER         shift and go to state 19
-    THOUSAND        shift and go to state 20
+    SNUMBER         shift and go to state 14
+    THOUSAND        shift and go to state 15
 
 
 state 4
 
-    (13) expression -> MINUS . expression
+    (8) expression -> MINUS . expression
     (3) expression -> . expression PLUS expression
     (4) expression -> . expression MINUS expression
     (5) expression -> . expression TIMES expression
     (6) expression -> . expression DIVIDE expression
     (7) expression -> . expression EXP expression
-    (8) expression -> . expression PLUS2 expression
-    (9) expression -> . expression MINUS2 expression
-    (10) expression -> . expression TIMES2 expression
-    (11) expression -> . expression DIVIDE2 expression
-    (12) expression -> . expression EXP2 expression
-    (13) expression -> . MINUS expression
-    (14) expression -> . LPAREN expression RPAREN
-    (15) expression -> . NUMBER
-    (16) expression -> . NAME
-    (17) expression -> . SNUMBER
-    (18) expression -> . expression SNUMBER
-    (19) expression -> . SNUMBER HUNDRED
-    (20) expression -> . expression SNUMBER HUNDRED
-    (21) expression -> . expression THOUSAND
+    (8) expression -> . MINUS expression
+    (9) expression -> . LPAREN expression RPAREN
+    (10) expression -> . NUMBER
+    (11) expression -> . NAME
+    (12) expression -> . SNUMBER
+    (13) expression -> . expression SNUMBER
+    (14) expression -> . SNUMBER HUNDRED
+    (15) expression -> . expression SNUMBER HUNDRED
+    (16) expression -> . expression THOUSAND
 
     MINUS           shift and go to state 4
     LPAREN          shift and go to state 5
     NUMBER          shift and go to state 6
-    NAME            shift and go to state 22
+    NAME            shift and go to state 17
     SNUMBER         shift and go to state 7
 
-    expression                     shift and go to state 21
+    expression                     shift and go to state 16
 
 state 5
 
-    (14) expression -> LPAREN . expression RPAREN
+    (9) expression -> LPAREN . expression RPAREN
     (3) expression -> . expression PLUS expression
     (4) expression -> . expression MINUS expression
     (5) expression -> . expression TIMES expression
     (6) expression -> . expression DIVIDE expression
     (7) expression -> . expression EXP expression
-    (8) expression -> . expression PLUS2 expression
-    (9) expression -> . expression MINUS2 expression
-    (10) expression -> . expression TIMES2 expression
-    (11) expression -> . expression DIVIDE2 expression
-    (12) expression -> . expression EXP2 expression
-    (13) expression -> . MINUS expression
-    (14) expression -> . LPAREN expression RPAREN
-    (15) expression -> . NUMBER
-    (16) expression -> . NAME
-    (17) expression -> . SNUMBER
-    (18) expression -> . expression SNUMBER
-    (19) expression -> . SNUMBER HUNDRED
-    (20) expression -> . expression SNUMBER HUNDRED
-    (21) expression -> . expression THOUSAND
+    (8) expression -> . MINUS expression
+    (9) expression -> . LPAREN expression RPAREN
+    (10) expression -> . NUMBER
+    (11) expression -> . NAME
+    (12) expression -> . SNUMBER
+    (13) expression -> . expression SNUMBER
+    (14) expression -> . SNUMBER HUNDRED
+    (15) expression -> . expression SNUMBER HUNDRED
+    (16) expression -> . expression THOUSAND
 
     MINUS           shift and go to state 4
     LPAREN          shift and go to state 5
     NUMBER          shift and go to state 6
-    NAME            shift and go to state 22
+    NAME            shift and go to state 17
     SNUMBER         shift and go to state 7
 
-    expression                     shift and go to state 23
+    expression                     shift and go to state 18
 
 state 6
 
-    (15) expression -> NUMBER .
+    (10) expression -> NUMBER .
 
-    PLUS            reduce using rule 15 (expression -> NUMBER .)
-    MINUS           reduce using rule 15 (expression -> NUMBER .)
-    TIMES           reduce using rule 15 (expression -> NUMBER .)
-    DIVIDE          reduce using rule 15 (expression -> NUMBER .)
-    EXP             reduce using rule 15 (expression -> NUMBER .)
-    PLUS2           reduce using rule 15 (expression -> NUMBER .)
-    MINUS2          reduce using rule 15 (expression -> NUMBER .)
-    TIMES2          reduce using rule 15 (expression -> NUMBER .)
-    DIVIDE2         reduce using rule 15 (expression -> NUMBER .)
-    EXP2            reduce using rule 15 (expression -> NUMBER .)
-    SNUMBER         reduce using rule 15 (expression -> NUMBER .)
-    THOUSAND        reduce using rule 15 (expression -> NUMBER .)
-    $end            reduce using rule 15 (expression -> NUMBER .)
-    RPAREN          reduce using rule 15 (expression -> NUMBER .)
+    PLUS            reduce using rule 10 (expression -> NUMBER .)
+    MINUS           reduce using rule 10 (expression -> NUMBER .)
+    TIMES           reduce using rule 10 (expression -> NUMBER .)
+    DIVIDE          reduce using rule 10 (expression -> NUMBER .)
+    EXP             reduce using rule 10 (expression -> NUMBER .)
+    SNUMBER         reduce using rule 10 (expression -> NUMBER .)
+    THOUSAND        reduce using rule 10 (expression -> NUMBER .)
+    $end            reduce using rule 10 (expression -> NUMBER .)
+    RPAREN          reduce using rule 10 (expression -> NUMBER .)
 
 
 state 7
 
-    (17) expression -> SNUMBER .
-    (19) expression -> SNUMBER . HUNDRED
+    (12) expression -> SNUMBER .
+    (14) expression -> SNUMBER . HUNDRED
 
-    PLUS            reduce using rule 17 (expression -> SNUMBER .)
-    MINUS           reduce using rule 17 (expression -> SNUMBER .)
-    TIMES           reduce using rule 17 (expression -> SNUMBER .)
-    DIVIDE          reduce using rule 17 (expression -> SNUMBER .)
-    EXP             reduce using rule 17 (expression -> SNUMBER .)
-    PLUS2           reduce using rule 17 (expression -> SNUMBER .)
-    MINUS2          reduce using rule 17 (expression -> SNUMBER .)
-    TIMES2          reduce using rule 17 (expression -> SNUMBER .)
-    DIVIDE2         reduce using rule 17 (expression -> SNUMBER .)
-    EXP2            reduce using rule 17 (expression -> SNUMBER .)
-    SNUMBER         reduce using rule 17 (expression -> SNUMBER .)
-    THOUSAND        reduce using rule 17 (expression -> SNUMBER .)
-    $end            reduce using rule 17 (expression -> SNUMBER .)
-    RPAREN          reduce using rule 17 (expression -> SNUMBER .)
-    HUNDRED         shift and go to state 24
+    PLUS            reduce using rule 12 (expression -> SNUMBER .)
+    MINUS           reduce using rule 12 (expression -> SNUMBER .)
+    TIMES           reduce using rule 12 (expression -> SNUMBER .)
+    DIVIDE          reduce using rule 12 (expression -> SNUMBER .)
+    EXP             reduce using rule 12 (expression -> SNUMBER .)
+    SNUMBER         reduce using rule 12 (expression -> SNUMBER .)
+    THOUSAND        reduce using rule 12 (expression -> SNUMBER .)
+    $end            reduce using rule 12 (expression -> SNUMBER .)
+    RPAREN          reduce using rule 12 (expression -> SNUMBER .)
+    HUNDRED         shift and go to state 19
 
 
 state 8
@@ -259,28 +216,23 @@ state 8
     (5) expression -> . expression TIMES expression
     (6) expression -> . expression DIVIDE expression
     (7) expression -> . expression EXP expression
-    (8) expression -> . expression PLUS2 expression
-    (9) expression -> . expression MINUS2 expression
-    (10) expression -> . expression TIMES2 expression
-    (11) expression -> . expression DIVIDE2 expression
-    (12) expression -> . expression EXP2 expression
-    (13) expression -> . MINUS expression
-    (14) expression -> . LPAREN expression RPAREN
-    (15) expression -> . NUMBER
-    (16) expression -> . NAME
-    (17) expression -> . SNUMBER
-    (18) expression -> . expression SNUMBER
-    (19) expression -> . SNUMBER HUNDRED
-    (20) expression -> . expression SNUMBER HUNDRED
-    (21) expression -> . expression THOUSAND
+    (8) expression -> . MINUS expression
+    (9) expression -> . LPAREN expression RPAREN
+    (10) expression -> . NUMBER
+    (11) expression -> . NAME
+    (12) expression -> . SNUMBER
+    (13) expression -> . expression SNUMBER
+    (14) expression -> . SNUMBER HUNDRED
+    (15) expression -> . expression SNUMBER HUNDRED
+    (16) expression -> . expression THOUSAND
 
     MINUS           shift and go to state 4
     LPAREN          shift and go to state 5
     NUMBER          shift and go to state 6
-    NAME            shift and go to state 22
+    NAME            shift and go to state 17
     SNUMBER         shift and go to state 7
 
-    expression                     shift and go to state 25
+    expression                     shift and go to state 20
 
 state 9
 
@@ -290,28 +242,23 @@ state 9
     (5) expression -> . expression TIMES expression
     (6) expression -> . expression DIVIDE expression
     (7) expression -> . expression EXP expression
-    (8) expression -> . expression PLUS2 expression
-    (9) expression -> . expression MINUS2 expression
-    (10) expression -> . expression TIMES2 expression
-    (11) expression -> . expression DIVIDE2 expression
-    (12) expression -> . expression EXP2 expression
-    (13) expression -> . MINUS expression
-    (14) expression -> . LPAREN expression RPAREN
-    (15) expression -> . NUMBER
-    (16) expression -> . NAME
-    (17) expression -> . SNUMBER
-    (18) expression -> . expression SNUMBER
-    (19) expression -> . SNUMBER HUNDRED
-    (20) expression -> . expression SNUMBER HUNDRED
-    (21) expression -> . expression THOUSAND
+    (8) expression -> . MINUS expression
+    (9) expression -> . LPAREN expression RPAREN
+    (10) expression -> . NUMBER
+    (11) expression -> . NAME
+    (12) expression -> . SNUMBER
+    (13) expression -> . expression SNUMBER
+    (14) expression -> . SNUMBER HUNDRED
+    (15) expression -> . expression SNUMBER HUNDRED
+    (16) expression -> . expression THOUSAND
 
     MINUS           shift and go to state 4
     LPAREN          shift and go to state 5
     NUMBER          shift and go to state 6
-    NAME            shift and go to state 22
+    NAME            shift and go to state 17
     SNUMBER         shift and go to state 7
 
-    expression                     shift and go to state 26
+    expression                     shift and go to state 21
 
 state 10
 
@@ -321,28 +268,23 @@ state 10
     (5) expression -> . expression TIMES expression
     (6) expression -> . expression DIVIDE expression
     (7) expression -> . expression EXP expression
-    (8) expression -> . expression PLUS2 expression
-    (9) expression -> . expression MINUS2 expression
-    (10) expression -> . expression TIMES2 expression
-    (11) expression -> . expression DIVIDE2 expression
-    (12) expression -> . expression EXP2 expression
-    (13) expression -> . MINUS expression
-    (14) expression -> . LPAREN expression RPAREN
-    (15) expression -> . NUMBER
-    (16) expression -> . NAME
-    (17) expression -> . SNUMBER
-    (18) expression -> . expression SNUMBER
-    (19) expression -> . SNUMBER HUNDRED
-    (20) expression -> . expression SNUMBER HUNDRED
-    (21) expression -> . expression THOUSAND
+    (8) expression -> . MINUS expression
+    (9) expression -> . LPAREN expression RPAREN
+    (10) expression -> . NUMBER
+    (11) expression -> . NAME
+    (12) expression -> . SNUMBER
+    (13) expression -> . expression SNUMBER
+    (14) expression -> . SNUMBER HUNDRED
+    (15) expression -> . expression SNUMBER HUNDRED
+    (16) expression -> . expression THOUSAND
 
     MINUS           shift and go to state 4
     LPAREN          shift and go to state 5
     NUMBER          shift and go to state 6
-    NAME            shift and go to state 22
+    NAME            shift and go to state 17
     SNUMBER         shift and go to state 7
 
-    expression                     shift and go to state 27
+    expression                     shift and go to state 22
 
 state 11
 
@@ -352,28 +294,23 @@ state 11
     (5) expression -> . expression TIMES expression
     (6) expression -> . expression DIVIDE expression
     (7) expression -> . expression EXP expression
-    (8) expression -> . expression PLUS2 expression
-    (9) expression -> . expression MINUS2 expression
-    (10) expression -> . expression TIMES2 expression
-    (11) expression -> . expression DIVIDE2 expression
-    (12) expression -> . expression EXP2 expression
-    (13) expression -> . MINUS expression
-    (14) expression -> . LPAREN expression RPAREN
-    (15) expression -> . NUMBER
-    (16) expression -> . NAME
-    (17) expression -> . SNUMBER
-    (18) expression -> . expression SNUMBER
-    (19) expression -> . SNUMBER HUNDRED
-    (20) expression -> . expression SNUMBER HUNDRED
-    (21) expression -> . expression THOUSAND
+    (8) expression -> . MINUS expression
+    (9) expression -> . LPAREN expression RPAREN
+    (10) expression -> . NUMBER
+    (11) expression -> . NAME
+    (12) expression -> . SNUMBER
+    (13) expression -> . expression SNUMBER
+    (14) expression -> . SNUMBER HUNDRED
+    (15) expression -> . expression SNUMBER HUNDRED
+    (16) expression -> . expression THOUSAND
 
     MINUS           shift and go to state 4
     LPAREN          shift and go to state 5
     NUMBER          shift and go to state 6
-    NAME            shift and go to state 22
+    NAME            shift and go to state 17
     SNUMBER         shift and go to state 7
 
-    expression                     shift and go to state 28
+    expression                     shift and go to state 23
 
 state 12
 
@@ -383,28 +320,23 @@ state 12
     (5) expression -> . expression TIMES expression
     (6) expression -> . expression DIVIDE expression
     (7) expression -> . expression EXP expression
-    (8) expression -> . expression PLUS2 expression
-    (9) expression -> . expression MINUS2 expression
-    (10) expression -> . expression TIMES2 expression
-    (11) expression -> . expression DIVIDE2 expression
-    (12) expression -> . expression EXP2 expression
-    (13) expression -> . MINUS expression
-    (14) expression -> . LPAREN expression RPAREN
-    (15) expression -> . NUMBER
-    (16) expression -> . NAME
-    (17) expression -> . SNUMBER
-    (18) expression -> . expression SNUMBER
-    (19) expression -> . SNUMBER HUNDRED
-    (20) expression -> . expression SNUMBER HUNDRED
-    (21) expression -> . expression THOUSAND
+    (8) expression -> . MINUS expression
+    (9) expression -> . LPAREN expression RPAREN
+    (10) expression -> . NUMBER
+    (11) expression -> . NAME
+    (12) expression -> . SNUMBER
+    (13) expression -> . expression SNUMBER
+    (14) expression -> . SNUMBER HUNDRED
+    (15) expression -> . expression SNUMBER HUNDRED
+    (16) expression -> . expression THOUSAND
 
     MINUS           shift and go to state 4
     LPAREN          shift and go to state 5
     NUMBER          shift and go to state 6
-    NAME            shift and go to state 22
+    NAME            shift and go to state 17
     SNUMBER         shift and go to state 7
 
-    expression                     shift and go to state 29
+    expression                     shift and go to state 24
 
 state 13
 
@@ -414,345 +346,140 @@ state 13
     (5) expression -> . expression TIMES expression
     (6) expression -> . expression DIVIDE expression
     (7) expression -> . expression EXP expression
-    (8) expression -> . expression PLUS2 expression
-    (9) expression -> . expression MINUS2 expression
-    (10) expression -> . expression TIMES2 expression
-    (11) expression -> . expression DIVIDE2 expression
-    (12) expression -> . expression EXP2 expression
-    (13) expression -> . MINUS expression
-    (14) expression -> . LPAREN expression RPAREN
-    (15) expression -> . NUMBER
-    (16) expression -> . NAME
-    (17) expression -> . SNUMBER
-    (18) expression -> . expression SNUMBER
-    (19) expression -> . SNUMBER HUNDRED
-    (20) expression -> . expression SNUMBER HUNDRED
-    (21) expression -> . expression THOUSAND
+    (8) expression -> . MINUS expression
+    (9) expression -> . LPAREN expression RPAREN
+    (10) expression -> . NUMBER
+    (11) expression -> . NAME
+    (12) expression -> . SNUMBER
+    (13) expression -> . expression SNUMBER
+    (14) expression -> . SNUMBER HUNDRED
+    (15) expression -> . expression SNUMBER HUNDRED
+    (16) expression -> . expression THOUSAND
 
     MINUS           shift and go to state 4
     LPAREN          shift and go to state 5
     NUMBER          shift and go to state 6
-    NAME            shift and go to state 22
+    NAME            shift and go to state 17
     SNUMBER         shift and go to state 7
 
-    expression                     shift and go to state 30
+    expression                     shift and go to state 25
 
 state 14
 
-    (8) expression -> expression PLUS2 . expression
-    (3) expression -> . expression PLUS expression
-    (4) expression -> . expression MINUS expression
-    (5) expression -> . expression TIMES expression
-    (6) expression -> . expression DIVIDE expression
-    (7) expression -> . expression EXP expression
-    (8) expression -> . expression PLUS2 expression
-    (9) expression -> . expression MINUS2 expression
-    (10) expression -> . expression TIMES2 expression
-    (11) expression -> . expression DIVIDE2 expression
-    (12) expression -> . expression EXP2 expression
-    (13) expression -> . MINUS expression
-    (14) expression -> . LPAREN expression RPAREN
-    (15) expression -> . NUMBER
-    (16) expression -> . NAME
-    (17) expression -> . SNUMBER
-    (18) expression -> . expression SNUMBER
-    (19) expression -> . SNUMBER HUNDRED
-    (20) expression -> . expression SNUMBER HUNDRED
-    (21) expression -> . expression THOUSAND
+    (13) expression -> expression SNUMBER .
+    (15) expression -> expression SNUMBER . HUNDRED
 
-    MINUS           shift and go to state 4
-    LPAREN          shift and go to state 5
-    NUMBER          shift and go to state 6
-    NAME            shift and go to state 22
-    SNUMBER         shift and go to state 7
+    PLUS            reduce using rule 13 (expression -> expression SNUMBER .)
+    MINUS           reduce using rule 13 (expression -> expression SNUMBER .)
+    TIMES           reduce using rule 13 (expression -> expression SNUMBER .)
+    DIVIDE          reduce using rule 13 (expression -> expression SNUMBER .)
+    EXP             reduce using rule 13 (expression -> expression SNUMBER .)
+    SNUMBER         reduce using rule 13 (expression -> expression SNUMBER .)
+    THOUSAND        reduce using rule 13 (expression -> expression SNUMBER .)
+    $end            reduce using rule 13 (expression -> expression SNUMBER .)
+    RPAREN          reduce using rule 13 (expression -> expression SNUMBER .)
+    HUNDRED         shift and go to state 26
 
-    expression                     shift and go to state 31
 
 state 15
 
-    (9) expression -> expression MINUS2 . expression
-    (3) expression -> . expression PLUS expression
-    (4) expression -> . expression MINUS expression
-    (5) expression -> . expression TIMES expression
-    (6) expression -> . expression DIVIDE expression
-    (7) expression -> . expression EXP expression
-    (8) expression -> . expression PLUS2 expression
-    (9) expression -> . expression MINUS2 expression
-    (10) expression -> . expression TIMES2 expression
-    (11) expression -> . expression DIVIDE2 expression
-    (12) expression -> . expression EXP2 expression
-    (13) expression -> . MINUS expression
-    (14) expression -> . LPAREN expression RPAREN
-    (15) expression -> . NUMBER
-    (16) expression -> . NAME
-    (17) expression -> . SNUMBER
-    (18) expression -> . expression SNUMBER
-    (19) expression -> . SNUMBER HUNDRED
-    (20) expression -> . expression SNUMBER HUNDRED
-    (21) expression -> . expression THOUSAND
+    (16) expression -> expression THOUSAND .
 
-    MINUS           shift and go to state 4
-    LPAREN          shift and go to state 5
-    NUMBER          shift and go to state 6
-    NAME            shift and go to state 22
-    SNUMBER         shift and go to state 7
+    PLUS            reduce using rule 16 (expression -> expression THOUSAND .)
+    MINUS           reduce using rule 16 (expression -> expression THOUSAND .)
+    TIMES           reduce using rule 16 (expression -> expression THOUSAND .)
+    DIVIDE          reduce using rule 16 (expression -> expression THOUSAND .)
+    EXP             reduce using rule 16 (expression -> expression THOUSAND .)
+    SNUMBER         reduce using rule 16 (expression -> expression THOUSAND .)
+    THOUSAND        reduce using rule 16 (expression -> expression THOUSAND .)
+    $end            reduce using rule 16 (expression -> expression THOUSAND .)
+    RPAREN          reduce using rule 16 (expression -> expression THOUSAND .)
 
-    expression                     shift and go to state 32
 
 state 16
 
-    (10) expression -> expression TIMES2 . expression
-    (3) expression -> . expression PLUS expression
-    (4) expression -> . expression MINUS expression
-    (5) expression -> . expression TIMES expression
-    (6) expression -> . expression DIVIDE expression
-    (7) expression -> . expression EXP expression
-    (8) expression -> . expression PLUS2 expression
-    (9) expression -> . expression MINUS2 expression
-    (10) expression -> . expression TIMES2 expression
-    (11) expression -> . expression DIVIDE2 expression
-    (12) expression -> . expression EXP2 expression
-    (13) expression -> . MINUS expression
-    (14) expression -> . LPAREN expression RPAREN
-    (15) expression -> . NUMBER
-    (16) expression -> . NAME
-    (17) expression -> . SNUMBER
-    (18) expression -> . expression SNUMBER
-    (19) expression -> . SNUMBER HUNDRED
-    (20) expression -> . expression SNUMBER HUNDRED
-    (21) expression -> . expression THOUSAND
-
-    MINUS           shift and go to state 4
-    LPAREN          shift and go to state 5
-    NUMBER          shift and go to state 6
-    NAME            shift and go to state 22
-    SNUMBER         shift and go to state 7
-
-    expression                     shift and go to state 33
-
-state 17
-
-    (11) expression -> expression DIVIDE2 . expression
-    (3) expression -> . expression PLUS expression
-    (4) expression -> . expression MINUS expression
-    (5) expression -> . expression TIMES expression
-    (6) expression -> . expression DIVIDE expression
-    (7) expression -> . expression EXP expression
-    (8) expression -> . expression PLUS2 expression
-    (9) expression -> . expression MINUS2 expression
-    (10) expression -> . expression TIMES2 expression
-    (11) expression -> . expression DIVIDE2 expression
-    (12) expression -> . expression EXP2 expression
-    (13) expression -> . MINUS expression
-    (14) expression -> . LPAREN expression RPAREN
-    (15) expression -> . NUMBER
-    (16) expression -> . NAME
-    (17) expression -> . SNUMBER
-    (18) expression -> . expression SNUMBER
-    (19) expression -> . SNUMBER HUNDRED
-    (20) expression -> . expression SNUMBER HUNDRED
-    (21) expression -> . expression THOUSAND
-
-    MINUS           shift and go to state 4
-    LPAREN          shift and go to state 5
-    NUMBER          shift and go to state 6
-    NAME            shift and go to state 22
-    SNUMBER         shift and go to state 7
-
-    expression                     shift and go to state 34
-
-state 18
-
-    (12) expression -> expression EXP2 . expression
-    (3) expression -> . expression PLUS expression
-    (4) expression -> . expression MINUS expression
-    (5) expression -> . expression TIMES expression
-    (6) expression -> . expression DIVIDE expression
-    (7) expression -> . expression EXP expression
-    (8) expression -> . expression PLUS2 expression
-    (9) expression -> . expression MINUS2 expression
-    (10) expression -> . expression TIMES2 expression
-    (11) expression -> . expression DIVIDE2 expression
-    (12) expression -> . expression EXP2 expression
-    (13) expression -> . MINUS expression
-    (14) expression -> . LPAREN expression RPAREN
-    (15) expression -> . NUMBER
-    (16) expression -> . NAME
-    (17) expression -> . SNUMBER
-    (18) expression -> . expression SNUMBER
-    (19) expression -> . SNUMBER HUNDRED
-    (20) expression -> . expression SNUMBER HUNDRED
-    (21) expression -> . expression THOUSAND
-
-    MINUS           shift and go to state 4
-    LPAREN          shift and go to state 5
-    NUMBER          shift and go to state 6
-    NAME            shift and go to state 22
-    SNUMBER         shift and go to state 7
-
-    expression                     shift and go to state 35
-
-state 19
-
-    (18) expression -> expression SNUMBER .
-    (20) expression -> expression SNUMBER . HUNDRED
-
-    PLUS            reduce using rule 18 (expression -> expression SNUMBER .)
-    MINUS           reduce using rule 18 (expression -> expression SNUMBER .)
-    TIMES           reduce using rule 18 (expression -> expression SNUMBER .)
-    DIVIDE          reduce using rule 18 (expression -> expression SNUMBER .)
-    EXP             reduce using rule 18 (expression -> expression SNUMBER .)
-    PLUS2           reduce using rule 18 (expression -> expression SNUMBER .)
-    MINUS2          reduce using rule 18 (expression -> expression SNUMBER .)
-    TIMES2          reduce using rule 18 (expression -> expression SNUMBER .)
-    DIVIDE2         reduce using rule 18 (expression -> expression SNUMBER .)
-    EXP2            reduce using rule 18 (expression -> expression SNUMBER .)
-    SNUMBER         reduce using rule 18 (expression -> expression SNUMBER .)
-    THOUSAND        reduce using rule 18 (expression -> expression SNUMBER .)
-    $end            reduce using rule 18 (expression -> expression SNUMBER .)
-    RPAREN          reduce using rule 18 (expression -> expression SNUMBER .)
-    HUNDRED         shift and go to state 36
-
-
-state 20
-
-    (21) expression -> expression THOUSAND .
-
-    PLUS            reduce using rule 21 (expression -> expression THOUSAND .)
-    MINUS           reduce using rule 21 (expression -> expression THOUSAND .)
-    TIMES           reduce using rule 21 (expression -> expression THOUSAND .)
-    DIVIDE          reduce using rule 21 (expression -> expression THOUSAND .)
-    EXP             reduce using rule 21 (expression -> expression THOUSAND .)
-    PLUS2           reduce using rule 21 (expression -> expression THOUSAND .)
-    MINUS2          reduce using rule 21 (expression -> expression THOUSAND .)
-    TIMES2          reduce using rule 21 (expression -> expression THOUSAND .)
-    DIVIDE2         reduce using rule 21 (expression -> expression THOUSAND .)
-    EXP2            reduce using rule 21 (expression -> expression THOUSAND .)
-    SNUMBER         reduce using rule 21 (expression -> expression THOUSAND .)
-    THOUSAND        reduce using rule 21 (expression -> expression THOUSAND .)
-    $end            reduce using rule 21 (expression -> expression THOUSAND .)
-    RPAREN          reduce using rule 21 (expression -> expression THOUSAND .)
-
-
-state 21
-
-    (13) expression -> MINUS expression .
+    (8) expression -> MINUS expression .
     (3) expression -> expression . PLUS expression
     (4) expression -> expression . MINUS expression
     (5) expression -> expression . TIMES expression
     (6) expression -> expression . DIVIDE expression
     (7) expression -> expression . EXP expression
-    (8) expression -> expression . PLUS2 expression
-    (9) expression -> expression . MINUS2 expression
-    (10) expression -> expression . TIMES2 expression
-    (11) expression -> expression . DIVIDE2 expression
-    (12) expression -> expression . EXP2 expression
-    (18) expression -> expression . SNUMBER
-    (20) expression -> expression . SNUMBER HUNDRED
-    (21) expression -> expression . THOUSAND
+    (13) expression -> expression . SNUMBER
+    (15) expression -> expression . SNUMBER HUNDRED
+    (16) expression -> expression . THOUSAND
 
-    PLUS            reduce using rule 13 (expression -> MINUS expression .)
-    MINUS           reduce using rule 13 (expression -> MINUS expression .)
-    TIMES           reduce using rule 13 (expression -> MINUS expression .)
-    DIVIDE          reduce using rule 13 (expression -> MINUS expression .)
-    EXP             reduce using rule 13 (expression -> MINUS expression .)
-    PLUS2           reduce using rule 13 (expression -> MINUS expression .)
-    MINUS2          reduce using rule 13 (expression -> MINUS expression .)
-    TIMES2          reduce using rule 13 (expression -> MINUS expression .)
-    DIVIDE2         reduce using rule 13 (expression -> MINUS expression .)
-    EXP2            reduce using rule 13 (expression -> MINUS expression .)
-    SNUMBER         reduce using rule 13 (expression -> MINUS expression .)
-    THOUSAND        reduce using rule 13 (expression -> MINUS expression .)
-    $end            reduce using rule 13 (expression -> MINUS expression .)
-    RPAREN          reduce using rule 13 (expression -> MINUS expression .)
+    PLUS            reduce using rule 8 (expression -> MINUS expression .)
+    MINUS           reduce using rule 8 (expression -> MINUS expression .)
+    TIMES           reduce using rule 8 (expression -> MINUS expression .)
+    DIVIDE          reduce using rule 8 (expression -> MINUS expression .)
+    EXP             reduce using rule 8 (expression -> MINUS expression .)
+    SNUMBER         reduce using rule 8 (expression -> MINUS expression .)
+    THOUSAND        reduce using rule 8 (expression -> MINUS expression .)
+    $end            reduce using rule 8 (expression -> MINUS expression .)
+    RPAREN          reduce using rule 8 (expression -> MINUS expression .)
 
   ! PLUS            [ shift and go to state 9 ]
   ! MINUS           [ shift and go to state 10 ]
   ! TIMES           [ shift and go to state 11 ]
   ! DIVIDE          [ shift and go to state 12 ]
   ! EXP             [ shift and go to state 13 ]
-  ! PLUS2           [ shift and go to state 14 ]
-  ! MINUS2          [ shift and go to state 15 ]
-  ! TIMES2          [ shift and go to state 16 ]
-  ! DIVIDE2         [ shift and go to state 17 ]
-  ! EXP2            [ shift and go to state 18 ]
-  ! SNUMBER         [ shift and go to state 19 ]
-  ! THOUSAND        [ shift and go to state 20 ]
+  ! SNUMBER         [ shift and go to state 14 ]
+  ! THOUSAND        [ shift and go to state 15 ]
 
 
-state 22
+state 17
 
-    (16) expression -> NAME .
+    (11) expression -> NAME .
 
-    PLUS            reduce using rule 16 (expression -> NAME .)
-    MINUS           reduce using rule 16 (expression -> NAME .)
-    TIMES           reduce using rule 16 (expression -> NAME .)
-    DIVIDE          reduce using rule 16 (expression -> NAME .)
-    EXP             reduce using rule 16 (expression -> NAME .)
-    PLUS2           reduce using rule 16 (expression -> NAME .)
-    MINUS2          reduce using rule 16 (expression -> NAME .)
-    TIMES2          reduce using rule 16 (expression -> NAME .)
-    DIVIDE2         reduce using rule 16 (expression -> NAME .)
-    EXP2            reduce using rule 16 (expression -> NAME .)
-    SNUMBER         reduce using rule 16 (expression -> NAME .)
-    THOUSAND        reduce using rule 16 (expression -> NAME .)
-    $end            reduce using rule 16 (expression -> NAME .)
-    RPAREN          reduce using rule 16 (expression -> NAME .)
+    PLUS            reduce using rule 11 (expression -> NAME .)
+    MINUS           reduce using rule 11 (expression -> NAME .)
+    TIMES           reduce using rule 11 (expression -> NAME .)
+    DIVIDE          reduce using rule 11 (expression -> NAME .)
+    EXP             reduce using rule 11 (expression -> NAME .)
+    SNUMBER         reduce using rule 11 (expression -> NAME .)
+    THOUSAND        reduce using rule 11 (expression -> NAME .)
+    $end            reduce using rule 11 (expression -> NAME .)
+    RPAREN          reduce using rule 11 (expression -> NAME .)
 
 
-state 23
+state 18
 
-    (14) expression -> LPAREN expression . RPAREN
+    (9) expression -> LPAREN expression . RPAREN
     (3) expression -> expression . PLUS expression
     (4) expression -> expression . MINUS expression
     (5) expression -> expression . TIMES expression
     (6) expression -> expression . DIVIDE expression
     (7) expression -> expression . EXP expression
-    (8) expression -> expression . PLUS2 expression
-    (9) expression -> expression . MINUS2 expression
-    (10) expression -> expression . TIMES2 expression
-    (11) expression -> expression . DIVIDE2 expression
-    (12) expression -> expression . EXP2 expression
-    (18) expression -> expression . SNUMBER
-    (20) expression -> expression . SNUMBER HUNDRED
-    (21) expression -> expression . THOUSAND
+    (13) expression -> expression . SNUMBER
+    (15) expression -> expression . SNUMBER HUNDRED
+    (16) expression -> expression . THOUSAND
 
-    RPAREN          shift and go to state 37
+    RPAREN          shift and go to state 27
     PLUS            shift and go to state 9
     MINUS           shift and go to state 10
     TIMES           shift and go to state 11
     DIVIDE          shift and go to state 12
     EXP             shift and go to state 13
-    PLUS2           shift and go to state 14
-    MINUS2          shift and go to state 15
-    TIMES2          shift and go to state 16
-    DIVIDE2         shift and go to state 17
-    EXP2            shift and go to state 18
-    SNUMBER         shift and go to state 19
-    THOUSAND        shift and go to state 20
+    SNUMBER         shift and go to state 14
+    THOUSAND        shift and go to state 15
 
 
-state 24
+state 19
 
-    (19) expression -> SNUMBER HUNDRED .
+    (14) expression -> SNUMBER HUNDRED .
 
-    PLUS            reduce using rule 19 (expression -> SNUMBER HUNDRED .)
-    MINUS           reduce using rule 19 (expression -> SNUMBER HUNDRED .)
-    TIMES           reduce using rule 19 (expression -> SNUMBER HUNDRED .)
-    DIVIDE          reduce using rule 19 (expression -> SNUMBER HUNDRED .)
-    EXP             reduce using rule 19 (expression -> SNUMBER HUNDRED .)
-    PLUS2           reduce using rule 19 (expression -> SNUMBER HUNDRED .)
-    MINUS2          reduce using rule 19 (expression -> SNUMBER HUNDRED .)
-    TIMES2          reduce using rule 19 (expression -> SNUMBER HUNDRED .)
-    DIVIDE2         reduce using rule 19 (expression -> SNUMBER HUNDRED .)
-    EXP2            reduce using rule 19 (expression -> SNUMBER HUNDRED .)
-    SNUMBER         reduce using rule 19 (expression -> SNUMBER HUNDRED .)
-    THOUSAND        reduce using rule 19 (expression -> SNUMBER HUNDRED .)
-    $end            reduce using rule 19 (expression -> SNUMBER HUNDRED .)
-    RPAREN          reduce using rule 19 (expression -> SNUMBER HUNDRED .)
+    PLUS            reduce using rule 14 (expression -> SNUMBER HUNDRED .)
+    MINUS           reduce using rule 14 (expression -> SNUMBER HUNDRED .)
+    TIMES           reduce using rule 14 (expression -> SNUMBER HUNDRED .)
+    DIVIDE          reduce using rule 14 (expression -> SNUMBER HUNDRED .)
+    EXP             reduce using rule 14 (expression -> SNUMBER HUNDRED .)
+    SNUMBER         reduce using rule 14 (expression -> SNUMBER HUNDRED .)
+    THOUSAND        reduce using rule 14 (expression -> SNUMBER HUNDRED .)
+    $end            reduce using rule 14 (expression -> SNUMBER HUNDRED .)
+    RPAREN          reduce using rule 14 (expression -> SNUMBER HUNDRED .)
 
 
-state 25
+state 20
 
     (1) statement -> NAME EQUALS expression .
     (3) expression -> expression . PLUS expression
@@ -760,14 +487,9 @@ state 25
     (5) expression -> expression . TIMES expression
     (6) expression -> expression . DIVIDE expression
     (7) expression -> expression . EXP expression
-    (8) expression -> expression . PLUS2 expression
-    (9) expression -> expression . MINUS2 expression
-    (10) expression -> expression . TIMES2 expression
-    (11) expression -> expression . DIVIDE2 expression
-    (12) expression -> expression . EXP2 expression
-    (18) expression -> expression . SNUMBER
-    (20) expression -> expression . SNUMBER HUNDRED
-    (21) expression -> expression . THOUSAND
+    (13) expression -> expression . SNUMBER
+    (15) expression -> expression . SNUMBER HUNDRED
+    (16) expression -> expression . THOUSAND
 
     $end            reduce using rule 1 (statement -> NAME EQUALS expression .)
     PLUS            shift and go to state 9
@@ -775,16 +497,11 @@ state 25
     TIMES           shift and go to state 11
     DIVIDE          shift and go to state 12
     EXP             shift and go to state 13
-    PLUS2           shift and go to state 14
-    MINUS2          shift and go to state 15
-    TIMES2          shift and go to state 16
-    DIVIDE2         shift and go to state 17
-    EXP2            shift and go to state 18
-    SNUMBER         shift and go to state 19
-    THOUSAND        shift and go to state 20
+    SNUMBER         shift and go to state 14
+    THOUSAND        shift and go to state 15
 
 
-state 26
+state 21
 
     (3) expression -> expression PLUS expression .
     (3) expression -> expression . PLUS expression
@@ -792,14 +509,9 @@ state 26
     (5) expression -> expression . TIMES expression
     (6) expression -> expression . DIVIDE expression
     (7) expression -> expression . EXP expression
-    (8) expression -> expression . PLUS2 expression
-    (9) expression -> expression . MINUS2 expression
-    (10) expression -> expression . TIMES2 expression
-    (11) expression -> expression . DIVIDE2 expression
-    (12) expression -> expression . EXP2 expression
-    (18) expression -> expression . SNUMBER
-    (20) expression -> expression . SNUMBER HUNDRED
-    (21) expression -> expression . THOUSAND
+    (13) expression -> expression . SNUMBER
+    (15) expression -> expression . SNUMBER HUNDRED
+    (16) expression -> expression . THOUSAND
 
     PLUS            reduce using rule 3 (expression -> expression PLUS expression .)
     MINUS           reduce using rule 3 (expression -> expression PLUS expression .)
@@ -808,29 +520,19 @@ state 26
     TIMES           shift and go to state 11
     DIVIDE          shift and go to state 12
     EXP             shift and go to state 13
-    PLUS2           shift and go to state 14
-    MINUS2          shift and go to state 15
-    TIMES2          shift and go to state 16
-    DIVIDE2         shift and go to state 17
-    EXP2            shift and go to state 18
-    SNUMBER         shift and go to state 19
-    THOUSAND        shift and go to state 20
+    SNUMBER         shift and go to state 14
+    THOUSAND        shift and go to state 15
 
   ! TIMES           [ reduce using rule 3 (expression -> expression PLUS expression .) ]
   ! DIVIDE          [ reduce using rule 3 (expression -> expression PLUS expression .) ]
   ! EXP             [ reduce using rule 3 (expression -> expression PLUS expression .) ]
-  ! PLUS2           [ reduce using rule 3 (expression -> expression PLUS expression .) ]
-  ! MINUS2          [ reduce using rule 3 (expression -> expression PLUS expression .) ]
-  ! TIMES2          [ reduce using rule 3 (expression -> expression PLUS expression .) ]
-  ! DIVIDE2         [ reduce using rule 3 (expression -> expression PLUS expression .) ]
-  ! EXP2            [ reduce using rule 3 (expression -> expression PLUS expression .) ]
   ! SNUMBER         [ reduce using rule 3 (expression -> expression PLUS expression .) ]
   ! THOUSAND        [ reduce using rule 3 (expression -> expression PLUS expression .) ]
   ! PLUS            [ shift and go to state 9 ]
   ! MINUS           [ shift and go to state 10 ]
 
 
-state 27
+state 22
 
     (4) expression -> expression MINUS expression .
     (3) expression -> expression . PLUS expression
@@ -838,14 +540,9 @@ state 27
     (5) expression -> expression . TIMES expression
     (6) expression -> expression . DIVIDE expression
     (7) expression -> expression . EXP expression
-    (8) expression -> expression . PLUS2 expression
-    (9) expression -> expression . MINUS2 expression
-    (10) expression -> expression . TIMES2 expression
-    (11) expression -> expression . DIVIDE2 expression
-    (12) expression -> expression . EXP2 expression
-    (18) expression -> expression . SNUMBER
-    (20) expression -> expression . SNUMBER HUNDRED
-    (21) expression -> expression . THOUSAND
+    (13) expression -> expression . SNUMBER
+    (15) expression -> expression . SNUMBER HUNDRED
+    (16) expression -> expression . THOUSAND
 
     PLUS            reduce using rule 4 (expression -> expression MINUS expression .)
     MINUS           reduce using rule 4 (expression -> expression MINUS expression .)
@@ -854,29 +551,19 @@ state 27
     TIMES           shift and go to state 11
     DIVIDE          shift and go to state 12
     EXP             shift and go to state 13
-    PLUS2           shift and go to state 14
-    MINUS2          shift and go to state 15
-    TIMES2          shift and go to state 16
-    DIVIDE2         shift and go to state 17
-    EXP2            shift and go to state 18
-    SNUMBER         shift and go to state 19
-    THOUSAND        shift and go to state 20
+    SNUMBER         shift and go to state 14
+    THOUSAND        shift and go to state 15
 
   ! TIMES           [ reduce using rule 4 (expression -> expression MINUS expression .) ]
   ! DIVIDE          [ reduce using rule 4 (expression -> expression MINUS expression .) ]
   ! EXP             [ reduce using rule 4 (expression -> expression MINUS expression .) ]
-  ! PLUS2           [ reduce using rule 4 (expression -> expression MINUS expression .) ]
-  ! MINUS2          [ reduce using rule 4 (expression -> expression MINUS expression .) ]
-  ! TIMES2          [ reduce using rule 4 (expression -> expression MINUS expression .) ]
-  ! DIVIDE2         [ reduce using rule 4 (expression -> expression MINUS expression .) ]
-  ! EXP2            [ reduce using rule 4 (expression -> expression MINUS expression .) ]
   ! SNUMBER         [ reduce using rule 4 (expression -> expression MINUS expression .) ]
   ! THOUSAND        [ reduce using rule 4 (expression -> expression MINUS expression .) ]
   ! PLUS            [ shift and go to state 9 ]
   ! MINUS           [ shift and go to state 10 ]
 
 
-state 28
+state 23
 
     (5) expression -> expression TIMES expression .
     (3) expression -> expression . PLUS expression
@@ -884,45 +571,30 @@ state 28
     (5) expression -> expression . TIMES expression
     (6) expression -> expression . DIVIDE expression
     (7) expression -> expression . EXP expression
-    (8) expression -> expression . PLUS2 expression
-    (9) expression -> expression . MINUS2 expression
-    (10) expression -> expression . TIMES2 expression
-    (11) expression -> expression . DIVIDE2 expression
-    (12) expression -> expression . EXP2 expression
-    (18) expression -> expression . SNUMBER
-    (20) expression -> expression . SNUMBER HUNDRED
-    (21) expression -> expression . THOUSAND
+    (13) expression -> expression . SNUMBER
+    (15) expression -> expression . SNUMBER HUNDRED
+    (16) expression -> expression . THOUSAND
 
     PLUS            reduce using rule 5 (expression -> expression TIMES expression .)
     MINUS           reduce using rule 5 (expression -> expression TIMES expression .)
     TIMES           reduce using rule 5 (expression -> expression TIMES expression .)
     DIVIDE          reduce using rule 5 (expression -> expression TIMES expression .)
-    PLUS2           reduce using rule 5 (expression -> expression TIMES expression .)
-    MINUS2          reduce using rule 5 (expression -> expression TIMES expression .)
     $end            reduce using rule 5 (expression -> expression TIMES expression .)
     RPAREN          reduce using rule 5 (expression -> expression TIMES expression .)
     EXP             shift and go to state 13
-    TIMES2          shift and go to state 16
-    DIVIDE2         shift and go to state 17
-    EXP2            shift and go to state 18
-    SNUMBER         shift and go to state 19
-    THOUSAND        shift and go to state 20
+    SNUMBER         shift and go to state 14
+    THOUSAND        shift and go to state 15
 
   ! EXP             [ reduce using rule 5 (expression -> expression TIMES expression .) ]
-  ! TIMES2          [ reduce using rule 5 (expression -> expression TIMES expression .) ]
-  ! DIVIDE2         [ reduce using rule 5 (expression -> expression TIMES expression .) ]
-  ! EXP2            [ reduce using rule 5 (expression -> expression TIMES expression .) ]
   ! SNUMBER         [ reduce using rule 5 (expression -> expression TIMES expression .) ]
   ! THOUSAND        [ reduce using rule 5 (expression -> expression TIMES expression .) ]
   ! PLUS            [ shift and go to state 9 ]
   ! MINUS           [ shift and go to state 10 ]
   ! TIMES           [ shift and go to state 11 ]
   ! DIVIDE          [ shift and go to state 12 ]
-  ! PLUS2           [ shift and go to state 14 ]
-  ! MINUS2          [ shift and go to state 15 ]
 
 
-state 29
+state 24
 
     (6) expression -> expression DIVIDE expression .
     (3) expression -> expression . PLUS expression
@@ -930,45 +602,30 @@ state 29
     (5) expression -> expression . TIMES expression
     (6) expression -> expression . DIVIDE expression
     (7) expression -> expression . EXP expression
-    (8) expression -> expression . PLUS2 expression
-    (9) expression -> expression . MINUS2 expression
-    (10) expression -> expression . TIMES2 expression
-    (11) expression -> expression . DIVIDE2 expression
-    (12) expression -> expression . EXP2 expression
-    (18) expression -> expression . SNUMBER
-    (20) expression -> expression . SNUMBER HUNDRED
-    (21) expression -> expression . THOUSAND
+    (13) expression -> expression . SNUMBER
+    (15) expression -> expression . SNUMBER HUNDRED
+    (16) expression -> expression . THOUSAND
 
     PLUS            reduce using rule 6 (expression -> expression DIVIDE expression .)
     MINUS           reduce using rule 6 (expression -> expression DIVIDE expression .)
     TIMES           reduce using rule 6 (expression -> expression DIVIDE expression .)
     DIVIDE          reduce using rule 6 (expression -> expression DIVIDE expression .)
-    PLUS2           reduce using rule 6 (expression -> expression DIVIDE expression .)
-    MINUS2          reduce using rule 6 (expression -> expression DIVIDE expression .)
     $end            reduce using rule 6 (expression -> expression DIVIDE expression .)
     RPAREN          reduce using rule 6 (expression -> expression DIVIDE expression .)
     EXP             shift and go to state 13
-    TIMES2          shift and go to state 16
-    DIVIDE2         shift and go to state 17
-    EXP2            shift and go to state 18
-    SNUMBER         shift and go to state 19
-    THOUSAND        shift and go to state 20
+    SNUMBER         shift and go to state 14
+    THOUSAND        shift and go to state 15
 
   ! EXP             [ reduce using rule 6 (expression -> expression DIVIDE expression .) ]
-  ! TIMES2          [ reduce using rule 6 (expression -> expression DIVIDE expression .) ]
-  ! DIVIDE2         [ reduce using rule 6 (expression -> expression DIVIDE expression .) ]
-  ! EXP2            [ reduce using rule 6 (expression -> expression DIVIDE expression .) ]
   ! SNUMBER         [ reduce using rule 6 (expression -> expression DIVIDE expression .) ]
   ! THOUSAND        [ reduce using rule 6 (expression -> expression DIVIDE expression .) ]
   ! PLUS            [ shift and go to state 9 ]
   ! MINUS           [ shift and go to state 10 ]
   ! TIMES           [ shift and go to state 11 ]
   ! DIVIDE          [ shift and go to state 12 ]
-  ! PLUS2           [ shift and go to state 14 ]
-  ! MINUS2          [ shift and go to state 15 ]
 
 
-state 30
+state 25
 
     (7) expression -> expression EXP expression .
     (3) expression -> expression . PLUS expression
@@ -976,31 +633,20 @@ state 30
     (5) expression -> expression . TIMES expression
     (6) expression -> expression . DIVIDE expression
     (7) expression -> expression . EXP expression
-    (8) expression -> expression . PLUS2 expression
-    (9) expression -> expression . MINUS2 expression
-    (10) expression -> expression . TIMES2 expression
-    (11) expression -> expression . DIVIDE2 expression
-    (12) expression -> expression . EXP2 expression
-    (18) expression -> expression . SNUMBER
-    (20) expression -> expression . SNUMBER HUNDRED
-    (21) expression -> expression . THOUSAND
+    (13) expression -> expression . SNUMBER
+    (15) expression -> expression . SNUMBER HUNDRED
+    (16) expression -> expression . THOUSAND
 
     PLUS            reduce using rule 7 (expression -> expression EXP expression .)
     MINUS           reduce using rule 7 (expression -> expression EXP expression .)
     TIMES           reduce using rule 7 (expression -> expression EXP expression .)
     DIVIDE          reduce using rule 7 (expression -> expression EXP expression .)
     EXP             reduce using rule 7 (expression -> expression EXP expression .)
-    PLUS2           reduce using rule 7 (expression -> expression EXP expression .)
-    MINUS2          reduce using rule 7 (expression -> expression EXP expression .)
-    TIMES2          reduce using rule 7 (expression -> expression EXP expression .)
-    DIVIDE2         reduce using rule 7 (expression -> expression EXP expression .)
     $end            reduce using rule 7 (expression -> expression EXP expression .)
     RPAREN          reduce using rule 7 (expression -> expression EXP expression .)
-    EXP2            shift and go to state 18
-    SNUMBER         shift and go to state 19
-    THOUSAND        shift and go to state 20
+    SNUMBER         shift and go to state 14
+    THOUSAND        shift and go to state 15
 
-  ! EXP2            [ reduce using rule 7 (expression -> expression EXP expression .) ]
   ! SNUMBER         [ reduce using rule 7 (expression -> expression EXP expression .) ]
   ! THOUSAND        [ reduce using rule 7 (expression -> expression EXP expression .) ]
   ! PLUS            [ shift and go to state 9 ]
@@ -1008,278 +654,34 @@ state 30
   ! TIMES           [ shift and go to state 11 ]
   ! DIVIDE          [ shift and go to state 12 ]
   ! EXP             [ shift and go to state 13 ]
-  ! PLUS2           [ shift and go to state 14 ]
-  ! MINUS2          [ shift and go to state 15 ]
-  ! TIMES2          [ shift and go to state 16 ]
-  ! DIVIDE2         [ shift and go to state 17 ]
 
 
-state 31
+state 26
 
-    (8) expression -> expression PLUS2 expression .
-    (3) expression -> expression . PLUS expression
-    (4) expression -> expression . MINUS expression
-    (5) expression -> expression . TIMES expression
-    (6) expression -> expression . DIVIDE expression
-    (7) expression -> expression . EXP expression
-    (8) expression -> expression . PLUS2 expression
-    (9) expression -> expression . MINUS2 expression
-    (10) expression -> expression . TIMES2 expression
-    (11) expression -> expression . DIVIDE2 expression
-    (12) expression -> expression . EXP2 expression
-    (18) expression -> expression . SNUMBER
-    (20) expression -> expression . SNUMBER HUNDRED
-    (21) expression -> expression . THOUSAND
+    (15) expression -> expression SNUMBER HUNDRED .
 
-    PLUS            reduce using rule 8 (expression -> expression PLUS2 expression .)
-    MINUS           reduce using rule 8 (expression -> expression PLUS2 expression .)
-    PLUS2           reduce using rule 8 (expression -> expression PLUS2 expression .)
-    MINUS2          reduce using rule 8 (expression -> expression PLUS2 expression .)
-    $end            reduce using rule 8 (expression -> expression PLUS2 expression .)
-    RPAREN          reduce using rule 8 (expression -> expression PLUS2 expression .)
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    EXP             shift and go to state 13
-    TIMES2          shift and go to state 16
-    DIVIDE2         shift and go to state 17
-    EXP2            shift and go to state 18
-    SNUMBER         shift and go to state 19
-    THOUSAND        shift and go to state 20
-
-  ! TIMES           [ reduce using rule 8 (expression -> expression PLUS2 expression .) ]
-  ! DIVIDE          [ reduce using rule 8 (expression -> expression PLUS2 expression .) ]
-  ! EXP             [ reduce using rule 8 (expression -> expression PLUS2 expression .) ]
-  ! TIMES2          [ reduce using rule 8 (expression -> expression PLUS2 expression .) ]
-  ! DIVIDE2         [ reduce using rule 8 (expression -> expression PLUS2 expression .) ]
-  ! EXP2            [ reduce using rule 8 (expression -> expression PLUS2 expression .) ]
-  ! SNUMBER         [ reduce using rule 8 (expression -> expression PLUS2 expression .) ]
-  ! THOUSAND        [ reduce using rule 8 (expression -> expression PLUS2 expression .) ]
-  ! PLUS            [ shift and go to state 9 ]
-  ! MINUS           [ shift and go to state 10 ]
-  ! PLUS2           [ shift and go to state 14 ]
-  ! MINUS2          [ shift and go to state 15 ]
+    PLUS            reduce using rule 15 (expression -> expression SNUMBER HUNDRED .)
+    MINUS           reduce using rule 15 (expression -> expression SNUMBER HUNDRED .)
+    TIMES           reduce using rule 15 (expression -> expression SNUMBER HUNDRED .)
+    DIVIDE          reduce using rule 15 (expression -> expression SNUMBER HUNDRED .)
+    EXP             reduce using rule 15 (expression -> expression SNUMBER HUNDRED .)
+    SNUMBER         reduce using rule 15 (expression -> expression SNUMBER HUNDRED .)
+    THOUSAND        reduce using rule 15 (expression -> expression SNUMBER HUNDRED .)
+    $end            reduce using rule 15 (expression -> expression SNUMBER HUNDRED .)
+    RPAREN          reduce using rule 15 (expression -> expression SNUMBER HUNDRED .)
 
 
-state 32
+state 27
 
-    (9) expression -> expression MINUS2 expression .
-    (3) expression -> expression . PLUS expression
-    (4) expression -> expression . MINUS expression
-    (5) expression -> expression . TIMES expression
-    (6) expression -> expression . DIVIDE expression
-    (7) expression -> expression . EXP expression
-    (8) expression -> expression . PLUS2 expression
-    (9) expression -> expression . MINUS2 expression
-    (10) expression -> expression . TIMES2 expression
-    (11) expression -> expression . DIVIDE2 expression
-    (12) expression -> expression . EXP2 expression
-    (18) expression -> expression . SNUMBER
-    (20) expression -> expression . SNUMBER HUNDRED
-    (21) expression -> expression . THOUSAND
+    (9) expression -> LPAREN expression RPAREN .
 
-    PLUS            reduce using rule 9 (expression -> expression MINUS2 expression .)
-    MINUS           reduce using rule 9 (expression -> expression MINUS2 expression .)
-    PLUS2           reduce using rule 9 (expression -> expression MINUS2 expression .)
-    MINUS2          reduce using rule 9 (expression -> expression MINUS2 expression .)
-    $end            reduce using rule 9 (expression -> expression MINUS2 expression .)
-    RPAREN          reduce using rule 9 (expression -> expression MINUS2 expression .)
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    EXP             shift and go to state 13
-    TIMES2          shift and go to state 16
-    DIVIDE2         shift and go to state 17
-    EXP2            shift and go to state 18
-    SNUMBER         shift and go to state 19
-    THOUSAND        shift and go to state 20
-
-  ! TIMES           [ reduce using rule 9 (expression -> expression MINUS2 expression .) ]
-  ! DIVIDE          [ reduce using rule 9 (expression -> expression MINUS2 expression .) ]
-  ! EXP             [ reduce using rule 9 (expression -> expression MINUS2 expression .) ]
-  ! TIMES2          [ reduce using rule 9 (expression -> expression MINUS2 expression .) ]
-  ! DIVIDE2         [ reduce using rule 9 (expression -> expression MINUS2 expression .) ]
-  ! EXP2            [ reduce using rule 9 (expression -> expression MINUS2 expression .) ]
-  ! SNUMBER         [ reduce using rule 9 (expression -> expression MINUS2 expression .) ]
-  ! THOUSAND        [ reduce using rule 9 (expression -> expression MINUS2 expression .) ]
-  ! PLUS            [ shift and go to state 9 ]
-  ! MINUS           [ shift and go to state 10 ]
-  ! PLUS2           [ shift and go to state 14 ]
-  ! MINUS2          [ shift and go to state 15 ]
-
-
-state 33
-
-    (10) expression -> expression TIMES2 expression .
-    (3) expression -> expression . PLUS expression
-    (4) expression -> expression . MINUS expression
-    (5) expression -> expression . TIMES expression
-    (6) expression -> expression . DIVIDE expression
-    (7) expression -> expression . EXP expression
-    (8) expression -> expression . PLUS2 expression
-    (9) expression -> expression . MINUS2 expression
-    (10) expression -> expression . TIMES2 expression
-    (11) expression -> expression . DIVIDE2 expression
-    (12) expression -> expression . EXP2 expression
-    (18) expression -> expression . SNUMBER
-    (20) expression -> expression . SNUMBER HUNDRED
-    (21) expression -> expression . THOUSAND
-
-    PLUS            reduce using rule 10 (expression -> expression TIMES2 expression .)
-    MINUS           reduce using rule 10 (expression -> expression TIMES2 expression .)
-    TIMES           reduce using rule 10 (expression -> expression TIMES2 expression .)
-    DIVIDE          reduce using rule 10 (expression -> expression TIMES2 expression .)
-    PLUS2           reduce using rule 10 (expression -> expression TIMES2 expression .)
-    MINUS2          reduce using rule 10 (expression -> expression TIMES2 expression .)
-    TIMES2          reduce using rule 10 (expression -> expression TIMES2 expression .)
-    DIVIDE2         reduce using rule 10 (expression -> expression TIMES2 expression .)
-    $end            reduce using rule 10 (expression -> expression TIMES2 expression .)
-    RPAREN          reduce using rule 10 (expression -> expression TIMES2 expression .)
-    EXP             shift and go to state 13
-    EXP2            shift and go to state 18
-    SNUMBER         shift and go to state 19
-    THOUSAND        shift and go to state 20
-
-  ! EXP             [ reduce using rule 10 (expression -> expression TIMES2 expression .) ]
-  ! EXP2            [ reduce using rule 10 (expression -> expression TIMES2 expression .) ]
-  ! SNUMBER         [ reduce using rule 10 (expression -> expression TIMES2 expression .) ]
-  ! THOUSAND        [ reduce using rule 10 (expression -> expression TIMES2 expression .) ]
-  ! PLUS            [ shift and go to state 9 ]
-  ! MINUS           [ shift and go to state 10 ]
-  ! TIMES           [ shift and go to state 11 ]
-  ! DIVIDE          [ shift and go to state 12 ]
-  ! PLUS2           [ shift and go to state 14 ]
-  ! MINUS2          [ shift and go to state 15 ]
-  ! TIMES2          [ shift and go to state 16 ]
-  ! DIVIDE2         [ shift and go to state 17 ]
-
-
-state 34
-
-    (11) expression -> expression DIVIDE2 expression .
-    (3) expression -> expression . PLUS expression
-    (4) expression -> expression . MINUS expression
-    (5) expression -> expression . TIMES expression
-    (6) expression -> expression . DIVIDE expression
-    (7) expression -> expression . EXP expression
-    (8) expression -> expression . PLUS2 expression
-    (9) expression -> expression . MINUS2 expression
-    (10) expression -> expression . TIMES2 expression
-    (11) expression -> expression . DIVIDE2 expression
-    (12) expression -> expression . EXP2 expression
-    (18) expression -> expression . SNUMBER
-    (20) expression -> expression . SNUMBER HUNDRED
-    (21) expression -> expression . THOUSAND
-
-    PLUS            reduce using rule 11 (expression -> expression DIVIDE2 expression .)
-    MINUS           reduce using rule 11 (expression -> expression DIVIDE2 expression .)
-    TIMES           reduce using rule 11 (expression -> expression DIVIDE2 expression .)
-    DIVIDE          reduce using rule 11 (expression -> expression DIVIDE2 expression .)
-    PLUS2           reduce using rule 11 (expression -> expression DIVIDE2 expression .)
-    MINUS2          reduce using rule 11 (expression -> expression DIVIDE2 expression .)
-    TIMES2          reduce using rule 11 (expression -> expression DIVIDE2 expression .)
-    DIVIDE2         reduce using rule 11 (expression -> expression DIVIDE2 expression .)
-    $end            reduce using rule 11 (expression -> expression DIVIDE2 expression .)
-    RPAREN          reduce using rule 11 (expression -> expression DIVIDE2 expression .)
-    EXP             shift and go to state 13
-    EXP2            shift and go to state 18
-    SNUMBER         shift and go to state 19
-    THOUSAND        shift and go to state 20
-
-  ! EXP             [ reduce using rule 11 (expression -> expression DIVIDE2 expression .) ]
-  ! EXP2            [ reduce using rule 11 (expression -> expression DIVIDE2 expression .) ]
-  ! SNUMBER         [ reduce using rule 11 (expression -> expression DIVIDE2 expression .) ]
-  ! THOUSAND        [ reduce using rule 11 (expression -> expression DIVIDE2 expression .) ]
-  ! PLUS            [ shift and go to state 9 ]
-  ! MINUS           [ shift and go to state 10 ]
-  ! TIMES           [ shift and go to state 11 ]
-  ! DIVIDE          [ shift and go to state 12 ]
-  ! PLUS2           [ shift and go to state 14 ]
-  ! MINUS2          [ shift and go to state 15 ]
-  ! TIMES2          [ shift and go to state 16 ]
-  ! DIVIDE2         [ shift and go to state 17 ]
-
-
-state 35
-
-    (12) expression -> expression EXP2 expression .
-    (3) expression -> expression . PLUS expression
-    (4) expression -> expression . MINUS expression
-    (5) expression -> expression . TIMES expression
-    (6) expression -> expression . DIVIDE expression
-    (7) expression -> expression . EXP expression
-    (8) expression -> expression . PLUS2 expression
-    (9) expression -> expression . MINUS2 expression
-    (10) expression -> expression . TIMES2 expression
-    (11) expression -> expression . DIVIDE2 expression
-    (12) expression -> expression . EXP2 expression
-    (18) expression -> expression . SNUMBER
-    (20) expression -> expression . SNUMBER HUNDRED
-    (21) expression -> expression . THOUSAND
-
-    PLUS            reduce using rule 12 (expression -> expression EXP2 expression .)
-    MINUS           reduce using rule 12 (expression -> expression EXP2 expression .)
-    TIMES           reduce using rule 12 (expression -> expression EXP2 expression .)
-    DIVIDE          reduce using rule 12 (expression -> expression EXP2 expression .)
-    EXP             reduce using rule 12 (expression -> expression EXP2 expression .)
-    PLUS2           reduce using rule 12 (expression -> expression EXP2 expression .)
-    MINUS2          reduce using rule 12 (expression -> expression EXP2 expression .)
-    TIMES2          reduce using rule 12 (expression -> expression EXP2 expression .)
-    DIVIDE2         reduce using rule 12 (expression -> expression EXP2 expression .)
-    EXP2            reduce using rule 12 (expression -> expression EXP2 expression .)
-    $end            reduce using rule 12 (expression -> expression EXP2 expression .)
-    RPAREN          reduce using rule 12 (expression -> expression EXP2 expression .)
-    SNUMBER         shift and go to state 19
-    THOUSAND        shift and go to state 20
-
-  ! SNUMBER         [ reduce using rule 12 (expression -> expression EXP2 expression .) ]
-  ! THOUSAND        [ reduce using rule 12 (expression -> expression EXP2 expression .) ]
-  ! PLUS            [ shift and go to state 9 ]
-  ! MINUS           [ shift and go to state 10 ]
-  ! TIMES           [ shift and go to state 11 ]
-  ! DIVIDE          [ shift and go to state 12 ]
-  ! EXP             [ shift and go to state 13 ]
-  ! PLUS2           [ shift and go to state 14 ]
-  ! MINUS2          [ shift and go to state 15 ]
-  ! TIMES2          [ shift and go to state 16 ]
-  ! DIVIDE2         [ shift and go to state 17 ]
-  ! EXP2            [ shift and go to state 18 ]
-
-
-state 36
-
-    (20) expression -> expression SNUMBER HUNDRED .
-
-    PLUS            reduce using rule 20 (expression -> expression SNUMBER HUNDRED .)
-    MINUS           reduce using rule 20 (expression -> expression SNUMBER HUNDRED .)
-    TIMES           reduce using rule 20 (expression -> expression SNUMBER HUNDRED .)
-    DIVIDE          reduce using rule 20 (expression -> expression SNUMBER HUNDRED .)
-    EXP             reduce using rule 20 (expression -> expression SNUMBER HUNDRED .)
-    PLUS2           reduce using rule 20 (expression -> expression SNUMBER HUNDRED .)
-    MINUS2          reduce using rule 20 (expression -> expression SNUMBER HUNDRED .)
-    TIMES2          reduce using rule 20 (expression -> expression SNUMBER HUNDRED .)
-    DIVIDE2         reduce using rule 20 (expression -> expression SNUMBER HUNDRED .)
-    EXP2            reduce using rule 20 (expression -> expression SNUMBER HUNDRED .)
-    SNUMBER         reduce using rule 20 (expression -> expression SNUMBER HUNDRED .)
-    THOUSAND        reduce using rule 20 (expression -> expression SNUMBER HUNDRED .)
-    $end            reduce using rule 20 (expression -> expression SNUMBER HUNDRED .)
-    RPAREN          reduce using rule 20 (expression -> expression SNUMBER HUNDRED .)
-
-
-state 37
-
-    (14) expression -> LPAREN expression RPAREN .
-
-    PLUS            reduce using rule 14 (expression -> LPAREN expression RPAREN .)
-    MINUS           reduce using rule 14 (expression -> LPAREN expression RPAREN .)
-    TIMES           reduce using rule 14 (expression -> LPAREN expression RPAREN .)
-    DIVIDE          reduce using rule 14 (expression -> LPAREN expression RPAREN .)
-    EXP             reduce using rule 14 (expression -> LPAREN expression RPAREN .)
-    PLUS2           reduce using rule 14 (expression -> LPAREN expression RPAREN .)
-    MINUS2          reduce using rule 14 (expression -> LPAREN expression RPAREN .)
-    TIMES2          reduce using rule 14 (expression -> LPAREN expression RPAREN .)
-    DIVIDE2         reduce using rule 14 (expression -> LPAREN expression RPAREN .)
-    EXP2            reduce using rule 14 (expression -> LPAREN expression RPAREN .)
-    SNUMBER         reduce using rule 14 (expression -> LPAREN expression RPAREN .)
-    THOUSAND        reduce using rule 14 (expression -> LPAREN expression RPAREN .)
-    $end            reduce using rule 14 (expression -> LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 14 (expression -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 9 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 9 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 9 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 9 (expression -> LPAREN expression RPAREN .)
+    EXP             reduce using rule 9 (expression -> LPAREN expression RPAREN .)
+    SNUMBER         reduce using rule 9 (expression -> LPAREN expression RPAREN .)
+    THOUSAND        reduce using rule 9 (expression -> LPAREN expression RPAREN .)
+    $end            reduce using rule 9 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 9 (expression -> LPAREN expression RPAREN .)
 
