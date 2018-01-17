@@ -82,7 +82,7 @@ def t_THOUSAND(t):
     return t
 
 def t_SNUMBER(t):
-    r'twelve|seven|ten|seventeen|forty|four|sixty|eighteen|thirteen|sixteen|fifty|twenty|six|two|eleven|hundred|thousand|eighty|fourteen|five|nineteen|one|fifteen|seventy|thirty|ninety|nine|three|eight'
+    r'thousand|hundred|ninety|eighty|seventy|sixty|fifty|forty|thirty|twenty|nineteen|eighteen|seventeen|sixteen|fifteen|fourteen|thirteen|twelve|eleven|ten|nine|eight|seven|six|five|four|three|two|one'
     return t
 
 def t_NAME(t):
