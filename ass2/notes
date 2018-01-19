@@ -1,3 +1,75 @@
+These should give error:
+
+1. one two three
+2. twenty nineteen
+3. twenty twenty
+4. 
+
+nine hundred ninety nine thousand nine hundred ninety nine
+
+1 - 999999
+
+Grammar:
+
+SNUMBER TENS BIGTENS HUNDRED THOUSAND
+
+
+SNUMBER (1-9)
+
+BIGTENS SNUMBER (1-99) -- str_number
+
+sexpr_ones : sexpr SNUMBER
+
+
+TENS (10-19)
+
+sexpr_tens : sexpr TENS
+
+
+BIGTENS (20,30,40...90)
+
+sexpr_bigtens : sexpr BIGTENS
+
+
+SNUMBER HUNDRED (100,200...900) -- str_number
+
+TENS HUNDRED (1000, 1100, 1200, 1300...1900)
+
+BIGTENS HUNDRED (2000,3000...9000)
+
+BIGTENS SNUMBER HUNDRED (2000,2100,2200...9900)
+
+sexpr : sexpr HUNDRED
+        | sexpr_snumber HUNDRED
+        | sexpr_
+
+
+SNUMBER THOUSAND (1000,2000...9000)
+
+TENS THOUSAND
+
+BIGTENS THOUSAND
+
+BIGTENS SNUMBER THOUSAND
+
+sexpr : sexpr THOUSAND
+
+
+sexpr THOUSAND sexpr HUNDRED
+
+ninety nine thousand nine hundred ninety nine
+
+expr SNUMBER HUNDRED
+SNUMBER HUNDRED
+
+
+THOUSAND 
+
+
+
+
+
+
 #!/usr/bin/python3
 
 import sys
@@ -92,15 +164,15 @@ def t_THOUSAND(t):
     return t
 
 def t_BIGTENS(t):
-    r'\bninety\b|\beighty\b|\bseventy\b|\bsixty\b|\bfifty\b|\bforty\b|\bthirty\b|\btwenty\b'
+    r'\bninety|\beighty|\bseventy|\bsixty|\bfifty|\bforty|\bthirty|\btwenty'
     return t
 
 def t_TENS(t):
-    r'\bnineteen\b|\beighteen\b|\bseventeen\b|\bsixteen\b|\bfifteen\b|\bfourteen\b|\bthirteen\b|\btwelve\b|\beleven\b|\bten\b'
+    r'\bnineteen|\beighteen|\bseventeen|\bsixteen|\bfifteen|\bfourteen|\bthirteen|\btwelve|\beleven|\bten'
     return t
 
 def t_SNUMBER(t):
-    r'\bnine\b|\beight\b|\bseven\b|\bsix\b|\bfive\b|\bfour\b|\bthree\b|\btwo\b|\bone\b'
+    r'\bnine|\beight|\bseven|\bsix|\bfive|\bfour|\bthree|\btwo|\bone'
     return t
 
 def t_NAME(t):
@@ -108,13 +180,13 @@ def t_NAME(t):
     return t
 
 def t_error(t):
-	print("Illegal character '%s'" % t.value[0])
-	t.lexer.skip(1)
+    print("Illegal character '%s'" % t.value[0])
+    t.lexer.skip(1)
 
 # Parsing rules
 # TODO - Check for correctness
 precedence = (
-	('left', 'PLUS', 'MINUS'),
+    ('left', 'PLUS', 'MINUS'),
     ('left', 'TIMES', 'DIVIDE'),
     ('left', 'EXP'),
     ('left', 'HUNDRED'),
@@ -126,11 +198,18 @@ precedence = (
 )
 
 def p_statement_assign(p):
-	'statement : NAME EQUALS expression'
-	p[1]=p[3]
+    'statement : NAME EQUALS expression'
+    p[1]=p[3]
 
 def p_statement_expr(p):
-    'statement : expression'
+    '''
+    statement : expression
+                | expr_snumber
+                | expr_tens
+                | expr_bigtens
+                | expr_hundred
+                | expr_thousand
+    '''
     print(p[1])
 
 def p_expression_binop(p):
@@ -140,22 +219,33 @@ def p_expression_binop(p):
               | expression TIMES expression
               | expression DIVIDE expression
               | expression EXP expression
+              | expr_snumber PLUS expr_snumber
+              | expr_snumber MINUS expr_snumber
+              | expr_snumber TIMES expr_snumber
+              | expr_snumber DIVIDE expr_snumber
+              | expr_snumber EXP expr_snumber
+              | expr_tens PLUS expr_tens
+              | expr_tens MINUS expr_tens
+              | expr_tens TIMES expr_tens
+              | expr_tens DIVIDE expr_tens
+              | expr_tens EXP expr_tens
+              | expression PLUS expression
+              | expression MINUS expression
+              | expression TIMES expression
+              | expression DIVIDE expression
+              | expression EXP expression
     """
     print('plus', [repr(p[i]) for i in range(0,4)])
-
-    try:
-        if p[2] == '+':
-            p[0] = p[1] + p[3]
-        elif p[2] == '-':
-            p[0] = p[1] - p[3]
-        elif p[2] == '*':
-            p[0] = p[1] * p[3]
-        elif p[2] == '/':
-            p[0] = p[1] / p[3]
-        elif p[2] == '**':
-            p[0] = p[1] ** p[3]
-    except:
-        pass
+    if p[2] == '+':
+        p[0] = p[1] + p[3]
+    elif p[2] == '-':
+        p[0] = p[1] - p[3]
+    elif p[2] == '*':
+        p[0] = p[1] * p[3]
+    elif p[2] == '/':
+        p[0] = p[1] / p[3]
+    elif p[2] == '**':
+        p[0] = p[1] ** p[3]
 
 def p_expression_uminus(p):
     'expression : MINUS expression %prec UMINUS'
@@ -179,81 +269,72 @@ def p_expression_name(p):
 
 def p_snumber(p):
     '''
-    expression : SNUMBER
+    expr_snumber : SNUMBER
     '''
     print("snum", [repr(p[i]) for i in range(0,2)])
     p[0] = string_to_int[p[1]]
 
 def p_tens(p):
     '''
-    expression : TENS
+    expr_tens : TENS
     '''
     print("tens", [repr(p[i]) for i in range(0,2)])
     p[0] = string_to_int[p[1]]
 
 def p_bigtens(p):
     '''
-    expression : BIGTENS
+    expr_bigtens : BIGTENS
     '''
     print("bigtens", [repr(p[i]) for i in range(0,2)])
     p[0] = string_to_int[p[1]]
 
 def p_expression_snumber(p):
     '''
-    expression : expression SNUMBER
+    expr_snumber : expr_bigtens SNUMBER
+                    | expr_hundred SNUMBER
+                    | expr_thousand SNUMBER
     '''
     print("exp snum", [repr(p[i]) for i in range(0,3)])
-    if not isinstance(p[1], int) or p[1] < 20:
-        print('syntax error at ' + p[2])
-    else:
-        p[0] = p[1] + string_to_int[p[2]]
+    p[0] = p[1] + string_to_int[p[2]]
 
 def p_expression_tens(p):
     '''
-    expression : expression TENS
+    expr_tens : expr_hundred TENS
+                | expr_thousand TENS
     '''
     print("exp tens", [repr(p[i]) for i in range(0,3)])
-    if not isinstance(p[1], int) or p[1] < 100:
-        print('syntax error at ' + p[2])
-    else:
-        p[0] = p[1] + string_to_int[p[2]]
+    p[0] = p[1] + string_to_int[p[2]]
 
 def p_expression_bigtens(p):
     '''
-    expression : expression BIGTENS
+    expr_bigtens : expr_hundred BIGTENS
+                | expr_thousand BIGTENS
     '''
     print("exp bigtens", [repr(p[i]) for i in range(0,3)])
-    if not isinstance(p[1], int) or p[1] < 100:
-        print('syntax error at ' + p[2])
-    else:
-        p[0] = p[1] + string_to_int[p[2]]
+    p[0] = p[1] + string_to_int[p[2]]
 
 def p_snumber_hundred(p):
     '''
-    expression : SNUMBER HUNDRED
+    expr_hundred : SNUMBER HUNDRED
     '''
     print('hundred', [repr(p[i]) for i in range(0,3)])
     p[0] = string_to_int[p[1]]*100
 
 def p_expression_hundred(p):
     '''
-    expression : expression THOUSAND SNUMBER HUNDRED
+    expr_hundred : expr_thousand SNUMBER HUNDRED
     '''
     print('exp hundred', [repr(p[i]) for i in range(0,4)])
-    if not isinstance(p[1], int) or p[1] > 99:
-        print('syntax error at THOUSAND')
-    else:
-        p[0] = p[1]*1000 + string_to_int[p[3]]*100
+    p[0] = p[1] + string_to_int[p[2]]*100
 
 def p_expression_thousand(p):
     '''
-    expression : expression THOUSAND
+    expr_thousand : expr_snumber THOUSAND
+                    | expr_tens THOUSAND
+                    | expr_bigtens THOUSAND
     '''
     print('thousand', [repr(p[i]) for i in range(0,3)])
-    if not isinstance(p[1], int) or p[1] > 99:
-        print('syntax error at THOUSAND')
-    else:
-        p[0] = p[1]*1000
+    p[0] = p[1]*1000
 
 def p_error(p):
     if p:
@@ -262,11 +343,13 @@ def p_error(p):
         print("syntax error at EOF")
 
 def process(data):
-	lex.lex()
-	yacc.yacc()
-	yacc.parse(data)
+    lex.lex()
+    yacc.yacc()
+    yacc.parse(data)
 
 if __name__ == "__main__":
-	print("Enter the Equation")
-	data = sys.stdin.readline()
-	process(data)
+    print("Enter the Equation")
+    data = sys.stdin.readline()
+    process(data)
+
+
