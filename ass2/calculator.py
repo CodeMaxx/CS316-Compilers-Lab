@@ -117,20 +117,26 @@ precedence = (
 	('left', 'PLUS', 'MINUS'),
     ('left', 'TIMES', 'DIVIDE'),
     ('left', 'EXP'),
+    ('right', 'UMINUS'),
     ('left', 'HUNDRED'),
     ('left', 'THOUSAND'),
     ('left', 'SNUMBER'),
     ('left', 'TENS'),
     ('left', 'BIGTENS'),
-    ('right', 'UMINUS'),
 )
 
 def p_statement_assign(p):
-	'statement : NAME EQUALS expression'
+	'''
+    statement : NAME EQUALS expression
+                | NAME EQUALS sexpr
+    '''
 	p[1]=p[3]
 
 def p_statement_expr(p):
-    'statement : expression'
+    '''
+    statement : expression
+                | sexpr
+    '''
     print(p[1])
 
 def p_expression_binop(p):
@@ -140,6 +146,21 @@ def p_expression_binop(p):
               | expression TIMES expression
               | expression DIVIDE expression
               | expression EXP expression
+              | sexpr PLUS sexpr
+              | sexpr MINUS sexpr
+              | sexpr TIMES sexpr
+              | sexpr DIVIDE sexpr
+              | sexpr EXP sexpr
+              | expression PLUS sexpr
+              | expression MINUS sexpr
+              | expression TIMES sexpr
+              | expression DIVIDE sexpr
+              | expression EXP sexpr
+              | sexpr PLUS expression
+              | sexpr MINUS expression
+              | sexpr TIMES expression
+              | sexpr DIVIDE expression
+              | sexpr EXP expression
     """
     print('plus', [repr(p[i]) for i in range(0,4)])
 
@@ -158,11 +179,17 @@ def p_expression_binop(p):
         pass
 
 def p_expression_uminus(p):
-    'expression : MINUS expression %prec UMINUS'
+    '''
+    expression : MINUS expression %prec UMINUS
+                | MINUS sexpr %prec UMINUS
+    '''
     p[0] = -p[2]
 
 def p_expression_group(p):
-    'expression : LPAREN expression RPAREN'
+    '''
+    expression : LPAREN expression RPAREN
+                | LPAREN sexpr RPAREN
+    '''
     p[0] = p[2]
 
 def p_expression_number(p):
@@ -177,83 +204,57 @@ def p_expression_name(p):
         print("Undefined name '%s'" % p[1])
         p[0] = 0
 
-def p_snumber(p):
+def p_snumber_tens_bigtens(p):
     '''
-    expression : SNUMBER
+    sexpr : SNUMBER
+            | TENS
+            | BIGTENS
     '''
     print("snum", [repr(p[i]) for i in range(0,2)])
     p[0] = string_to_int[p[1]]
 
-def p_tens(p):
+def p_bigtens_snumber(p):
     '''
-    expression : TENS
-    '''
-    print("tens", [repr(p[i]) for i in range(0,2)])
-    p[0] = string_to_int[p[1]]
-
-def p_bigtens(p):
-    '''
-    expression : BIGTENS
-    '''
-    print("bigtens", [repr(p[i]) for i in range(0,2)])
-    p[0] = string_to_int[p[1]]
-
-def p_expression_snumber(p):
-    '''
-    expression : expression SNUMBER
+    sexpr : BIGTENS SNUMBER
     '''
     print("exp snum", [repr(p[i]) for i in range(0,3)])
-    if not isinstance(p[1], int) or p[1] < 20:
-        print('syntax error at ' + p[2])
-    else:
-        p[0] = p[1] + string_to_int[p[2]]
-
-def p_expression_tens(p):
-    '''
-    expression : expression TENS
-    '''
-    print("exp tens", [repr(p[i]) for i in range(0,3)])
-    if not isinstance(p[1], int) or p[1] < 100:
-        print('syntax error at ' + p[2])
-    else:
-        p[0] = p[1] + string_to_int[p[2]]
-
-def p_expression_bigtens(p):
-    '''
-    expression : expression BIGTENS
-    '''
-    print("exp bigtens", [repr(p[i]) for i in range(0,3)])
-    if not isinstance(p[1], int) or p[1] < 100:
-        print('syntax error at ' + p[2])
-    else:
-        p[0] = p[1] + string_to_int[p[2]]
+    p[0] = string_to_int[p[1]] + string_to_int[p[2]]
 
 def p_snumber_hundred(p):
     '''
-    expression : SNUMBER HUNDRED
+    sexpr : SNUMBER HUNDRED
     '''
     print('hundred', [repr(p[i]) for i in range(0,3)])
     p[0] = string_to_int[p[1]]*100
 
-def p_expression_hundred(p):
+def p_snumber_hundred_expr(p):
     '''
-    expression : expression THOUSAND SNUMBER HUNDRED
+    sexpr : SNUMBER HUNDRED sexpr
     '''
-    print('exp hundred', [repr(p[i]) for i in range(0,4)])
-    if not isinstance(p[1], int) or p[1] > 99:
-        print('syntax error at THOUSAND')
-    else:
-        p[0] = p[1]*1000 + string_to_int[p[3]]*100
+    print('hundred', [repr(p[i]) for i in range(0,3)])
+    if not isinstance(p[3], int) or (p[3] > 99 or p[3] < -99):
+        print('syntax error at HUNDRED')
+    p[0] = string_to_int[p[1]]*100 + p[3]
 
 def p_expression_thousand(p):
     '''
-    expression : expression THOUSAND
+    sexpr : sexpr THOUSAND
     '''
     print('thousand', [repr(p[i]) for i in range(0,3)])
-    if not isinstance(p[1], int) or p[1] > 99:
+    if not isinstance(p[1], int) or (p[1] > 99 or p[1] < -99):
         print('syntax error at THOUSAND')
     else:
         p[0] = p[1]*1000
+
+def p_expression_thousand_expr(p):
+    '''
+    sexpr : sexpr THOUSAND sexpr
+    '''
+    print('thousand', [repr(p[i]) for i in range(0,3)])
+    if not isinstance(p[1], int) or (p[1] > 99 or p[1] < -99):
+        print('syntax error at THOUSAND')
+    else:
+        p[0] = p[1]*1000 + p[3]
 
 def p_error(p):
     if p:

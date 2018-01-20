@@ -4,48 +4,67 @@ Grammar
 
 Rule 0     S' -> statement
 Rule 1     statement -> NAME EQUALS expression
-Rule 2     statement -> expression
-Rule 3     expression -> expression PLUS expression
-Rule 4     expression -> expression MINUS expression
-Rule 5     expression -> expression TIMES expression
-Rule 6     expression -> expression DIVIDE expression
-Rule 7     expression -> expression EXP expression
-Rule 8     expression -> MINUS expression
-Rule 9     expression -> LPAREN expression RPAREN
-Rule 10    expression -> NUMBER
-Rule 11    expression -> NAME
-Rule 12    expression -> SNUMBER
-Rule 13    expression -> TENS
-Rule 14    expression -> BIGTENS
-Rule 15    expression -> expression SNUMBER
-Rule 16    expression -> expression TENS
-Rule 17    expression -> expression BIGTENS
-Rule 18    expression -> SNUMBER HUNDRED
-Rule 19    expression -> expression THOUSAND SNUMBER HUNDRED
-Rule 20    expression -> expression THOUSAND
+Rule 2     statement -> NAME EQUALS sexpr
+Rule 3     statement -> expression
+Rule 4     statement -> sexpr
+Rule 5     expression -> expression PLUS expression
+Rule 6     expression -> expression MINUS expression
+Rule 7     expression -> expression TIMES expression
+Rule 8     expression -> expression DIVIDE expression
+Rule 9     expression -> expression EXP expression
+Rule 10    expression -> sexpr PLUS sexpr
+Rule 11    expression -> sexpr MINUS sexpr
+Rule 12    expression -> sexpr TIMES sexpr
+Rule 13    expression -> sexpr DIVIDE sexpr
+Rule 14    expression -> sexpr EXP sexpr
+Rule 15    expression -> expression PLUS sexpr
+Rule 16    expression -> expression MINUS sexpr
+Rule 17    expression -> expression TIMES sexpr
+Rule 18    expression -> expression DIVIDE sexpr
+Rule 19    expression -> expression EXP sexpr
+Rule 20    expression -> sexpr PLUS expression
+Rule 21    expression -> sexpr MINUS expression
+Rule 22    expression -> sexpr TIMES expression
+Rule 23    expression -> sexpr DIVIDE expression
+Rule 24    expression -> sexpr EXP expression
+Rule 25    expression -> MINUS expression
+Rule 26    expression -> MINUS sexpr
+Rule 27    expression -> LPAREN expression RPAREN
+Rule 28    expression -> LPAREN sexpr RPAREN
+Rule 29    expression -> NUMBER
+Rule 30    expression -> NAME
+Rule 31    sexpr -> SNUMBER
+Rule 32    sexpr -> TENS
+Rule 33    sexpr -> BIGTENS
+Rule 34    sexpr -> BIGTENS SNUMBER
+Rule 35    sexpr -> SNUMBER HUNDRED
+Rule 36    sexpr -> SNUMBER HUNDRED sexpr
+Rule 37    sexpr -> sexpr THOUSAND
+Rule 38    sexpr -> sexpr THOUSAND sexpr
 
 Terminals, with rules where they appear
 
-BIGTENS              : 14 17
-DIVIDE               : 6
-EQUALS               : 1
-EXP                  : 7
-HUNDRED              : 18 19
-LPAREN               : 9
-MINUS                : 4 8
-NAME                 : 1 11
-NUMBER               : 10
-PLUS                 : 3
-RPAREN               : 9
-SNUMBER              : 12 15 18 19
-TENS                 : 13 16
-THOUSAND             : 19 20
-TIMES                : 5
+BIGTENS              : 33 34
+DIVIDE               : 8 13 18 23
+EQUALS               : 1 2
+EXP                  : 9 14 19 24
+HUNDRED              : 35 36
+LPAREN               : 27 28
+MINUS                : 6 11 16 21 25 26
+NAME                 : 1 2 30
+NUMBER               : 29
+PLUS                 : 5 10 15 20
+RPAREN               : 27 28
+SNUMBER              : 31 34 35 36
+TENS                 : 32
+THOUSAND             : 37 38
+TIMES                : 7 12 17 22
 error                : 
 
 Nonterminals, with rules where they appear
 
-expression           : 1 2 3 3 4 4 5 5 6 6 7 7 8 9 15 16 17 19 20
+expression           : 1 3 5 5 6 6 7 7 8 8 9 9 15 16 17 18 19 20 21 22 23 24 25 27
+sexpr                : 2 4 10 10 11 11 12 12 13 13 14 14 15 16 17 18 19 20 21 22 23 24 26 28 36 37 38 38
 statement            : 0
 
 Parsing method: LALR
@@ -54,36 +73,55 @@ state 0
 
     (0) S' -> . statement
     (1) statement -> . NAME EQUALS expression
-    (2) statement -> . expression
-    (3) expression -> . expression PLUS expression
-    (4) expression -> . expression MINUS expression
-    (5) expression -> . expression TIMES expression
-    (6) expression -> . expression DIVIDE expression
-    (7) expression -> . expression EXP expression
-    (8) expression -> . MINUS expression
-    (9) expression -> . LPAREN expression RPAREN
-    (10) expression -> . NUMBER
-    (11) expression -> . NAME
-    (12) expression -> . SNUMBER
-    (13) expression -> . TENS
-    (14) expression -> . BIGTENS
-    (15) expression -> . expression SNUMBER
-    (16) expression -> . expression TENS
-    (17) expression -> . expression BIGTENS
-    (18) expression -> . SNUMBER HUNDRED
-    (19) expression -> . expression THOUSAND SNUMBER HUNDRED
-    (20) expression -> . expression THOUSAND
+    (2) statement -> . NAME EQUALS sexpr
+    (3) statement -> . expression
+    (4) statement -> . sexpr
+    (5) expression -> . expression PLUS expression
+    (6) expression -> . expression MINUS expression
+    (7) expression -> . expression TIMES expression
+    (8) expression -> . expression DIVIDE expression
+    (9) expression -> . expression EXP expression
+    (10) expression -> . sexpr PLUS sexpr
+    (11) expression -> . sexpr MINUS sexpr
+    (12) expression -> . sexpr TIMES sexpr
+    (13) expression -> . sexpr DIVIDE sexpr
+    (14) expression -> . sexpr EXP sexpr
+    (15) expression -> . expression PLUS sexpr
+    (16) expression -> . expression MINUS sexpr
+    (17) expression -> . expression TIMES sexpr
+    (18) expression -> . expression DIVIDE sexpr
+    (19) expression -> . expression EXP sexpr
+    (20) expression -> . sexpr PLUS expression
+    (21) expression -> . sexpr MINUS expression
+    (22) expression -> . sexpr TIMES expression
+    (23) expression -> . sexpr DIVIDE expression
+    (24) expression -> . sexpr EXP expression
+    (25) expression -> . MINUS expression
+    (26) expression -> . MINUS sexpr
+    (27) expression -> . LPAREN expression RPAREN
+    (28) expression -> . LPAREN sexpr RPAREN
+    (29) expression -> . NUMBER
+    (30) expression -> . NAME
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
 
     NAME            shift and go to state 2
-    MINUS           shift and go to state 4
-    LPAREN          shift and go to state 5
-    NUMBER          shift and go to state 6
-    SNUMBER         shift and go to state 7
-    TENS            shift and go to state 8
-    BIGTENS         shift and go to state 9
+    MINUS           shift and go to state 5
+    LPAREN          shift and go to state 6
+    NUMBER          shift and go to state 7
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
 
     statement                      shift and go to state 1
     expression                     shift and go to state 3
+    sexpr                          shift and go to state 4
 
 state 1
 
@@ -94,789 +132,1679 @@ state 1
 state 2
 
     (1) statement -> NAME . EQUALS expression
-    (11) expression -> NAME .
+    (2) statement -> NAME . EQUALS sexpr
+    (30) expression -> NAME .
 
-    EQUALS          shift and go to state 10
-    PLUS            reduce using rule 11 (expression -> NAME .)
-    MINUS           reduce using rule 11 (expression -> NAME .)
-    TIMES           reduce using rule 11 (expression -> NAME .)
-    DIVIDE          reduce using rule 11 (expression -> NAME .)
-    EXP             reduce using rule 11 (expression -> NAME .)
-    SNUMBER         reduce using rule 11 (expression -> NAME .)
-    TENS            reduce using rule 11 (expression -> NAME .)
-    BIGTENS         reduce using rule 11 (expression -> NAME .)
-    THOUSAND        reduce using rule 11 (expression -> NAME .)
-    $end            reduce using rule 11 (expression -> NAME .)
+    EQUALS          shift and go to state 11
+    PLUS            reduce using rule 30 (expression -> NAME .)
+    MINUS           reduce using rule 30 (expression -> NAME .)
+    TIMES           reduce using rule 30 (expression -> NAME .)
+    DIVIDE          reduce using rule 30 (expression -> NAME .)
+    EXP             reduce using rule 30 (expression -> NAME .)
+    $end            reduce using rule 30 (expression -> NAME .)
 
 
 state 3
 
-    (2) statement -> expression .
-    (3) expression -> expression . PLUS expression
-    (4) expression -> expression . MINUS expression
-    (5) expression -> expression . TIMES expression
-    (6) expression -> expression . DIVIDE expression
-    (7) expression -> expression . EXP expression
-    (15) expression -> expression . SNUMBER
-    (16) expression -> expression . TENS
-    (17) expression -> expression . BIGTENS
-    (19) expression -> expression . THOUSAND SNUMBER HUNDRED
-    (20) expression -> expression . THOUSAND
+    (3) statement -> expression .
+    (5) expression -> expression . PLUS expression
+    (6) expression -> expression . MINUS expression
+    (7) expression -> expression . TIMES expression
+    (8) expression -> expression . DIVIDE expression
+    (9) expression -> expression . EXP expression
+    (15) expression -> expression . PLUS sexpr
+    (16) expression -> expression . MINUS sexpr
+    (17) expression -> expression . TIMES sexpr
+    (18) expression -> expression . DIVIDE sexpr
+    (19) expression -> expression . EXP sexpr
 
-    $end            reduce using rule 2 (statement -> expression .)
-    PLUS            shift and go to state 11
-    MINUS           shift and go to state 12
-    TIMES           shift and go to state 13
-    DIVIDE          shift and go to state 14
-    EXP             shift and go to state 15
-    SNUMBER         shift and go to state 16
-    TENS            shift and go to state 17
-    BIGTENS         shift and go to state 18
-    THOUSAND        shift and go to state 19
+    $end            reduce using rule 3 (statement -> expression .)
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
+    TIMES           shift and go to state 14
+    DIVIDE          shift and go to state 15
+    EXP             shift and go to state 16
 
 
 state 4
 
-    (8) expression -> MINUS . expression
-    (3) expression -> . expression PLUS expression
-    (4) expression -> . expression MINUS expression
-    (5) expression -> . expression TIMES expression
-    (6) expression -> . expression DIVIDE expression
-    (7) expression -> . expression EXP expression
-    (8) expression -> . MINUS expression
-    (9) expression -> . LPAREN expression RPAREN
-    (10) expression -> . NUMBER
-    (11) expression -> . NAME
-    (12) expression -> . SNUMBER
-    (13) expression -> . TENS
-    (14) expression -> . BIGTENS
-    (15) expression -> . expression SNUMBER
-    (16) expression -> . expression TENS
-    (17) expression -> . expression BIGTENS
-    (18) expression -> . SNUMBER HUNDRED
-    (19) expression -> . expression THOUSAND SNUMBER HUNDRED
-    (20) expression -> . expression THOUSAND
+    (4) statement -> sexpr .
+    (10) expression -> sexpr . PLUS sexpr
+    (11) expression -> sexpr . MINUS sexpr
+    (12) expression -> sexpr . TIMES sexpr
+    (13) expression -> sexpr . DIVIDE sexpr
+    (14) expression -> sexpr . EXP sexpr
+    (20) expression -> sexpr . PLUS expression
+    (21) expression -> sexpr . MINUS expression
+    (22) expression -> sexpr . TIMES expression
+    (23) expression -> sexpr . DIVIDE expression
+    (24) expression -> sexpr . EXP expression
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
 
-    MINUS           shift and go to state 4
-    LPAREN          shift and go to state 5
-    NUMBER          shift and go to state 6
-    NAME            shift and go to state 21
-    SNUMBER         shift and go to state 7
-    TENS            shift and go to state 8
-    BIGTENS         shift and go to state 9
+    $end            reduce using rule 4 (statement -> sexpr .)
+    PLUS            shift and go to state 17
+    MINUS           shift and go to state 18
+    TIMES           shift and go to state 19
+    DIVIDE          shift and go to state 20
+    EXP             shift and go to state 21
+    THOUSAND        shift and go to state 22
 
-    expression                     shift and go to state 20
 
 state 5
 
-    (9) expression -> LPAREN . expression RPAREN
-    (3) expression -> . expression PLUS expression
-    (4) expression -> . expression MINUS expression
-    (5) expression -> . expression TIMES expression
-    (6) expression -> . expression DIVIDE expression
-    (7) expression -> . expression EXP expression
-    (8) expression -> . MINUS expression
-    (9) expression -> . LPAREN expression RPAREN
-    (10) expression -> . NUMBER
-    (11) expression -> . NAME
-    (12) expression -> . SNUMBER
-    (13) expression -> . TENS
-    (14) expression -> . BIGTENS
-    (15) expression -> . expression SNUMBER
-    (16) expression -> . expression TENS
-    (17) expression -> . expression BIGTENS
-    (18) expression -> . SNUMBER HUNDRED
-    (19) expression -> . expression THOUSAND SNUMBER HUNDRED
-    (20) expression -> . expression THOUSAND
+    (25) expression -> MINUS . expression
+    (26) expression -> MINUS . sexpr
+    (5) expression -> . expression PLUS expression
+    (6) expression -> . expression MINUS expression
+    (7) expression -> . expression TIMES expression
+    (8) expression -> . expression DIVIDE expression
+    (9) expression -> . expression EXP expression
+    (10) expression -> . sexpr PLUS sexpr
+    (11) expression -> . sexpr MINUS sexpr
+    (12) expression -> . sexpr TIMES sexpr
+    (13) expression -> . sexpr DIVIDE sexpr
+    (14) expression -> . sexpr EXP sexpr
+    (15) expression -> . expression PLUS sexpr
+    (16) expression -> . expression MINUS sexpr
+    (17) expression -> . expression TIMES sexpr
+    (18) expression -> . expression DIVIDE sexpr
+    (19) expression -> . expression EXP sexpr
+    (20) expression -> . sexpr PLUS expression
+    (21) expression -> . sexpr MINUS expression
+    (22) expression -> . sexpr TIMES expression
+    (23) expression -> . sexpr DIVIDE expression
+    (24) expression -> . sexpr EXP expression
+    (25) expression -> . MINUS expression
+    (26) expression -> . MINUS sexpr
+    (27) expression -> . LPAREN expression RPAREN
+    (28) expression -> . LPAREN sexpr RPAREN
+    (29) expression -> . NUMBER
+    (30) expression -> . NAME
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
 
-    MINUS           shift and go to state 4
-    LPAREN          shift and go to state 5
-    NUMBER          shift and go to state 6
-    NAME            shift and go to state 21
-    SNUMBER         shift and go to state 7
-    TENS            shift and go to state 8
-    BIGTENS         shift and go to state 9
+    MINUS           shift and go to state 5
+    LPAREN          shift and go to state 6
+    NUMBER          shift and go to state 7
+    NAME            shift and go to state 25
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
 
-    expression                     shift and go to state 22
+    expression                     shift and go to state 23
+    sexpr                          shift and go to state 24
 
 state 6
 
-    (10) expression -> NUMBER .
+    (27) expression -> LPAREN . expression RPAREN
+    (28) expression -> LPAREN . sexpr RPAREN
+    (5) expression -> . expression PLUS expression
+    (6) expression -> . expression MINUS expression
+    (7) expression -> . expression TIMES expression
+    (8) expression -> . expression DIVIDE expression
+    (9) expression -> . expression EXP expression
+    (10) expression -> . sexpr PLUS sexpr
+    (11) expression -> . sexpr MINUS sexpr
+    (12) expression -> . sexpr TIMES sexpr
+    (13) expression -> . sexpr DIVIDE sexpr
+    (14) expression -> . sexpr EXP sexpr
+    (15) expression -> . expression PLUS sexpr
+    (16) expression -> . expression MINUS sexpr
+    (17) expression -> . expression TIMES sexpr
+    (18) expression -> . expression DIVIDE sexpr
+    (19) expression -> . expression EXP sexpr
+    (20) expression -> . sexpr PLUS expression
+    (21) expression -> . sexpr MINUS expression
+    (22) expression -> . sexpr TIMES expression
+    (23) expression -> . sexpr DIVIDE expression
+    (24) expression -> . sexpr EXP expression
+    (25) expression -> . MINUS expression
+    (26) expression -> . MINUS sexpr
+    (27) expression -> . LPAREN expression RPAREN
+    (28) expression -> . LPAREN sexpr RPAREN
+    (29) expression -> . NUMBER
+    (30) expression -> . NAME
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
 
-    PLUS            reduce using rule 10 (expression -> NUMBER .)
-    MINUS           reduce using rule 10 (expression -> NUMBER .)
-    TIMES           reduce using rule 10 (expression -> NUMBER .)
-    DIVIDE          reduce using rule 10 (expression -> NUMBER .)
-    EXP             reduce using rule 10 (expression -> NUMBER .)
-    SNUMBER         reduce using rule 10 (expression -> NUMBER .)
-    TENS            reduce using rule 10 (expression -> NUMBER .)
-    BIGTENS         reduce using rule 10 (expression -> NUMBER .)
-    THOUSAND        reduce using rule 10 (expression -> NUMBER .)
-    $end            reduce using rule 10 (expression -> NUMBER .)
-    RPAREN          reduce using rule 10 (expression -> NUMBER .)
+    MINUS           shift and go to state 5
+    LPAREN          shift and go to state 6
+    NUMBER          shift and go to state 7
+    NAME            shift and go to state 25
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
 
+    expression                     shift and go to state 26
+    sexpr                          shift and go to state 27
 
 state 7
 
-    (12) expression -> SNUMBER .
-    (18) expression -> SNUMBER . HUNDRED
+    (29) expression -> NUMBER .
 
-    PLUS            reduce using rule 12 (expression -> SNUMBER .)
-    MINUS           reduce using rule 12 (expression -> SNUMBER .)
-    TIMES           reduce using rule 12 (expression -> SNUMBER .)
-    DIVIDE          reduce using rule 12 (expression -> SNUMBER .)
-    EXP             reduce using rule 12 (expression -> SNUMBER .)
-    SNUMBER         reduce using rule 12 (expression -> SNUMBER .)
-    TENS            reduce using rule 12 (expression -> SNUMBER .)
-    BIGTENS         reduce using rule 12 (expression -> SNUMBER .)
-    THOUSAND        reduce using rule 12 (expression -> SNUMBER .)
-    $end            reduce using rule 12 (expression -> SNUMBER .)
-    RPAREN          reduce using rule 12 (expression -> SNUMBER .)
-    HUNDRED         shift and go to state 23
+    PLUS            reduce using rule 29 (expression -> NUMBER .)
+    MINUS           reduce using rule 29 (expression -> NUMBER .)
+    TIMES           reduce using rule 29 (expression -> NUMBER .)
+    DIVIDE          reduce using rule 29 (expression -> NUMBER .)
+    EXP             reduce using rule 29 (expression -> NUMBER .)
+    $end            reduce using rule 29 (expression -> NUMBER .)
+    RPAREN          reduce using rule 29 (expression -> NUMBER .)
 
 
 state 8
 
-    (13) expression -> TENS .
+    (31) sexpr -> SNUMBER .
+    (35) sexpr -> SNUMBER . HUNDRED
+    (36) sexpr -> SNUMBER . HUNDRED sexpr
 
-    PLUS            reduce using rule 13 (expression -> TENS .)
-    MINUS           reduce using rule 13 (expression -> TENS .)
-    TIMES           reduce using rule 13 (expression -> TENS .)
-    DIVIDE          reduce using rule 13 (expression -> TENS .)
-    EXP             reduce using rule 13 (expression -> TENS .)
-    SNUMBER         reduce using rule 13 (expression -> TENS .)
-    TENS            reduce using rule 13 (expression -> TENS .)
-    BIGTENS         reduce using rule 13 (expression -> TENS .)
-    THOUSAND        reduce using rule 13 (expression -> TENS .)
-    $end            reduce using rule 13 (expression -> TENS .)
-    RPAREN          reduce using rule 13 (expression -> TENS .)
+    PLUS            reduce using rule 31 (sexpr -> SNUMBER .)
+    MINUS           reduce using rule 31 (sexpr -> SNUMBER .)
+    TIMES           reduce using rule 31 (sexpr -> SNUMBER .)
+    DIVIDE          reduce using rule 31 (sexpr -> SNUMBER .)
+    EXP             reduce using rule 31 (sexpr -> SNUMBER .)
+    THOUSAND        reduce using rule 31 (sexpr -> SNUMBER .)
+    $end            reduce using rule 31 (sexpr -> SNUMBER .)
+    RPAREN          reduce using rule 31 (sexpr -> SNUMBER .)
+    HUNDRED         shift and go to state 28
 
 
 state 9
 
-    (14) expression -> BIGTENS .
+    (32) sexpr -> TENS .
 
-    PLUS            reduce using rule 14 (expression -> BIGTENS .)
-    MINUS           reduce using rule 14 (expression -> BIGTENS .)
-    TIMES           reduce using rule 14 (expression -> BIGTENS .)
-    DIVIDE          reduce using rule 14 (expression -> BIGTENS .)
-    EXP             reduce using rule 14 (expression -> BIGTENS .)
-    SNUMBER         reduce using rule 14 (expression -> BIGTENS .)
-    TENS            reduce using rule 14 (expression -> BIGTENS .)
-    BIGTENS         reduce using rule 14 (expression -> BIGTENS .)
-    THOUSAND        reduce using rule 14 (expression -> BIGTENS .)
-    $end            reduce using rule 14 (expression -> BIGTENS .)
-    RPAREN          reduce using rule 14 (expression -> BIGTENS .)
+    PLUS            reduce using rule 32 (sexpr -> TENS .)
+    MINUS           reduce using rule 32 (sexpr -> TENS .)
+    TIMES           reduce using rule 32 (sexpr -> TENS .)
+    DIVIDE          reduce using rule 32 (sexpr -> TENS .)
+    EXP             reduce using rule 32 (sexpr -> TENS .)
+    THOUSAND        reduce using rule 32 (sexpr -> TENS .)
+    $end            reduce using rule 32 (sexpr -> TENS .)
+    RPAREN          reduce using rule 32 (sexpr -> TENS .)
 
 
 state 10
 
-    (1) statement -> NAME EQUALS . expression
-    (3) expression -> . expression PLUS expression
-    (4) expression -> . expression MINUS expression
-    (5) expression -> . expression TIMES expression
-    (6) expression -> . expression DIVIDE expression
-    (7) expression -> . expression EXP expression
-    (8) expression -> . MINUS expression
-    (9) expression -> . LPAREN expression RPAREN
-    (10) expression -> . NUMBER
-    (11) expression -> . NAME
-    (12) expression -> . SNUMBER
-    (13) expression -> . TENS
-    (14) expression -> . BIGTENS
-    (15) expression -> . expression SNUMBER
-    (16) expression -> . expression TENS
-    (17) expression -> . expression BIGTENS
-    (18) expression -> . SNUMBER HUNDRED
-    (19) expression -> . expression THOUSAND SNUMBER HUNDRED
-    (20) expression -> . expression THOUSAND
+    (33) sexpr -> BIGTENS .
+    (34) sexpr -> BIGTENS . SNUMBER
 
-    MINUS           shift and go to state 4
-    LPAREN          shift and go to state 5
-    NUMBER          shift and go to state 6
-    NAME            shift and go to state 21
-    SNUMBER         shift and go to state 7
-    TENS            shift and go to state 8
-    BIGTENS         shift and go to state 9
+    PLUS            reduce using rule 33 (sexpr -> BIGTENS .)
+    MINUS           reduce using rule 33 (sexpr -> BIGTENS .)
+    TIMES           reduce using rule 33 (sexpr -> BIGTENS .)
+    DIVIDE          reduce using rule 33 (sexpr -> BIGTENS .)
+    EXP             reduce using rule 33 (sexpr -> BIGTENS .)
+    THOUSAND        reduce using rule 33 (sexpr -> BIGTENS .)
+    $end            reduce using rule 33 (sexpr -> BIGTENS .)
+    RPAREN          reduce using rule 33 (sexpr -> BIGTENS .)
+    SNUMBER         shift and go to state 29
 
-    expression                     shift and go to state 24
 
 state 11
 
-    (3) expression -> expression PLUS . expression
-    (3) expression -> . expression PLUS expression
-    (4) expression -> . expression MINUS expression
-    (5) expression -> . expression TIMES expression
-    (6) expression -> . expression DIVIDE expression
-    (7) expression -> . expression EXP expression
-    (8) expression -> . MINUS expression
-    (9) expression -> . LPAREN expression RPAREN
-    (10) expression -> . NUMBER
-    (11) expression -> . NAME
-    (12) expression -> . SNUMBER
-    (13) expression -> . TENS
-    (14) expression -> . BIGTENS
-    (15) expression -> . expression SNUMBER
-    (16) expression -> . expression TENS
-    (17) expression -> . expression BIGTENS
-    (18) expression -> . SNUMBER HUNDRED
-    (19) expression -> . expression THOUSAND SNUMBER HUNDRED
-    (20) expression -> . expression THOUSAND
+    (1) statement -> NAME EQUALS . expression
+    (2) statement -> NAME EQUALS . sexpr
+    (5) expression -> . expression PLUS expression
+    (6) expression -> . expression MINUS expression
+    (7) expression -> . expression TIMES expression
+    (8) expression -> . expression DIVIDE expression
+    (9) expression -> . expression EXP expression
+    (10) expression -> . sexpr PLUS sexpr
+    (11) expression -> . sexpr MINUS sexpr
+    (12) expression -> . sexpr TIMES sexpr
+    (13) expression -> . sexpr DIVIDE sexpr
+    (14) expression -> . sexpr EXP sexpr
+    (15) expression -> . expression PLUS sexpr
+    (16) expression -> . expression MINUS sexpr
+    (17) expression -> . expression TIMES sexpr
+    (18) expression -> . expression DIVIDE sexpr
+    (19) expression -> . expression EXP sexpr
+    (20) expression -> . sexpr PLUS expression
+    (21) expression -> . sexpr MINUS expression
+    (22) expression -> . sexpr TIMES expression
+    (23) expression -> . sexpr DIVIDE expression
+    (24) expression -> . sexpr EXP expression
+    (25) expression -> . MINUS expression
+    (26) expression -> . MINUS sexpr
+    (27) expression -> . LPAREN expression RPAREN
+    (28) expression -> . LPAREN sexpr RPAREN
+    (29) expression -> . NUMBER
+    (30) expression -> . NAME
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
 
-    MINUS           shift and go to state 4
-    LPAREN          shift and go to state 5
-    NUMBER          shift and go to state 6
-    NAME            shift and go to state 21
-    SNUMBER         shift and go to state 7
-    TENS            shift and go to state 8
-    BIGTENS         shift and go to state 9
+    MINUS           shift and go to state 5
+    LPAREN          shift and go to state 6
+    NUMBER          shift and go to state 7
+    NAME            shift and go to state 25
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
 
-    expression                     shift and go to state 25
+    expression                     shift and go to state 30
+    sexpr                          shift and go to state 31
 
 state 12
 
-    (4) expression -> expression MINUS . expression
-    (3) expression -> . expression PLUS expression
-    (4) expression -> . expression MINUS expression
-    (5) expression -> . expression TIMES expression
-    (6) expression -> . expression DIVIDE expression
-    (7) expression -> . expression EXP expression
-    (8) expression -> . MINUS expression
-    (9) expression -> . LPAREN expression RPAREN
-    (10) expression -> . NUMBER
-    (11) expression -> . NAME
-    (12) expression -> . SNUMBER
-    (13) expression -> . TENS
-    (14) expression -> . BIGTENS
-    (15) expression -> . expression SNUMBER
-    (16) expression -> . expression TENS
-    (17) expression -> . expression BIGTENS
-    (18) expression -> . SNUMBER HUNDRED
-    (19) expression -> . expression THOUSAND SNUMBER HUNDRED
-    (20) expression -> . expression THOUSAND
+    (5) expression -> expression PLUS . expression
+    (15) expression -> expression PLUS . sexpr
+    (5) expression -> . expression PLUS expression
+    (6) expression -> . expression MINUS expression
+    (7) expression -> . expression TIMES expression
+    (8) expression -> . expression DIVIDE expression
+    (9) expression -> . expression EXP expression
+    (10) expression -> . sexpr PLUS sexpr
+    (11) expression -> . sexpr MINUS sexpr
+    (12) expression -> . sexpr TIMES sexpr
+    (13) expression -> . sexpr DIVIDE sexpr
+    (14) expression -> . sexpr EXP sexpr
+    (15) expression -> . expression PLUS sexpr
+    (16) expression -> . expression MINUS sexpr
+    (17) expression -> . expression TIMES sexpr
+    (18) expression -> . expression DIVIDE sexpr
+    (19) expression -> . expression EXP sexpr
+    (20) expression -> . sexpr PLUS expression
+    (21) expression -> . sexpr MINUS expression
+    (22) expression -> . sexpr TIMES expression
+    (23) expression -> . sexpr DIVIDE expression
+    (24) expression -> . sexpr EXP expression
+    (25) expression -> . MINUS expression
+    (26) expression -> . MINUS sexpr
+    (27) expression -> . LPAREN expression RPAREN
+    (28) expression -> . LPAREN sexpr RPAREN
+    (29) expression -> . NUMBER
+    (30) expression -> . NAME
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
 
-    MINUS           shift and go to state 4
-    LPAREN          shift and go to state 5
-    NUMBER          shift and go to state 6
-    NAME            shift and go to state 21
-    SNUMBER         shift and go to state 7
-    TENS            shift and go to state 8
-    BIGTENS         shift and go to state 9
+    MINUS           shift and go to state 5
+    LPAREN          shift and go to state 6
+    NUMBER          shift and go to state 7
+    NAME            shift and go to state 25
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
 
-    expression                     shift and go to state 26
+    expression                     shift and go to state 32
+    sexpr                          shift and go to state 33
 
 state 13
 
-    (5) expression -> expression TIMES . expression
-    (3) expression -> . expression PLUS expression
-    (4) expression -> . expression MINUS expression
-    (5) expression -> . expression TIMES expression
-    (6) expression -> . expression DIVIDE expression
-    (7) expression -> . expression EXP expression
-    (8) expression -> . MINUS expression
-    (9) expression -> . LPAREN expression RPAREN
-    (10) expression -> . NUMBER
-    (11) expression -> . NAME
-    (12) expression -> . SNUMBER
-    (13) expression -> . TENS
-    (14) expression -> . BIGTENS
-    (15) expression -> . expression SNUMBER
-    (16) expression -> . expression TENS
-    (17) expression -> . expression BIGTENS
-    (18) expression -> . SNUMBER HUNDRED
-    (19) expression -> . expression THOUSAND SNUMBER HUNDRED
-    (20) expression -> . expression THOUSAND
+    (6) expression -> expression MINUS . expression
+    (16) expression -> expression MINUS . sexpr
+    (5) expression -> . expression PLUS expression
+    (6) expression -> . expression MINUS expression
+    (7) expression -> . expression TIMES expression
+    (8) expression -> . expression DIVIDE expression
+    (9) expression -> . expression EXP expression
+    (10) expression -> . sexpr PLUS sexpr
+    (11) expression -> . sexpr MINUS sexpr
+    (12) expression -> . sexpr TIMES sexpr
+    (13) expression -> . sexpr DIVIDE sexpr
+    (14) expression -> . sexpr EXP sexpr
+    (15) expression -> . expression PLUS sexpr
+    (16) expression -> . expression MINUS sexpr
+    (17) expression -> . expression TIMES sexpr
+    (18) expression -> . expression DIVIDE sexpr
+    (19) expression -> . expression EXP sexpr
+    (20) expression -> . sexpr PLUS expression
+    (21) expression -> . sexpr MINUS expression
+    (22) expression -> . sexpr TIMES expression
+    (23) expression -> . sexpr DIVIDE expression
+    (24) expression -> . sexpr EXP expression
+    (25) expression -> . MINUS expression
+    (26) expression -> . MINUS sexpr
+    (27) expression -> . LPAREN expression RPAREN
+    (28) expression -> . LPAREN sexpr RPAREN
+    (29) expression -> . NUMBER
+    (30) expression -> . NAME
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
 
-    MINUS           shift and go to state 4
-    LPAREN          shift and go to state 5
-    NUMBER          shift and go to state 6
-    NAME            shift and go to state 21
-    SNUMBER         shift and go to state 7
-    TENS            shift and go to state 8
-    BIGTENS         shift and go to state 9
+    MINUS           shift and go to state 5
+    LPAREN          shift and go to state 6
+    NUMBER          shift and go to state 7
+    NAME            shift and go to state 25
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
 
-    expression                     shift and go to state 27
+    expression                     shift and go to state 34
+    sexpr                          shift and go to state 35
 
 state 14
 
-    (6) expression -> expression DIVIDE . expression
-    (3) expression -> . expression PLUS expression
-    (4) expression -> . expression MINUS expression
-    (5) expression -> . expression TIMES expression
-    (6) expression -> . expression DIVIDE expression
-    (7) expression -> . expression EXP expression
-    (8) expression -> . MINUS expression
-    (9) expression -> . LPAREN expression RPAREN
-    (10) expression -> . NUMBER
-    (11) expression -> . NAME
-    (12) expression -> . SNUMBER
-    (13) expression -> . TENS
-    (14) expression -> . BIGTENS
-    (15) expression -> . expression SNUMBER
-    (16) expression -> . expression TENS
-    (17) expression -> . expression BIGTENS
-    (18) expression -> . SNUMBER HUNDRED
-    (19) expression -> . expression THOUSAND SNUMBER HUNDRED
-    (20) expression -> . expression THOUSAND
+    (7) expression -> expression TIMES . expression
+    (17) expression -> expression TIMES . sexpr
+    (5) expression -> . expression PLUS expression
+    (6) expression -> . expression MINUS expression
+    (7) expression -> . expression TIMES expression
+    (8) expression -> . expression DIVIDE expression
+    (9) expression -> . expression EXP expression
+    (10) expression -> . sexpr PLUS sexpr
+    (11) expression -> . sexpr MINUS sexpr
+    (12) expression -> . sexpr TIMES sexpr
+    (13) expression -> . sexpr DIVIDE sexpr
+    (14) expression -> . sexpr EXP sexpr
+    (15) expression -> . expression PLUS sexpr
+    (16) expression -> . expression MINUS sexpr
+    (17) expression -> . expression TIMES sexpr
+    (18) expression -> . expression DIVIDE sexpr
+    (19) expression -> . expression EXP sexpr
+    (20) expression -> . sexpr PLUS expression
+    (21) expression -> . sexpr MINUS expression
+    (22) expression -> . sexpr TIMES expression
+    (23) expression -> . sexpr DIVIDE expression
+    (24) expression -> . sexpr EXP expression
+    (25) expression -> . MINUS expression
+    (26) expression -> . MINUS sexpr
+    (27) expression -> . LPAREN expression RPAREN
+    (28) expression -> . LPAREN sexpr RPAREN
+    (29) expression -> . NUMBER
+    (30) expression -> . NAME
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
 
-    MINUS           shift and go to state 4
-    LPAREN          shift and go to state 5
-    NUMBER          shift and go to state 6
-    NAME            shift and go to state 21
-    SNUMBER         shift and go to state 7
-    TENS            shift and go to state 8
-    BIGTENS         shift and go to state 9
+    MINUS           shift and go to state 5
+    LPAREN          shift and go to state 6
+    NUMBER          shift and go to state 7
+    NAME            shift and go to state 25
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
 
-    expression                     shift and go to state 28
+    expression                     shift and go to state 36
+    sexpr                          shift and go to state 37
 
 state 15
 
-    (7) expression -> expression EXP . expression
-    (3) expression -> . expression PLUS expression
-    (4) expression -> . expression MINUS expression
-    (5) expression -> . expression TIMES expression
-    (6) expression -> . expression DIVIDE expression
-    (7) expression -> . expression EXP expression
-    (8) expression -> . MINUS expression
-    (9) expression -> . LPAREN expression RPAREN
-    (10) expression -> . NUMBER
-    (11) expression -> . NAME
-    (12) expression -> . SNUMBER
-    (13) expression -> . TENS
-    (14) expression -> . BIGTENS
-    (15) expression -> . expression SNUMBER
-    (16) expression -> . expression TENS
-    (17) expression -> . expression BIGTENS
-    (18) expression -> . SNUMBER HUNDRED
-    (19) expression -> . expression THOUSAND SNUMBER HUNDRED
-    (20) expression -> . expression THOUSAND
+    (8) expression -> expression DIVIDE . expression
+    (18) expression -> expression DIVIDE . sexpr
+    (5) expression -> . expression PLUS expression
+    (6) expression -> . expression MINUS expression
+    (7) expression -> . expression TIMES expression
+    (8) expression -> . expression DIVIDE expression
+    (9) expression -> . expression EXP expression
+    (10) expression -> . sexpr PLUS sexpr
+    (11) expression -> . sexpr MINUS sexpr
+    (12) expression -> . sexpr TIMES sexpr
+    (13) expression -> . sexpr DIVIDE sexpr
+    (14) expression -> . sexpr EXP sexpr
+    (15) expression -> . expression PLUS sexpr
+    (16) expression -> . expression MINUS sexpr
+    (17) expression -> . expression TIMES sexpr
+    (18) expression -> . expression DIVIDE sexpr
+    (19) expression -> . expression EXP sexpr
+    (20) expression -> . sexpr PLUS expression
+    (21) expression -> . sexpr MINUS expression
+    (22) expression -> . sexpr TIMES expression
+    (23) expression -> . sexpr DIVIDE expression
+    (24) expression -> . sexpr EXP expression
+    (25) expression -> . MINUS expression
+    (26) expression -> . MINUS sexpr
+    (27) expression -> . LPAREN expression RPAREN
+    (28) expression -> . LPAREN sexpr RPAREN
+    (29) expression -> . NUMBER
+    (30) expression -> . NAME
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
 
-    MINUS           shift and go to state 4
-    LPAREN          shift and go to state 5
-    NUMBER          shift and go to state 6
-    NAME            shift and go to state 21
-    SNUMBER         shift and go to state 7
-    TENS            shift and go to state 8
-    BIGTENS         shift and go to state 9
+    MINUS           shift and go to state 5
+    LPAREN          shift and go to state 6
+    NUMBER          shift and go to state 7
+    NAME            shift and go to state 25
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
 
-    expression                     shift and go to state 29
+    expression                     shift and go to state 38
+    sexpr                          shift and go to state 39
 
 state 16
 
-    (15) expression -> expression SNUMBER .
+    (9) expression -> expression EXP . expression
+    (19) expression -> expression EXP . sexpr
+    (5) expression -> . expression PLUS expression
+    (6) expression -> . expression MINUS expression
+    (7) expression -> . expression TIMES expression
+    (8) expression -> . expression DIVIDE expression
+    (9) expression -> . expression EXP expression
+    (10) expression -> . sexpr PLUS sexpr
+    (11) expression -> . sexpr MINUS sexpr
+    (12) expression -> . sexpr TIMES sexpr
+    (13) expression -> . sexpr DIVIDE sexpr
+    (14) expression -> . sexpr EXP sexpr
+    (15) expression -> . expression PLUS sexpr
+    (16) expression -> . expression MINUS sexpr
+    (17) expression -> . expression TIMES sexpr
+    (18) expression -> . expression DIVIDE sexpr
+    (19) expression -> . expression EXP sexpr
+    (20) expression -> . sexpr PLUS expression
+    (21) expression -> . sexpr MINUS expression
+    (22) expression -> . sexpr TIMES expression
+    (23) expression -> . sexpr DIVIDE expression
+    (24) expression -> . sexpr EXP expression
+    (25) expression -> . MINUS expression
+    (26) expression -> . MINUS sexpr
+    (27) expression -> . LPAREN expression RPAREN
+    (28) expression -> . LPAREN sexpr RPAREN
+    (29) expression -> . NUMBER
+    (30) expression -> . NAME
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
 
-    PLUS            reduce using rule 15 (expression -> expression SNUMBER .)
-    MINUS           reduce using rule 15 (expression -> expression SNUMBER .)
-    TIMES           reduce using rule 15 (expression -> expression SNUMBER .)
-    DIVIDE          reduce using rule 15 (expression -> expression SNUMBER .)
-    EXP             reduce using rule 15 (expression -> expression SNUMBER .)
-    SNUMBER         reduce using rule 15 (expression -> expression SNUMBER .)
-    TENS            reduce using rule 15 (expression -> expression SNUMBER .)
-    BIGTENS         reduce using rule 15 (expression -> expression SNUMBER .)
-    THOUSAND        reduce using rule 15 (expression -> expression SNUMBER .)
-    $end            reduce using rule 15 (expression -> expression SNUMBER .)
-    RPAREN          reduce using rule 15 (expression -> expression SNUMBER .)
+    MINUS           shift and go to state 5
+    LPAREN          shift and go to state 6
+    NUMBER          shift and go to state 7
+    NAME            shift and go to state 25
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
 
+    expression                     shift and go to state 40
+    sexpr                          shift and go to state 41
 
 state 17
 
-    (16) expression -> expression TENS .
+    (10) expression -> sexpr PLUS . sexpr
+    (20) expression -> sexpr PLUS . expression
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
+    (5) expression -> . expression PLUS expression
+    (6) expression -> . expression MINUS expression
+    (7) expression -> . expression TIMES expression
+    (8) expression -> . expression DIVIDE expression
+    (9) expression -> . expression EXP expression
+    (10) expression -> . sexpr PLUS sexpr
+    (11) expression -> . sexpr MINUS sexpr
+    (12) expression -> . sexpr TIMES sexpr
+    (13) expression -> . sexpr DIVIDE sexpr
+    (14) expression -> . sexpr EXP sexpr
+    (15) expression -> . expression PLUS sexpr
+    (16) expression -> . expression MINUS sexpr
+    (17) expression -> . expression TIMES sexpr
+    (18) expression -> . expression DIVIDE sexpr
+    (19) expression -> . expression EXP sexpr
+    (20) expression -> . sexpr PLUS expression
+    (21) expression -> . sexpr MINUS expression
+    (22) expression -> . sexpr TIMES expression
+    (23) expression -> . sexpr DIVIDE expression
+    (24) expression -> . sexpr EXP expression
+    (25) expression -> . MINUS expression
+    (26) expression -> . MINUS sexpr
+    (27) expression -> . LPAREN expression RPAREN
+    (28) expression -> . LPAREN sexpr RPAREN
+    (29) expression -> . NUMBER
+    (30) expression -> . NAME
 
-    PLUS            reduce using rule 16 (expression -> expression TENS .)
-    MINUS           reduce using rule 16 (expression -> expression TENS .)
-    TIMES           reduce using rule 16 (expression -> expression TENS .)
-    DIVIDE          reduce using rule 16 (expression -> expression TENS .)
-    EXP             reduce using rule 16 (expression -> expression TENS .)
-    SNUMBER         reduce using rule 16 (expression -> expression TENS .)
-    TENS            reduce using rule 16 (expression -> expression TENS .)
-    BIGTENS         reduce using rule 16 (expression -> expression TENS .)
-    THOUSAND        reduce using rule 16 (expression -> expression TENS .)
-    $end            reduce using rule 16 (expression -> expression TENS .)
-    RPAREN          reduce using rule 16 (expression -> expression TENS .)
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
+    MINUS           shift and go to state 5
+    LPAREN          shift and go to state 6
+    NUMBER          shift and go to state 7
+    NAME            shift and go to state 25
 
+    sexpr                          shift and go to state 42
+    expression                     shift and go to state 43
 
 state 18
 
-    (17) expression -> expression BIGTENS .
+    (11) expression -> sexpr MINUS . sexpr
+    (21) expression -> sexpr MINUS . expression
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
+    (5) expression -> . expression PLUS expression
+    (6) expression -> . expression MINUS expression
+    (7) expression -> . expression TIMES expression
+    (8) expression -> . expression DIVIDE expression
+    (9) expression -> . expression EXP expression
+    (10) expression -> . sexpr PLUS sexpr
+    (11) expression -> . sexpr MINUS sexpr
+    (12) expression -> . sexpr TIMES sexpr
+    (13) expression -> . sexpr DIVIDE sexpr
+    (14) expression -> . sexpr EXP sexpr
+    (15) expression -> . expression PLUS sexpr
+    (16) expression -> . expression MINUS sexpr
+    (17) expression -> . expression TIMES sexpr
+    (18) expression -> . expression DIVIDE sexpr
+    (19) expression -> . expression EXP sexpr
+    (20) expression -> . sexpr PLUS expression
+    (21) expression -> . sexpr MINUS expression
+    (22) expression -> . sexpr TIMES expression
+    (23) expression -> . sexpr DIVIDE expression
+    (24) expression -> . sexpr EXP expression
+    (25) expression -> . MINUS expression
+    (26) expression -> . MINUS sexpr
+    (27) expression -> . LPAREN expression RPAREN
+    (28) expression -> . LPAREN sexpr RPAREN
+    (29) expression -> . NUMBER
+    (30) expression -> . NAME
 
-    PLUS            reduce using rule 17 (expression -> expression BIGTENS .)
-    MINUS           reduce using rule 17 (expression -> expression BIGTENS .)
-    TIMES           reduce using rule 17 (expression -> expression BIGTENS .)
-    DIVIDE          reduce using rule 17 (expression -> expression BIGTENS .)
-    EXP             reduce using rule 17 (expression -> expression BIGTENS .)
-    SNUMBER         reduce using rule 17 (expression -> expression BIGTENS .)
-    TENS            reduce using rule 17 (expression -> expression BIGTENS .)
-    BIGTENS         reduce using rule 17 (expression -> expression BIGTENS .)
-    THOUSAND        reduce using rule 17 (expression -> expression BIGTENS .)
-    $end            reduce using rule 17 (expression -> expression BIGTENS .)
-    RPAREN          reduce using rule 17 (expression -> expression BIGTENS .)
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
+    MINUS           shift and go to state 5
+    LPAREN          shift and go to state 6
+    NUMBER          shift and go to state 7
+    NAME            shift and go to state 25
 
+    sexpr                          shift and go to state 44
+    expression                     shift and go to state 45
 
 state 19
 
-    (19) expression -> expression THOUSAND . SNUMBER HUNDRED
-    (20) expression -> expression THOUSAND .
+    (12) expression -> sexpr TIMES . sexpr
+    (22) expression -> sexpr TIMES . expression
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
+    (5) expression -> . expression PLUS expression
+    (6) expression -> . expression MINUS expression
+    (7) expression -> . expression TIMES expression
+    (8) expression -> . expression DIVIDE expression
+    (9) expression -> . expression EXP expression
+    (10) expression -> . sexpr PLUS sexpr
+    (11) expression -> . sexpr MINUS sexpr
+    (12) expression -> . sexpr TIMES sexpr
+    (13) expression -> . sexpr DIVIDE sexpr
+    (14) expression -> . sexpr EXP sexpr
+    (15) expression -> . expression PLUS sexpr
+    (16) expression -> . expression MINUS sexpr
+    (17) expression -> . expression TIMES sexpr
+    (18) expression -> . expression DIVIDE sexpr
+    (19) expression -> . expression EXP sexpr
+    (20) expression -> . sexpr PLUS expression
+    (21) expression -> . sexpr MINUS expression
+    (22) expression -> . sexpr TIMES expression
+    (23) expression -> . sexpr DIVIDE expression
+    (24) expression -> . sexpr EXP expression
+    (25) expression -> . MINUS expression
+    (26) expression -> . MINUS sexpr
+    (27) expression -> . LPAREN expression RPAREN
+    (28) expression -> . LPAREN sexpr RPAREN
+    (29) expression -> . NUMBER
+    (30) expression -> . NAME
 
-    SNUMBER         shift and go to state 30
-    PLUS            reduce using rule 20 (expression -> expression THOUSAND .)
-    MINUS           reduce using rule 20 (expression -> expression THOUSAND .)
-    TIMES           reduce using rule 20 (expression -> expression THOUSAND .)
-    DIVIDE          reduce using rule 20 (expression -> expression THOUSAND .)
-    EXP             reduce using rule 20 (expression -> expression THOUSAND .)
-    TENS            reduce using rule 20 (expression -> expression THOUSAND .)
-    BIGTENS         reduce using rule 20 (expression -> expression THOUSAND .)
-    THOUSAND        reduce using rule 20 (expression -> expression THOUSAND .)
-    $end            reduce using rule 20 (expression -> expression THOUSAND .)
-    RPAREN          reduce using rule 20 (expression -> expression THOUSAND .)
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
+    MINUS           shift and go to state 5
+    LPAREN          shift and go to state 6
+    NUMBER          shift and go to state 7
+    NAME            shift and go to state 25
 
-  ! SNUMBER         [ reduce using rule 20 (expression -> expression THOUSAND .) ]
-
+    sexpr                          shift and go to state 46
+    expression                     shift and go to state 47
 
 state 20
 
-    (8) expression -> MINUS expression .
-    (3) expression -> expression . PLUS expression
-    (4) expression -> expression . MINUS expression
-    (5) expression -> expression . TIMES expression
-    (6) expression -> expression . DIVIDE expression
-    (7) expression -> expression . EXP expression
-    (15) expression -> expression . SNUMBER
-    (16) expression -> expression . TENS
-    (17) expression -> expression . BIGTENS
-    (19) expression -> expression . THOUSAND SNUMBER HUNDRED
-    (20) expression -> expression . THOUSAND
+    (13) expression -> sexpr DIVIDE . sexpr
+    (23) expression -> sexpr DIVIDE . expression
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
+    (5) expression -> . expression PLUS expression
+    (6) expression -> . expression MINUS expression
+    (7) expression -> . expression TIMES expression
+    (8) expression -> . expression DIVIDE expression
+    (9) expression -> . expression EXP expression
+    (10) expression -> . sexpr PLUS sexpr
+    (11) expression -> . sexpr MINUS sexpr
+    (12) expression -> . sexpr TIMES sexpr
+    (13) expression -> . sexpr DIVIDE sexpr
+    (14) expression -> . sexpr EXP sexpr
+    (15) expression -> . expression PLUS sexpr
+    (16) expression -> . expression MINUS sexpr
+    (17) expression -> . expression TIMES sexpr
+    (18) expression -> . expression DIVIDE sexpr
+    (19) expression -> . expression EXP sexpr
+    (20) expression -> . sexpr PLUS expression
+    (21) expression -> . sexpr MINUS expression
+    (22) expression -> . sexpr TIMES expression
+    (23) expression -> . sexpr DIVIDE expression
+    (24) expression -> . sexpr EXP expression
+    (25) expression -> . MINUS expression
+    (26) expression -> . MINUS sexpr
+    (27) expression -> . LPAREN expression RPAREN
+    (28) expression -> . LPAREN sexpr RPAREN
+    (29) expression -> . NUMBER
+    (30) expression -> . NAME
 
-    PLUS            reduce using rule 8 (expression -> MINUS expression .)
-    MINUS           reduce using rule 8 (expression -> MINUS expression .)
-    TIMES           reduce using rule 8 (expression -> MINUS expression .)
-    DIVIDE          reduce using rule 8 (expression -> MINUS expression .)
-    EXP             reduce using rule 8 (expression -> MINUS expression .)
-    SNUMBER         reduce using rule 8 (expression -> MINUS expression .)
-    TENS            reduce using rule 8 (expression -> MINUS expression .)
-    BIGTENS         reduce using rule 8 (expression -> MINUS expression .)
-    THOUSAND        reduce using rule 8 (expression -> MINUS expression .)
-    $end            reduce using rule 8 (expression -> MINUS expression .)
-    RPAREN          reduce using rule 8 (expression -> MINUS expression .)
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
+    MINUS           shift and go to state 5
+    LPAREN          shift and go to state 6
+    NUMBER          shift and go to state 7
+    NAME            shift and go to state 25
 
-  ! PLUS            [ shift and go to state 11 ]
-  ! MINUS           [ shift and go to state 12 ]
-  ! TIMES           [ shift and go to state 13 ]
-  ! DIVIDE          [ shift and go to state 14 ]
-  ! EXP             [ shift and go to state 15 ]
-  ! SNUMBER         [ shift and go to state 16 ]
-  ! TENS            [ shift and go to state 17 ]
-  ! BIGTENS         [ shift and go to state 18 ]
-  ! THOUSAND        [ shift and go to state 19 ]
-
+    sexpr                          shift and go to state 48
+    expression                     shift and go to state 49
 
 state 21
 
-    (11) expression -> NAME .
+    (14) expression -> sexpr EXP . sexpr
+    (24) expression -> sexpr EXP . expression
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
+    (5) expression -> . expression PLUS expression
+    (6) expression -> . expression MINUS expression
+    (7) expression -> . expression TIMES expression
+    (8) expression -> . expression DIVIDE expression
+    (9) expression -> . expression EXP expression
+    (10) expression -> . sexpr PLUS sexpr
+    (11) expression -> . sexpr MINUS sexpr
+    (12) expression -> . sexpr TIMES sexpr
+    (13) expression -> . sexpr DIVIDE sexpr
+    (14) expression -> . sexpr EXP sexpr
+    (15) expression -> . expression PLUS sexpr
+    (16) expression -> . expression MINUS sexpr
+    (17) expression -> . expression TIMES sexpr
+    (18) expression -> . expression DIVIDE sexpr
+    (19) expression -> . expression EXP sexpr
+    (20) expression -> . sexpr PLUS expression
+    (21) expression -> . sexpr MINUS expression
+    (22) expression -> . sexpr TIMES expression
+    (23) expression -> . sexpr DIVIDE expression
+    (24) expression -> . sexpr EXP expression
+    (25) expression -> . MINUS expression
+    (26) expression -> . MINUS sexpr
+    (27) expression -> . LPAREN expression RPAREN
+    (28) expression -> . LPAREN sexpr RPAREN
+    (29) expression -> . NUMBER
+    (30) expression -> . NAME
 
-    PLUS            reduce using rule 11 (expression -> NAME .)
-    MINUS           reduce using rule 11 (expression -> NAME .)
-    TIMES           reduce using rule 11 (expression -> NAME .)
-    DIVIDE          reduce using rule 11 (expression -> NAME .)
-    EXP             reduce using rule 11 (expression -> NAME .)
-    SNUMBER         reduce using rule 11 (expression -> NAME .)
-    TENS            reduce using rule 11 (expression -> NAME .)
-    BIGTENS         reduce using rule 11 (expression -> NAME .)
-    THOUSAND        reduce using rule 11 (expression -> NAME .)
-    $end            reduce using rule 11 (expression -> NAME .)
-    RPAREN          reduce using rule 11 (expression -> NAME .)
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
+    MINUS           shift and go to state 5
+    LPAREN          shift and go to state 6
+    NUMBER          shift and go to state 7
+    NAME            shift and go to state 25
 
+    sexpr                          shift and go to state 50
+    expression                     shift and go to state 51
 
 state 22
 
-    (9) expression -> LPAREN expression . RPAREN
-    (3) expression -> expression . PLUS expression
-    (4) expression -> expression . MINUS expression
-    (5) expression -> expression . TIMES expression
-    (6) expression -> expression . DIVIDE expression
-    (7) expression -> expression . EXP expression
-    (15) expression -> expression . SNUMBER
-    (16) expression -> expression . TENS
-    (17) expression -> expression . BIGTENS
-    (19) expression -> expression . THOUSAND SNUMBER HUNDRED
-    (20) expression -> expression . THOUSAND
+    (37) sexpr -> sexpr THOUSAND .
+    (38) sexpr -> sexpr THOUSAND . sexpr
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
 
-    RPAREN          shift and go to state 31
-    PLUS            shift and go to state 11
-    MINUS           shift and go to state 12
-    TIMES           shift and go to state 13
-    DIVIDE          shift and go to state 14
-    EXP             shift and go to state 15
-    SNUMBER         shift and go to state 16
-    TENS            shift and go to state 17
-    BIGTENS         shift and go to state 18
-    THOUSAND        shift and go to state 19
+    PLUS            reduce using rule 37 (sexpr -> sexpr THOUSAND .)
+    MINUS           reduce using rule 37 (sexpr -> sexpr THOUSAND .)
+    TIMES           reduce using rule 37 (sexpr -> sexpr THOUSAND .)
+    DIVIDE          reduce using rule 37 (sexpr -> sexpr THOUSAND .)
+    EXP             reduce using rule 37 (sexpr -> sexpr THOUSAND .)
+    THOUSAND        reduce using rule 37 (sexpr -> sexpr THOUSAND .)
+    $end            reduce using rule 37 (sexpr -> sexpr THOUSAND .)
+    RPAREN          reduce using rule 37 (sexpr -> sexpr THOUSAND .)
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
 
+    sexpr                          shift and go to state 52
 
 state 23
 
-    (18) expression -> SNUMBER HUNDRED .
+    (25) expression -> MINUS expression .
+    (5) expression -> expression . PLUS expression
+    (6) expression -> expression . MINUS expression
+    (7) expression -> expression . TIMES expression
+    (8) expression -> expression . DIVIDE expression
+    (9) expression -> expression . EXP expression
+    (15) expression -> expression . PLUS sexpr
+    (16) expression -> expression . MINUS sexpr
+    (17) expression -> expression . TIMES sexpr
+    (18) expression -> expression . DIVIDE sexpr
+    (19) expression -> expression . EXP sexpr
 
-    PLUS            reduce using rule 18 (expression -> SNUMBER HUNDRED .)
-    MINUS           reduce using rule 18 (expression -> SNUMBER HUNDRED .)
-    TIMES           reduce using rule 18 (expression -> SNUMBER HUNDRED .)
-    DIVIDE          reduce using rule 18 (expression -> SNUMBER HUNDRED .)
-    EXP             reduce using rule 18 (expression -> SNUMBER HUNDRED .)
-    SNUMBER         reduce using rule 18 (expression -> SNUMBER HUNDRED .)
-    TENS            reduce using rule 18 (expression -> SNUMBER HUNDRED .)
-    BIGTENS         reduce using rule 18 (expression -> SNUMBER HUNDRED .)
-    THOUSAND        reduce using rule 18 (expression -> SNUMBER HUNDRED .)
-    $end            reduce using rule 18 (expression -> SNUMBER HUNDRED .)
-    RPAREN          reduce using rule 18 (expression -> SNUMBER HUNDRED .)
+    PLUS            reduce using rule 25 (expression -> MINUS expression .)
+    MINUS           reduce using rule 25 (expression -> MINUS expression .)
+    TIMES           reduce using rule 25 (expression -> MINUS expression .)
+    DIVIDE          reduce using rule 25 (expression -> MINUS expression .)
+    EXP             reduce using rule 25 (expression -> MINUS expression .)
+    $end            reduce using rule 25 (expression -> MINUS expression .)
+    RPAREN          reduce using rule 25 (expression -> MINUS expression .)
+
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+  ! TIMES           [ shift and go to state 14 ]
+  ! DIVIDE          [ shift and go to state 15 ]
+  ! EXP             [ shift and go to state 16 ]
 
 
 state 24
 
-    (1) statement -> NAME EQUALS expression .
-    (3) expression -> expression . PLUS expression
-    (4) expression -> expression . MINUS expression
-    (5) expression -> expression . TIMES expression
-    (6) expression -> expression . DIVIDE expression
-    (7) expression -> expression . EXP expression
-    (15) expression -> expression . SNUMBER
-    (16) expression -> expression . TENS
-    (17) expression -> expression . BIGTENS
-    (19) expression -> expression . THOUSAND SNUMBER HUNDRED
-    (20) expression -> expression . THOUSAND
+    (26) expression -> MINUS sexpr .
+    (10) expression -> sexpr . PLUS sexpr
+    (11) expression -> sexpr . MINUS sexpr
+    (12) expression -> sexpr . TIMES sexpr
+    (13) expression -> sexpr . DIVIDE sexpr
+    (14) expression -> sexpr . EXP sexpr
+    (20) expression -> sexpr . PLUS expression
+    (21) expression -> sexpr . MINUS expression
+    (22) expression -> sexpr . TIMES expression
+    (23) expression -> sexpr . DIVIDE expression
+    (24) expression -> sexpr . EXP expression
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
 
-    $end            reduce using rule 1 (statement -> NAME EQUALS expression .)
-    PLUS            shift and go to state 11
-    MINUS           shift and go to state 12
-    TIMES           shift and go to state 13
-    DIVIDE          shift and go to state 14
-    EXP             shift and go to state 15
-    SNUMBER         shift and go to state 16
-    TENS            shift and go to state 17
-    BIGTENS         shift and go to state 18
-    THOUSAND        shift and go to state 19
+    PLUS            reduce using rule 26 (expression -> MINUS sexpr .)
+    MINUS           reduce using rule 26 (expression -> MINUS sexpr .)
+    TIMES           reduce using rule 26 (expression -> MINUS sexpr .)
+    DIVIDE          reduce using rule 26 (expression -> MINUS sexpr .)
+    EXP             reduce using rule 26 (expression -> MINUS sexpr .)
+    $end            reduce using rule 26 (expression -> MINUS sexpr .)
+    RPAREN          reduce using rule 26 (expression -> MINUS sexpr .)
+    THOUSAND        shift and go to state 22
+
+  ! PLUS            [ shift and go to state 17 ]
+  ! MINUS           [ shift and go to state 18 ]
+  ! TIMES           [ shift and go to state 19 ]
+  ! DIVIDE          [ shift and go to state 20 ]
+  ! EXP             [ shift and go to state 21 ]
 
 
 state 25
 
-    (3) expression -> expression PLUS expression .
-    (3) expression -> expression . PLUS expression
-    (4) expression -> expression . MINUS expression
-    (5) expression -> expression . TIMES expression
-    (6) expression -> expression . DIVIDE expression
-    (7) expression -> expression . EXP expression
-    (15) expression -> expression . SNUMBER
-    (16) expression -> expression . TENS
-    (17) expression -> expression . BIGTENS
-    (19) expression -> expression . THOUSAND SNUMBER HUNDRED
-    (20) expression -> expression . THOUSAND
+    (30) expression -> NAME .
 
-    PLUS            reduce using rule 3 (expression -> expression PLUS expression .)
-    MINUS           reduce using rule 3 (expression -> expression PLUS expression .)
-    $end            reduce using rule 3 (expression -> expression PLUS expression .)
-    RPAREN          reduce using rule 3 (expression -> expression PLUS expression .)
-    TIMES           shift and go to state 13
-    DIVIDE          shift and go to state 14
-    EXP             shift and go to state 15
-    SNUMBER         shift and go to state 16
-    TENS            shift and go to state 17
-    BIGTENS         shift and go to state 18
-    THOUSAND        shift and go to state 19
-
-  ! TIMES           [ reduce using rule 3 (expression -> expression PLUS expression .) ]
-  ! DIVIDE          [ reduce using rule 3 (expression -> expression PLUS expression .) ]
-  ! EXP             [ reduce using rule 3 (expression -> expression PLUS expression .) ]
-  ! SNUMBER         [ reduce using rule 3 (expression -> expression PLUS expression .) ]
-  ! TENS            [ reduce using rule 3 (expression -> expression PLUS expression .) ]
-  ! BIGTENS         [ reduce using rule 3 (expression -> expression PLUS expression .) ]
-  ! THOUSAND        [ reduce using rule 3 (expression -> expression PLUS expression .) ]
-  ! PLUS            [ shift and go to state 11 ]
-  ! MINUS           [ shift and go to state 12 ]
+    PLUS            reduce using rule 30 (expression -> NAME .)
+    MINUS           reduce using rule 30 (expression -> NAME .)
+    TIMES           reduce using rule 30 (expression -> NAME .)
+    DIVIDE          reduce using rule 30 (expression -> NAME .)
+    EXP             reduce using rule 30 (expression -> NAME .)
+    $end            reduce using rule 30 (expression -> NAME .)
+    RPAREN          reduce using rule 30 (expression -> NAME .)
 
 
 state 26
 
-    (4) expression -> expression MINUS expression .
-    (3) expression -> expression . PLUS expression
-    (4) expression -> expression . MINUS expression
-    (5) expression -> expression . TIMES expression
-    (6) expression -> expression . DIVIDE expression
-    (7) expression -> expression . EXP expression
-    (15) expression -> expression . SNUMBER
-    (16) expression -> expression . TENS
-    (17) expression -> expression . BIGTENS
-    (19) expression -> expression . THOUSAND SNUMBER HUNDRED
-    (20) expression -> expression . THOUSAND
+    (27) expression -> LPAREN expression . RPAREN
+    (5) expression -> expression . PLUS expression
+    (6) expression -> expression . MINUS expression
+    (7) expression -> expression . TIMES expression
+    (8) expression -> expression . DIVIDE expression
+    (9) expression -> expression . EXP expression
+    (15) expression -> expression . PLUS sexpr
+    (16) expression -> expression . MINUS sexpr
+    (17) expression -> expression . TIMES sexpr
+    (18) expression -> expression . DIVIDE sexpr
+    (19) expression -> expression . EXP sexpr
 
-    PLUS            reduce using rule 4 (expression -> expression MINUS expression .)
-    MINUS           reduce using rule 4 (expression -> expression MINUS expression .)
-    $end            reduce using rule 4 (expression -> expression MINUS expression .)
-    RPAREN          reduce using rule 4 (expression -> expression MINUS expression .)
-    TIMES           shift and go to state 13
-    DIVIDE          shift and go to state 14
-    EXP             shift and go to state 15
-    SNUMBER         shift and go to state 16
-    TENS            shift and go to state 17
-    BIGTENS         shift and go to state 18
-    THOUSAND        shift and go to state 19
-
-  ! TIMES           [ reduce using rule 4 (expression -> expression MINUS expression .) ]
-  ! DIVIDE          [ reduce using rule 4 (expression -> expression MINUS expression .) ]
-  ! EXP             [ reduce using rule 4 (expression -> expression MINUS expression .) ]
-  ! SNUMBER         [ reduce using rule 4 (expression -> expression MINUS expression .) ]
-  ! TENS            [ reduce using rule 4 (expression -> expression MINUS expression .) ]
-  ! BIGTENS         [ reduce using rule 4 (expression -> expression MINUS expression .) ]
-  ! THOUSAND        [ reduce using rule 4 (expression -> expression MINUS expression .) ]
-  ! PLUS            [ shift and go to state 11 ]
-  ! MINUS           [ shift and go to state 12 ]
+    RPAREN          shift and go to state 53
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
+    TIMES           shift and go to state 14
+    DIVIDE          shift and go to state 15
+    EXP             shift and go to state 16
 
 
 state 27
 
-    (5) expression -> expression TIMES expression .
-    (3) expression -> expression . PLUS expression
-    (4) expression -> expression . MINUS expression
-    (5) expression -> expression . TIMES expression
-    (6) expression -> expression . DIVIDE expression
-    (7) expression -> expression . EXP expression
-    (15) expression -> expression . SNUMBER
-    (16) expression -> expression . TENS
-    (17) expression -> expression . BIGTENS
-    (19) expression -> expression . THOUSAND SNUMBER HUNDRED
-    (20) expression -> expression . THOUSAND
+    (28) expression -> LPAREN sexpr . RPAREN
+    (10) expression -> sexpr . PLUS sexpr
+    (11) expression -> sexpr . MINUS sexpr
+    (12) expression -> sexpr . TIMES sexpr
+    (13) expression -> sexpr . DIVIDE sexpr
+    (14) expression -> sexpr . EXP sexpr
+    (20) expression -> sexpr . PLUS expression
+    (21) expression -> sexpr . MINUS expression
+    (22) expression -> sexpr . TIMES expression
+    (23) expression -> sexpr . DIVIDE expression
+    (24) expression -> sexpr . EXP expression
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
 
-    PLUS            reduce using rule 5 (expression -> expression TIMES expression .)
-    MINUS           reduce using rule 5 (expression -> expression TIMES expression .)
-    TIMES           reduce using rule 5 (expression -> expression TIMES expression .)
-    DIVIDE          reduce using rule 5 (expression -> expression TIMES expression .)
-    $end            reduce using rule 5 (expression -> expression TIMES expression .)
-    RPAREN          reduce using rule 5 (expression -> expression TIMES expression .)
-    EXP             shift and go to state 15
-    SNUMBER         shift and go to state 16
-    TENS            shift and go to state 17
-    BIGTENS         shift and go to state 18
-    THOUSAND        shift and go to state 19
-
-  ! EXP             [ reduce using rule 5 (expression -> expression TIMES expression .) ]
-  ! SNUMBER         [ reduce using rule 5 (expression -> expression TIMES expression .) ]
-  ! TENS            [ reduce using rule 5 (expression -> expression TIMES expression .) ]
-  ! BIGTENS         [ reduce using rule 5 (expression -> expression TIMES expression .) ]
-  ! THOUSAND        [ reduce using rule 5 (expression -> expression TIMES expression .) ]
-  ! PLUS            [ shift and go to state 11 ]
-  ! MINUS           [ shift and go to state 12 ]
-  ! TIMES           [ shift and go to state 13 ]
-  ! DIVIDE          [ shift and go to state 14 ]
+    RPAREN          shift and go to state 54
+    PLUS            shift and go to state 17
+    MINUS           shift and go to state 18
+    TIMES           shift and go to state 19
+    DIVIDE          shift and go to state 20
+    EXP             shift and go to state 21
+    THOUSAND        shift and go to state 22
 
 
 state 28
 
-    (6) expression -> expression DIVIDE expression .
-    (3) expression -> expression . PLUS expression
-    (4) expression -> expression . MINUS expression
-    (5) expression -> expression . TIMES expression
-    (6) expression -> expression . DIVIDE expression
-    (7) expression -> expression . EXP expression
-    (15) expression -> expression . SNUMBER
-    (16) expression -> expression . TENS
-    (17) expression -> expression . BIGTENS
-    (19) expression -> expression . THOUSAND SNUMBER HUNDRED
-    (20) expression -> expression . THOUSAND
+    (35) sexpr -> SNUMBER HUNDRED .
+    (36) sexpr -> SNUMBER HUNDRED . sexpr
+    (31) sexpr -> . SNUMBER
+    (32) sexpr -> . TENS
+    (33) sexpr -> . BIGTENS
+    (34) sexpr -> . BIGTENS SNUMBER
+    (35) sexpr -> . SNUMBER HUNDRED
+    (36) sexpr -> . SNUMBER HUNDRED sexpr
+    (37) sexpr -> . sexpr THOUSAND
+    (38) sexpr -> . sexpr THOUSAND sexpr
 
-    PLUS            reduce using rule 6 (expression -> expression DIVIDE expression .)
-    MINUS           reduce using rule 6 (expression -> expression DIVIDE expression .)
-    TIMES           reduce using rule 6 (expression -> expression DIVIDE expression .)
-    DIVIDE          reduce using rule 6 (expression -> expression DIVIDE expression .)
-    $end            reduce using rule 6 (expression -> expression DIVIDE expression .)
-    RPAREN          reduce using rule 6 (expression -> expression DIVIDE expression .)
-    EXP             shift and go to state 15
-    SNUMBER         shift and go to state 16
-    TENS            shift and go to state 17
-    BIGTENS         shift and go to state 18
-    THOUSAND        shift and go to state 19
+    PLUS            reduce using rule 35 (sexpr -> SNUMBER HUNDRED .)
+    MINUS           reduce using rule 35 (sexpr -> SNUMBER HUNDRED .)
+    TIMES           reduce using rule 35 (sexpr -> SNUMBER HUNDRED .)
+    DIVIDE          reduce using rule 35 (sexpr -> SNUMBER HUNDRED .)
+    EXP             reduce using rule 35 (sexpr -> SNUMBER HUNDRED .)
+    THOUSAND        reduce using rule 35 (sexpr -> SNUMBER HUNDRED .)
+    $end            reduce using rule 35 (sexpr -> SNUMBER HUNDRED .)
+    RPAREN          reduce using rule 35 (sexpr -> SNUMBER HUNDRED .)
+    SNUMBER         shift and go to state 8
+    TENS            shift and go to state 9
+    BIGTENS         shift and go to state 10
 
-  ! EXP             [ reduce using rule 6 (expression -> expression DIVIDE expression .) ]
-  ! SNUMBER         [ reduce using rule 6 (expression -> expression DIVIDE expression .) ]
-  ! TENS            [ reduce using rule 6 (expression -> expression DIVIDE expression .) ]
-  ! BIGTENS         [ reduce using rule 6 (expression -> expression DIVIDE expression .) ]
-  ! THOUSAND        [ reduce using rule 6 (expression -> expression DIVIDE expression .) ]
-  ! PLUS            [ shift and go to state 11 ]
-  ! MINUS           [ shift and go to state 12 ]
-  ! TIMES           [ shift and go to state 13 ]
-  ! DIVIDE          [ shift and go to state 14 ]
-
+    sexpr                          shift and go to state 55
 
 state 29
 
-    (7) expression -> expression EXP expression .
-    (3) expression -> expression . PLUS expression
-    (4) expression -> expression . MINUS expression
-    (5) expression -> expression . TIMES expression
-    (6) expression -> expression . DIVIDE expression
-    (7) expression -> expression . EXP expression
-    (15) expression -> expression . SNUMBER
-    (16) expression -> expression . TENS
-    (17) expression -> expression . BIGTENS
-    (19) expression -> expression . THOUSAND SNUMBER HUNDRED
-    (20) expression -> expression . THOUSAND
+    (34) sexpr -> BIGTENS SNUMBER .
 
-    PLUS            reduce using rule 7 (expression -> expression EXP expression .)
-    MINUS           reduce using rule 7 (expression -> expression EXP expression .)
-    TIMES           reduce using rule 7 (expression -> expression EXP expression .)
-    DIVIDE          reduce using rule 7 (expression -> expression EXP expression .)
-    EXP             reduce using rule 7 (expression -> expression EXP expression .)
-    $end            reduce using rule 7 (expression -> expression EXP expression .)
-    RPAREN          reduce using rule 7 (expression -> expression EXP expression .)
-    SNUMBER         shift and go to state 16
-    TENS            shift and go to state 17
-    BIGTENS         shift and go to state 18
-    THOUSAND        shift and go to state 19
-
-  ! SNUMBER         [ reduce using rule 7 (expression -> expression EXP expression .) ]
-  ! TENS            [ reduce using rule 7 (expression -> expression EXP expression .) ]
-  ! BIGTENS         [ reduce using rule 7 (expression -> expression EXP expression .) ]
-  ! THOUSAND        [ reduce using rule 7 (expression -> expression EXP expression .) ]
-  ! PLUS            [ shift and go to state 11 ]
-  ! MINUS           [ shift and go to state 12 ]
-  ! TIMES           [ shift and go to state 13 ]
-  ! DIVIDE          [ shift and go to state 14 ]
-  ! EXP             [ shift and go to state 15 ]
+    PLUS            reduce using rule 34 (sexpr -> BIGTENS SNUMBER .)
+    MINUS           reduce using rule 34 (sexpr -> BIGTENS SNUMBER .)
+    TIMES           reduce using rule 34 (sexpr -> BIGTENS SNUMBER .)
+    DIVIDE          reduce using rule 34 (sexpr -> BIGTENS SNUMBER .)
+    EXP             reduce using rule 34 (sexpr -> BIGTENS SNUMBER .)
+    THOUSAND        reduce using rule 34 (sexpr -> BIGTENS SNUMBER .)
+    $end            reduce using rule 34 (sexpr -> BIGTENS SNUMBER .)
+    RPAREN          reduce using rule 34 (sexpr -> BIGTENS SNUMBER .)
 
 
 state 30
 
-    (19) expression -> expression THOUSAND SNUMBER . HUNDRED
+    (1) statement -> NAME EQUALS expression .
+    (5) expression -> expression . PLUS expression
+    (6) expression -> expression . MINUS expression
+    (7) expression -> expression . TIMES expression
+    (8) expression -> expression . DIVIDE expression
+    (9) expression -> expression . EXP expression
+    (15) expression -> expression . PLUS sexpr
+    (16) expression -> expression . MINUS sexpr
+    (17) expression -> expression . TIMES sexpr
+    (18) expression -> expression . DIVIDE sexpr
+    (19) expression -> expression . EXP sexpr
 
-    HUNDRED         shift and go to state 32
+    $end            reduce using rule 1 (statement -> NAME EQUALS expression .)
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
+    TIMES           shift and go to state 14
+    DIVIDE          shift and go to state 15
+    EXP             shift and go to state 16
 
 
 state 31
 
-    (9) expression -> LPAREN expression RPAREN .
+    (2) statement -> NAME EQUALS sexpr .
+    (10) expression -> sexpr . PLUS sexpr
+    (11) expression -> sexpr . MINUS sexpr
+    (12) expression -> sexpr . TIMES sexpr
+    (13) expression -> sexpr . DIVIDE sexpr
+    (14) expression -> sexpr . EXP sexpr
+    (20) expression -> sexpr . PLUS expression
+    (21) expression -> sexpr . MINUS expression
+    (22) expression -> sexpr . TIMES expression
+    (23) expression -> sexpr . DIVIDE expression
+    (24) expression -> sexpr . EXP expression
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
 
-    PLUS            reduce using rule 9 (expression -> LPAREN expression RPAREN .)
-    MINUS           reduce using rule 9 (expression -> LPAREN expression RPAREN .)
-    TIMES           reduce using rule 9 (expression -> LPAREN expression RPAREN .)
-    DIVIDE          reduce using rule 9 (expression -> LPAREN expression RPAREN .)
-    EXP             reduce using rule 9 (expression -> LPAREN expression RPAREN .)
-    SNUMBER         reduce using rule 9 (expression -> LPAREN expression RPAREN .)
-    TENS            reduce using rule 9 (expression -> LPAREN expression RPAREN .)
-    BIGTENS         reduce using rule 9 (expression -> LPAREN expression RPAREN .)
-    THOUSAND        reduce using rule 9 (expression -> LPAREN expression RPAREN .)
-    $end            reduce using rule 9 (expression -> LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 9 (expression -> LPAREN expression RPAREN .)
+    $end            reduce using rule 2 (statement -> NAME EQUALS sexpr .)
+    PLUS            shift and go to state 17
+    MINUS           shift and go to state 18
+    TIMES           shift and go to state 19
+    DIVIDE          shift and go to state 20
+    EXP             shift and go to state 21
+    THOUSAND        shift and go to state 22
 
 
 state 32
 
-    (19) expression -> expression THOUSAND SNUMBER HUNDRED .
+    (5) expression -> expression PLUS expression .
+    (5) expression -> expression . PLUS expression
+    (6) expression -> expression . MINUS expression
+    (7) expression -> expression . TIMES expression
+    (8) expression -> expression . DIVIDE expression
+    (9) expression -> expression . EXP expression
+    (15) expression -> expression . PLUS sexpr
+    (16) expression -> expression . MINUS sexpr
+    (17) expression -> expression . TIMES sexpr
+    (18) expression -> expression . DIVIDE sexpr
+    (19) expression -> expression . EXP sexpr
 
-    PLUS            reduce using rule 19 (expression -> expression THOUSAND SNUMBER HUNDRED .)
-    MINUS           reduce using rule 19 (expression -> expression THOUSAND SNUMBER HUNDRED .)
-    TIMES           reduce using rule 19 (expression -> expression THOUSAND SNUMBER HUNDRED .)
-    DIVIDE          reduce using rule 19 (expression -> expression THOUSAND SNUMBER HUNDRED .)
-    EXP             reduce using rule 19 (expression -> expression THOUSAND SNUMBER HUNDRED .)
-    SNUMBER         reduce using rule 19 (expression -> expression THOUSAND SNUMBER HUNDRED .)
-    TENS            reduce using rule 19 (expression -> expression THOUSAND SNUMBER HUNDRED .)
-    BIGTENS         reduce using rule 19 (expression -> expression THOUSAND SNUMBER HUNDRED .)
-    THOUSAND        reduce using rule 19 (expression -> expression THOUSAND SNUMBER HUNDRED .)
-    $end            reduce using rule 19 (expression -> expression THOUSAND SNUMBER HUNDRED .)
-    RPAREN          reduce using rule 19 (expression -> expression THOUSAND SNUMBER HUNDRED .)
+    PLUS            reduce using rule 5 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 5 (expression -> expression PLUS expression .)
+    $end            reduce using rule 5 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 5 (expression -> expression PLUS expression .)
+    TIMES           shift and go to state 14
+    DIVIDE          shift and go to state 15
+    EXP             shift and go to state 16
+
+  ! TIMES           [ reduce using rule 5 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 5 (expression -> expression PLUS expression .) ]
+  ! EXP             [ reduce using rule 5 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+
+
+state 33
+
+    (15) expression -> expression PLUS sexpr .
+    (10) expression -> sexpr . PLUS sexpr
+    (11) expression -> sexpr . MINUS sexpr
+    (12) expression -> sexpr . TIMES sexpr
+    (13) expression -> sexpr . DIVIDE sexpr
+    (14) expression -> sexpr . EXP sexpr
+    (20) expression -> sexpr . PLUS expression
+    (21) expression -> sexpr . MINUS expression
+    (22) expression -> sexpr . TIMES expression
+    (23) expression -> sexpr . DIVIDE expression
+    (24) expression -> sexpr . EXP expression
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
+
+    PLUS            reduce using rule 15 (expression -> expression PLUS sexpr .)
+    MINUS           reduce using rule 15 (expression -> expression PLUS sexpr .)
+    $end            reduce using rule 15 (expression -> expression PLUS sexpr .)
+    RPAREN          reduce using rule 15 (expression -> expression PLUS sexpr .)
+    TIMES           shift and go to state 19
+    DIVIDE          shift and go to state 20
+    EXP             shift and go to state 21
+    THOUSAND        shift and go to state 22
+
+  ! TIMES           [ reduce using rule 15 (expression -> expression PLUS sexpr .) ]
+  ! DIVIDE          [ reduce using rule 15 (expression -> expression PLUS sexpr .) ]
+  ! EXP             [ reduce using rule 15 (expression -> expression PLUS sexpr .) ]
+  ! PLUS            [ shift and go to state 17 ]
+  ! MINUS           [ shift and go to state 18 ]
+
+
+state 34
+
+    (6) expression -> expression MINUS expression .
+    (5) expression -> expression . PLUS expression
+    (6) expression -> expression . MINUS expression
+    (7) expression -> expression . TIMES expression
+    (8) expression -> expression . DIVIDE expression
+    (9) expression -> expression . EXP expression
+    (15) expression -> expression . PLUS sexpr
+    (16) expression -> expression . MINUS sexpr
+    (17) expression -> expression . TIMES sexpr
+    (18) expression -> expression . DIVIDE sexpr
+    (19) expression -> expression . EXP sexpr
+
+    PLUS            reduce using rule 6 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 6 (expression -> expression MINUS expression .)
+    $end            reduce using rule 6 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 6 (expression -> expression MINUS expression .)
+    TIMES           shift and go to state 14
+    DIVIDE          shift and go to state 15
+    EXP             shift and go to state 16
+
+  ! TIMES           [ reduce using rule 6 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 6 (expression -> expression MINUS expression .) ]
+  ! EXP             [ reduce using rule 6 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+
+
+state 35
+
+    (16) expression -> expression MINUS sexpr .
+    (10) expression -> sexpr . PLUS sexpr
+    (11) expression -> sexpr . MINUS sexpr
+    (12) expression -> sexpr . TIMES sexpr
+    (13) expression -> sexpr . DIVIDE sexpr
+    (14) expression -> sexpr . EXP sexpr
+    (20) expression -> sexpr . PLUS expression
+    (21) expression -> sexpr . MINUS expression
+    (22) expression -> sexpr . TIMES expression
+    (23) expression -> sexpr . DIVIDE expression
+    (24) expression -> sexpr . EXP expression
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
+
+    PLUS            reduce using rule 16 (expression -> expression MINUS sexpr .)
+    MINUS           reduce using rule 16 (expression -> expression MINUS sexpr .)
+    $end            reduce using rule 16 (expression -> expression MINUS sexpr .)
+    RPAREN          reduce using rule 16 (expression -> expression MINUS sexpr .)
+    TIMES           shift and go to state 19
+    DIVIDE          shift and go to state 20
+    EXP             shift and go to state 21
+    THOUSAND        shift and go to state 22
+
+  ! TIMES           [ reduce using rule 16 (expression -> expression MINUS sexpr .) ]
+  ! DIVIDE          [ reduce using rule 16 (expression -> expression MINUS sexpr .) ]
+  ! EXP             [ reduce using rule 16 (expression -> expression MINUS sexpr .) ]
+  ! PLUS            [ shift and go to state 17 ]
+  ! MINUS           [ shift and go to state 18 ]
+
+
+state 36
+
+    (7) expression -> expression TIMES expression .
+    (5) expression -> expression . PLUS expression
+    (6) expression -> expression . MINUS expression
+    (7) expression -> expression . TIMES expression
+    (8) expression -> expression . DIVIDE expression
+    (9) expression -> expression . EXP expression
+    (15) expression -> expression . PLUS sexpr
+    (16) expression -> expression . MINUS sexpr
+    (17) expression -> expression . TIMES sexpr
+    (18) expression -> expression . DIVIDE sexpr
+    (19) expression -> expression . EXP sexpr
+
+    PLUS            reduce using rule 7 (expression -> expression TIMES expression .)
+    MINUS           reduce using rule 7 (expression -> expression TIMES expression .)
+    TIMES           reduce using rule 7 (expression -> expression TIMES expression .)
+    DIVIDE          reduce using rule 7 (expression -> expression TIMES expression .)
+    $end            reduce using rule 7 (expression -> expression TIMES expression .)
+    RPAREN          reduce using rule 7 (expression -> expression TIMES expression .)
+    EXP             shift and go to state 16
+
+  ! EXP             [ reduce using rule 7 (expression -> expression TIMES expression .) ]
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+  ! TIMES           [ shift and go to state 14 ]
+  ! DIVIDE          [ shift and go to state 15 ]
+
+
+state 37
+
+    (17) expression -> expression TIMES sexpr .
+    (10) expression -> sexpr . PLUS sexpr
+    (11) expression -> sexpr . MINUS sexpr
+    (12) expression -> sexpr . TIMES sexpr
+    (13) expression -> sexpr . DIVIDE sexpr
+    (14) expression -> sexpr . EXP sexpr
+    (20) expression -> sexpr . PLUS expression
+    (21) expression -> sexpr . MINUS expression
+    (22) expression -> sexpr . TIMES expression
+    (23) expression -> sexpr . DIVIDE expression
+    (24) expression -> sexpr . EXP expression
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
+
+    PLUS            reduce using rule 17 (expression -> expression TIMES sexpr .)
+    MINUS           reduce using rule 17 (expression -> expression TIMES sexpr .)
+    TIMES           reduce using rule 17 (expression -> expression TIMES sexpr .)
+    DIVIDE          reduce using rule 17 (expression -> expression TIMES sexpr .)
+    $end            reduce using rule 17 (expression -> expression TIMES sexpr .)
+    RPAREN          reduce using rule 17 (expression -> expression TIMES sexpr .)
+    EXP             shift and go to state 21
+    THOUSAND        shift and go to state 22
+
+  ! EXP             [ reduce using rule 17 (expression -> expression TIMES sexpr .) ]
+  ! PLUS            [ shift and go to state 17 ]
+  ! MINUS           [ shift and go to state 18 ]
+  ! TIMES           [ shift and go to state 19 ]
+  ! DIVIDE          [ shift and go to state 20 ]
+
+
+state 38
+
+    (8) expression -> expression DIVIDE expression .
+    (5) expression -> expression . PLUS expression
+    (6) expression -> expression . MINUS expression
+    (7) expression -> expression . TIMES expression
+    (8) expression -> expression . DIVIDE expression
+    (9) expression -> expression . EXP expression
+    (15) expression -> expression . PLUS sexpr
+    (16) expression -> expression . MINUS sexpr
+    (17) expression -> expression . TIMES sexpr
+    (18) expression -> expression . DIVIDE sexpr
+    (19) expression -> expression . EXP sexpr
+
+    PLUS            reduce using rule 8 (expression -> expression DIVIDE expression .)
+    MINUS           reduce using rule 8 (expression -> expression DIVIDE expression .)
+    TIMES           reduce using rule 8 (expression -> expression DIVIDE expression .)
+    DIVIDE          reduce using rule 8 (expression -> expression DIVIDE expression .)
+    $end            reduce using rule 8 (expression -> expression DIVIDE expression .)
+    RPAREN          reduce using rule 8 (expression -> expression DIVIDE expression .)
+    EXP             shift and go to state 16
+
+  ! EXP             [ reduce using rule 8 (expression -> expression DIVIDE expression .) ]
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+  ! TIMES           [ shift and go to state 14 ]
+  ! DIVIDE          [ shift and go to state 15 ]
+
+
+state 39
+
+    (18) expression -> expression DIVIDE sexpr .
+    (10) expression -> sexpr . PLUS sexpr
+    (11) expression -> sexpr . MINUS sexpr
+    (12) expression -> sexpr . TIMES sexpr
+    (13) expression -> sexpr . DIVIDE sexpr
+    (14) expression -> sexpr . EXP sexpr
+    (20) expression -> sexpr . PLUS expression
+    (21) expression -> sexpr . MINUS expression
+    (22) expression -> sexpr . TIMES expression
+    (23) expression -> sexpr . DIVIDE expression
+    (24) expression -> sexpr . EXP expression
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
+
+    PLUS            reduce using rule 18 (expression -> expression DIVIDE sexpr .)
+    MINUS           reduce using rule 18 (expression -> expression DIVIDE sexpr .)
+    TIMES           reduce using rule 18 (expression -> expression DIVIDE sexpr .)
+    DIVIDE          reduce using rule 18 (expression -> expression DIVIDE sexpr .)
+    $end            reduce using rule 18 (expression -> expression DIVIDE sexpr .)
+    RPAREN          reduce using rule 18 (expression -> expression DIVIDE sexpr .)
+    EXP             shift and go to state 21
+    THOUSAND        shift and go to state 22
+
+  ! EXP             [ reduce using rule 18 (expression -> expression DIVIDE sexpr .) ]
+  ! PLUS            [ shift and go to state 17 ]
+  ! MINUS           [ shift and go to state 18 ]
+  ! TIMES           [ shift and go to state 19 ]
+  ! DIVIDE          [ shift and go to state 20 ]
+
+
+state 40
+
+    (9) expression -> expression EXP expression .
+    (5) expression -> expression . PLUS expression
+    (6) expression -> expression . MINUS expression
+    (7) expression -> expression . TIMES expression
+    (8) expression -> expression . DIVIDE expression
+    (9) expression -> expression . EXP expression
+    (15) expression -> expression . PLUS sexpr
+    (16) expression -> expression . MINUS sexpr
+    (17) expression -> expression . TIMES sexpr
+    (18) expression -> expression . DIVIDE sexpr
+    (19) expression -> expression . EXP sexpr
+
+    PLUS            reduce using rule 9 (expression -> expression EXP expression .)
+    MINUS           reduce using rule 9 (expression -> expression EXP expression .)
+    TIMES           reduce using rule 9 (expression -> expression EXP expression .)
+    DIVIDE          reduce using rule 9 (expression -> expression EXP expression .)
+    EXP             reduce using rule 9 (expression -> expression EXP expression .)
+    $end            reduce using rule 9 (expression -> expression EXP expression .)
+    RPAREN          reduce using rule 9 (expression -> expression EXP expression .)
+
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+  ! TIMES           [ shift and go to state 14 ]
+  ! DIVIDE          [ shift and go to state 15 ]
+  ! EXP             [ shift and go to state 16 ]
+
+
+state 41
+
+    (19) expression -> expression EXP sexpr .
+    (10) expression -> sexpr . PLUS sexpr
+    (11) expression -> sexpr . MINUS sexpr
+    (12) expression -> sexpr . TIMES sexpr
+    (13) expression -> sexpr . DIVIDE sexpr
+    (14) expression -> sexpr . EXP sexpr
+    (20) expression -> sexpr . PLUS expression
+    (21) expression -> sexpr . MINUS expression
+    (22) expression -> sexpr . TIMES expression
+    (23) expression -> sexpr . DIVIDE expression
+    (24) expression -> sexpr . EXP expression
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
+
+    PLUS            reduce using rule 19 (expression -> expression EXP sexpr .)
+    MINUS           reduce using rule 19 (expression -> expression EXP sexpr .)
+    TIMES           reduce using rule 19 (expression -> expression EXP sexpr .)
+    DIVIDE          reduce using rule 19 (expression -> expression EXP sexpr .)
+    EXP             reduce using rule 19 (expression -> expression EXP sexpr .)
+    $end            reduce using rule 19 (expression -> expression EXP sexpr .)
+    RPAREN          reduce using rule 19 (expression -> expression EXP sexpr .)
+    THOUSAND        shift and go to state 22
+
+  ! PLUS            [ shift and go to state 17 ]
+  ! MINUS           [ shift and go to state 18 ]
+  ! TIMES           [ shift and go to state 19 ]
+  ! DIVIDE          [ shift and go to state 20 ]
+  ! EXP             [ shift and go to state 21 ]
+
+
+state 42
+
+    (10) expression -> sexpr PLUS sexpr .
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
+    (10) expression -> sexpr . PLUS sexpr
+    (11) expression -> sexpr . MINUS sexpr
+    (12) expression -> sexpr . TIMES sexpr
+    (13) expression -> sexpr . DIVIDE sexpr
+    (14) expression -> sexpr . EXP sexpr
+    (20) expression -> sexpr . PLUS expression
+    (21) expression -> sexpr . MINUS expression
+    (22) expression -> sexpr . TIMES expression
+    (23) expression -> sexpr . DIVIDE expression
+    (24) expression -> sexpr . EXP expression
+
+    PLUS            reduce using rule 10 (expression -> sexpr PLUS sexpr .)
+    MINUS           reduce using rule 10 (expression -> sexpr PLUS sexpr .)
+    $end            reduce using rule 10 (expression -> sexpr PLUS sexpr .)
+    RPAREN          reduce using rule 10 (expression -> sexpr PLUS sexpr .)
+    THOUSAND        shift and go to state 22
+    TIMES           shift and go to state 19
+    DIVIDE          shift and go to state 20
+    EXP             shift and go to state 21
+
+  ! TIMES           [ reduce using rule 10 (expression -> sexpr PLUS sexpr .) ]
+  ! DIVIDE          [ reduce using rule 10 (expression -> sexpr PLUS sexpr .) ]
+  ! EXP             [ reduce using rule 10 (expression -> sexpr PLUS sexpr .) ]
+  ! PLUS            [ shift and go to state 17 ]
+  ! MINUS           [ shift and go to state 18 ]
+
+
+state 43
+
+    (20) expression -> sexpr PLUS expression .
+    (5) expression -> expression . PLUS expression
+    (6) expression -> expression . MINUS expression
+    (7) expression -> expression . TIMES expression
+    (8) expression -> expression . DIVIDE expression
+    (9) expression -> expression . EXP expression
+    (15) expression -> expression . PLUS sexpr
+    (16) expression -> expression . MINUS sexpr
+    (17) expression -> expression . TIMES sexpr
+    (18) expression -> expression . DIVIDE sexpr
+    (19) expression -> expression . EXP sexpr
+
+    PLUS            reduce using rule 20 (expression -> sexpr PLUS expression .)
+    MINUS           reduce using rule 20 (expression -> sexpr PLUS expression .)
+    $end            reduce using rule 20 (expression -> sexpr PLUS expression .)
+    RPAREN          reduce using rule 20 (expression -> sexpr PLUS expression .)
+    TIMES           shift and go to state 14
+    DIVIDE          shift and go to state 15
+    EXP             shift and go to state 16
+
+  ! TIMES           [ reduce using rule 20 (expression -> sexpr PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 20 (expression -> sexpr PLUS expression .) ]
+  ! EXP             [ reduce using rule 20 (expression -> sexpr PLUS expression .) ]
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+
+
+state 44
+
+    (11) expression -> sexpr MINUS sexpr .
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
+    (10) expression -> sexpr . PLUS sexpr
+    (11) expression -> sexpr . MINUS sexpr
+    (12) expression -> sexpr . TIMES sexpr
+    (13) expression -> sexpr . DIVIDE sexpr
+    (14) expression -> sexpr . EXP sexpr
+    (20) expression -> sexpr . PLUS expression
+    (21) expression -> sexpr . MINUS expression
+    (22) expression -> sexpr . TIMES expression
+    (23) expression -> sexpr . DIVIDE expression
+    (24) expression -> sexpr . EXP expression
+
+    PLUS            reduce using rule 11 (expression -> sexpr MINUS sexpr .)
+    MINUS           reduce using rule 11 (expression -> sexpr MINUS sexpr .)
+    $end            reduce using rule 11 (expression -> sexpr MINUS sexpr .)
+    RPAREN          reduce using rule 11 (expression -> sexpr MINUS sexpr .)
+    THOUSAND        shift and go to state 22
+    TIMES           shift and go to state 19
+    DIVIDE          shift and go to state 20
+    EXP             shift and go to state 21
+
+  ! TIMES           [ reduce using rule 11 (expression -> sexpr MINUS sexpr .) ]
+  ! DIVIDE          [ reduce using rule 11 (expression -> sexpr MINUS sexpr .) ]
+  ! EXP             [ reduce using rule 11 (expression -> sexpr MINUS sexpr .) ]
+  ! PLUS            [ shift and go to state 17 ]
+  ! MINUS           [ shift and go to state 18 ]
+
+
+state 45
+
+    (21) expression -> sexpr MINUS expression .
+    (5) expression -> expression . PLUS expression
+    (6) expression -> expression . MINUS expression
+    (7) expression -> expression . TIMES expression
+    (8) expression -> expression . DIVIDE expression
+    (9) expression -> expression . EXP expression
+    (15) expression -> expression . PLUS sexpr
+    (16) expression -> expression . MINUS sexpr
+    (17) expression -> expression . TIMES sexpr
+    (18) expression -> expression . DIVIDE sexpr
+    (19) expression -> expression . EXP sexpr
+
+    PLUS            reduce using rule 21 (expression -> sexpr MINUS expression .)
+    MINUS           reduce using rule 21 (expression -> sexpr MINUS expression .)
+    $end            reduce using rule 21 (expression -> sexpr MINUS expression .)
+    RPAREN          reduce using rule 21 (expression -> sexpr MINUS expression .)
+    TIMES           shift and go to state 14
+    DIVIDE          shift and go to state 15
+    EXP             shift and go to state 16
+
+  ! TIMES           [ reduce using rule 21 (expression -> sexpr MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 21 (expression -> sexpr MINUS expression .) ]
+  ! EXP             [ reduce using rule 21 (expression -> sexpr MINUS expression .) ]
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+
+
+state 46
+
+    (12) expression -> sexpr TIMES sexpr .
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
+    (10) expression -> sexpr . PLUS sexpr
+    (11) expression -> sexpr . MINUS sexpr
+    (12) expression -> sexpr . TIMES sexpr
+    (13) expression -> sexpr . DIVIDE sexpr
+    (14) expression -> sexpr . EXP sexpr
+    (20) expression -> sexpr . PLUS expression
+    (21) expression -> sexpr . MINUS expression
+    (22) expression -> sexpr . TIMES expression
+    (23) expression -> sexpr . DIVIDE expression
+    (24) expression -> sexpr . EXP expression
+
+    PLUS            reduce using rule 12 (expression -> sexpr TIMES sexpr .)
+    MINUS           reduce using rule 12 (expression -> sexpr TIMES sexpr .)
+    TIMES           reduce using rule 12 (expression -> sexpr TIMES sexpr .)
+    DIVIDE          reduce using rule 12 (expression -> sexpr TIMES sexpr .)
+    $end            reduce using rule 12 (expression -> sexpr TIMES sexpr .)
+    RPAREN          reduce using rule 12 (expression -> sexpr TIMES sexpr .)
+    THOUSAND        shift and go to state 22
+    EXP             shift and go to state 21
+
+  ! EXP             [ reduce using rule 12 (expression -> sexpr TIMES sexpr .) ]
+  ! PLUS            [ shift and go to state 17 ]
+  ! MINUS           [ shift and go to state 18 ]
+  ! TIMES           [ shift and go to state 19 ]
+  ! DIVIDE          [ shift and go to state 20 ]
+
+
+state 47
+
+    (22) expression -> sexpr TIMES expression .
+    (5) expression -> expression . PLUS expression
+    (6) expression -> expression . MINUS expression
+    (7) expression -> expression . TIMES expression
+    (8) expression -> expression . DIVIDE expression
+    (9) expression -> expression . EXP expression
+    (15) expression -> expression . PLUS sexpr
+    (16) expression -> expression . MINUS sexpr
+    (17) expression -> expression . TIMES sexpr
+    (18) expression -> expression . DIVIDE sexpr
+    (19) expression -> expression . EXP sexpr
+
+    PLUS            reduce using rule 22 (expression -> sexpr TIMES expression .)
+    MINUS           reduce using rule 22 (expression -> sexpr TIMES expression .)
+    TIMES           reduce using rule 22 (expression -> sexpr TIMES expression .)
+    DIVIDE          reduce using rule 22 (expression -> sexpr TIMES expression .)
+    $end            reduce using rule 22 (expression -> sexpr TIMES expression .)
+    RPAREN          reduce using rule 22 (expression -> sexpr TIMES expression .)
+    EXP             shift and go to state 16
+
+  ! EXP             [ reduce using rule 22 (expression -> sexpr TIMES expression .) ]
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+  ! TIMES           [ shift and go to state 14 ]
+  ! DIVIDE          [ shift and go to state 15 ]
+
+
+state 48
+
+    (13) expression -> sexpr DIVIDE sexpr .
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
+    (10) expression -> sexpr . PLUS sexpr
+    (11) expression -> sexpr . MINUS sexpr
+    (12) expression -> sexpr . TIMES sexpr
+    (13) expression -> sexpr . DIVIDE sexpr
+    (14) expression -> sexpr . EXP sexpr
+    (20) expression -> sexpr . PLUS expression
+    (21) expression -> sexpr . MINUS expression
+    (22) expression -> sexpr . TIMES expression
+    (23) expression -> sexpr . DIVIDE expression
+    (24) expression -> sexpr . EXP expression
+
+    PLUS            reduce using rule 13 (expression -> sexpr DIVIDE sexpr .)
+    MINUS           reduce using rule 13 (expression -> sexpr DIVIDE sexpr .)
+    TIMES           reduce using rule 13 (expression -> sexpr DIVIDE sexpr .)
+    DIVIDE          reduce using rule 13 (expression -> sexpr DIVIDE sexpr .)
+    $end            reduce using rule 13 (expression -> sexpr DIVIDE sexpr .)
+    RPAREN          reduce using rule 13 (expression -> sexpr DIVIDE sexpr .)
+    THOUSAND        shift and go to state 22
+    EXP             shift and go to state 21
+
+  ! EXP             [ reduce using rule 13 (expression -> sexpr DIVIDE sexpr .) ]
+  ! PLUS            [ shift and go to state 17 ]
+  ! MINUS           [ shift and go to state 18 ]
+  ! TIMES           [ shift and go to state 19 ]
+  ! DIVIDE          [ shift and go to state 20 ]
+
+
+state 49
+
+    (23) expression -> sexpr DIVIDE expression .
+    (5) expression -> expression . PLUS expression
+    (6) expression -> expression . MINUS expression
+    (7) expression -> expression . TIMES expression
+    (8) expression -> expression . DIVIDE expression
+    (9) expression -> expression . EXP expression
+    (15) expression -> expression . PLUS sexpr
+    (16) expression -> expression . MINUS sexpr
+    (17) expression -> expression . TIMES sexpr
+    (18) expression -> expression . DIVIDE sexpr
+    (19) expression -> expression . EXP sexpr
+
+    PLUS            reduce using rule 23 (expression -> sexpr DIVIDE expression .)
+    MINUS           reduce using rule 23 (expression -> sexpr DIVIDE expression .)
+    TIMES           reduce using rule 23 (expression -> sexpr DIVIDE expression .)
+    DIVIDE          reduce using rule 23 (expression -> sexpr DIVIDE expression .)
+    $end            reduce using rule 23 (expression -> sexpr DIVIDE expression .)
+    RPAREN          reduce using rule 23 (expression -> sexpr DIVIDE expression .)
+    EXP             shift and go to state 16
+
+  ! EXP             [ reduce using rule 23 (expression -> sexpr DIVIDE expression .) ]
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+  ! TIMES           [ shift and go to state 14 ]
+  ! DIVIDE          [ shift and go to state 15 ]
+
+
+state 50
+
+    (14) expression -> sexpr EXP sexpr .
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
+    (10) expression -> sexpr . PLUS sexpr
+    (11) expression -> sexpr . MINUS sexpr
+    (12) expression -> sexpr . TIMES sexpr
+    (13) expression -> sexpr . DIVIDE sexpr
+    (14) expression -> sexpr . EXP sexpr
+    (20) expression -> sexpr . PLUS expression
+    (21) expression -> sexpr . MINUS expression
+    (22) expression -> sexpr . TIMES expression
+    (23) expression -> sexpr . DIVIDE expression
+    (24) expression -> sexpr . EXP expression
+
+    PLUS            reduce using rule 14 (expression -> sexpr EXP sexpr .)
+    MINUS           reduce using rule 14 (expression -> sexpr EXP sexpr .)
+    TIMES           reduce using rule 14 (expression -> sexpr EXP sexpr .)
+    DIVIDE          reduce using rule 14 (expression -> sexpr EXP sexpr .)
+    EXP             reduce using rule 14 (expression -> sexpr EXP sexpr .)
+    $end            reduce using rule 14 (expression -> sexpr EXP sexpr .)
+    RPAREN          reduce using rule 14 (expression -> sexpr EXP sexpr .)
+    THOUSAND        shift and go to state 22
+
+  ! PLUS            [ shift and go to state 17 ]
+  ! MINUS           [ shift and go to state 18 ]
+  ! TIMES           [ shift and go to state 19 ]
+  ! DIVIDE          [ shift and go to state 20 ]
+  ! EXP             [ shift and go to state 21 ]
+
+
+state 51
+
+    (24) expression -> sexpr EXP expression .
+    (5) expression -> expression . PLUS expression
+    (6) expression -> expression . MINUS expression
+    (7) expression -> expression . TIMES expression
+    (8) expression -> expression . DIVIDE expression
+    (9) expression -> expression . EXP expression
+    (15) expression -> expression . PLUS sexpr
+    (16) expression -> expression . MINUS sexpr
+    (17) expression -> expression . TIMES sexpr
+    (18) expression -> expression . DIVIDE sexpr
+    (19) expression -> expression . EXP sexpr
+
+    PLUS            reduce using rule 24 (expression -> sexpr EXP expression .)
+    MINUS           reduce using rule 24 (expression -> sexpr EXP expression .)
+    TIMES           reduce using rule 24 (expression -> sexpr EXP expression .)
+    DIVIDE          reduce using rule 24 (expression -> sexpr EXP expression .)
+    EXP             reduce using rule 24 (expression -> sexpr EXP expression .)
+    $end            reduce using rule 24 (expression -> sexpr EXP expression .)
+    RPAREN          reduce using rule 24 (expression -> sexpr EXP expression .)
+
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+  ! TIMES           [ shift and go to state 14 ]
+  ! DIVIDE          [ shift and go to state 15 ]
+  ! EXP             [ shift and go to state 16 ]
+
+
+state 52
+
+    (38) sexpr -> sexpr THOUSAND sexpr .
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
+
+    PLUS            reduce using rule 38 (sexpr -> sexpr THOUSAND sexpr .)
+    MINUS           reduce using rule 38 (sexpr -> sexpr THOUSAND sexpr .)
+    TIMES           reduce using rule 38 (sexpr -> sexpr THOUSAND sexpr .)
+    DIVIDE          reduce using rule 38 (sexpr -> sexpr THOUSAND sexpr .)
+    EXP             reduce using rule 38 (sexpr -> sexpr THOUSAND sexpr .)
+    THOUSAND        reduce using rule 38 (sexpr -> sexpr THOUSAND sexpr .)
+    $end            reduce using rule 38 (sexpr -> sexpr THOUSAND sexpr .)
+    RPAREN          reduce using rule 38 (sexpr -> sexpr THOUSAND sexpr .)
+
+  ! THOUSAND        [ shift and go to state 22 ]
+
+
+state 53
+
+    (27) expression -> LPAREN expression RPAREN .
+
+    PLUS            reduce using rule 27 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 27 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 27 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 27 (expression -> LPAREN expression RPAREN .)
+    EXP             reduce using rule 27 (expression -> LPAREN expression RPAREN .)
+    $end            reduce using rule 27 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 27 (expression -> LPAREN expression RPAREN .)
+
+
+state 54
+
+    (28) expression -> LPAREN sexpr RPAREN .
+
+    PLUS            reduce using rule 28 (expression -> LPAREN sexpr RPAREN .)
+    MINUS           reduce using rule 28 (expression -> LPAREN sexpr RPAREN .)
+    TIMES           reduce using rule 28 (expression -> LPAREN sexpr RPAREN .)
+    DIVIDE          reduce using rule 28 (expression -> LPAREN sexpr RPAREN .)
+    EXP             reduce using rule 28 (expression -> LPAREN sexpr RPAREN .)
+    $end            reduce using rule 28 (expression -> LPAREN sexpr RPAREN .)
+    RPAREN          reduce using rule 28 (expression -> LPAREN sexpr RPAREN .)
+
+
+state 55
+
+    (36) sexpr -> SNUMBER HUNDRED sexpr .
+    (37) sexpr -> sexpr . THOUSAND
+    (38) sexpr -> sexpr . THOUSAND sexpr
+
+    PLUS            reduce using rule 36 (sexpr -> SNUMBER HUNDRED sexpr .)
+    MINUS           reduce using rule 36 (sexpr -> SNUMBER HUNDRED sexpr .)
+    TIMES           reduce using rule 36 (sexpr -> SNUMBER HUNDRED sexpr .)
+    DIVIDE          reduce using rule 36 (sexpr -> SNUMBER HUNDRED sexpr .)
+    EXP             reduce using rule 36 (sexpr -> SNUMBER HUNDRED sexpr .)
+    $end            reduce using rule 36 (sexpr -> SNUMBER HUNDRED sexpr .)
+    RPAREN          reduce using rule 36 (sexpr -> SNUMBER HUNDRED sexpr .)
+    THOUSAND        shift and go to state 22
+
+  ! THOUSAND        [ reduce using rule 36 (sexpr -> SNUMBER HUNDRED sexpr .) ]
 

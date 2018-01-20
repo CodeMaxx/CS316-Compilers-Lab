@@ -5,9 +5,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDEleftEXPleftHUNDREDleftTHOUSANDleftSNUMBERleftTENSleftBIGTENSrightUMINUSNAME NUMBER PLUS MINUS EXP TIMES DIVIDE EQUALS LPAREN RPAREN HUNDRED THOUSAND SNUMBER TENS BIGTENSstatement : NAME EQUALS expressionstatement : expression\n    expression : expression PLUS expression\n              | expression MINUS expression\n              | expression TIMES expression\n              | expression DIVIDE expression\n              | expression EXP expression\n    expression : MINUS expression %prec UMINUSexpression : LPAREN expression RPARENexpression : NUMBERexpression : NAME\n    expression : SNUMBER\n    \n    expression : TENS\n    \n    expression : BIGTENS\n    \n    expression : expression SNUMBER\n    \n    expression : expression TENS\n    \n    expression : expression BIGTENS\n    \n    expression : SNUMBER HUNDRED\n    \n    expression : expression THOUSAND SNUMBER HUNDRED\n    \n    expression : expression THOUSAND\n    '
+_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDEleftEXPrightUMINUSleftHUNDREDleftTHOUSANDleftSNUMBERleftTENSleftBIGTENSNAME NUMBER PLUS MINUS EXP TIMES DIVIDE EQUALS LPAREN RPAREN HUNDRED THOUSAND SNUMBER TENS BIGTENS\n    statement : NAME EQUALS expression\n                | NAME EQUALS sexpr\n    \n    statement : expression\n                | sexpr\n    \n    expression : expression PLUS expression\n              | expression MINUS expression\n              | expression TIMES expression\n              | expression DIVIDE expression\n              | expression EXP expression\n              | sexpr PLUS sexpr\n              | sexpr MINUS sexpr\n              | sexpr TIMES sexpr\n              | sexpr DIVIDE sexpr\n              | sexpr EXP sexpr\n              | expression PLUS sexpr\n              | expression MINUS sexpr\n              | expression TIMES sexpr\n              | expression DIVIDE sexpr\n              | expression EXP sexpr\n              | sexpr PLUS expression\n              | sexpr MINUS expression\n              | sexpr TIMES expression\n              | sexpr DIVIDE expression\n              | sexpr EXP expression\n    \n    expression : MINUS expression %prec UMINUS\n                | MINUS sexpr %prec UMINUS\n    \n    expression : LPAREN expression RPAREN\n                | LPAREN sexpr RPAREN\n    expression : NUMBERexpression : NAME\n    sexpr : SNUMBER\n            | TENS\n            | BIGTENS\n    \n    sexpr : BIGTENS SNUMBER\n    \n    sexpr : SNUMBER HUNDRED\n    \n    sexpr : SNUMBER HUNDRED sexpr\n    \n    sexpr : sexpr THOUSAND\n    \n    sexpr : sexpr THOUSAND sexpr\n    '
     
-_lr_action_items = {'NAME':([0,4,5,10,11,12,13,14,15,],[2,21,21,21,21,21,21,21,21,]),'MINUS':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,31,32,],[4,-11,12,4,4,-10,-12,-13,-14,4,4,4,4,4,4,-15,-16,-17,-20,-8,-11,12,-18,12,-3,-4,-5,-6,-7,-9,-19,]),'LPAREN':([0,4,5,10,11,12,13,14,15,],[5,5,5,5,5,5,5,5,5,]),'NUMBER':([0,4,5,10,11,12,13,14,15,],[6,6,6,6,6,6,6,6,6,]),'SNUMBER':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,31,32,],[7,-11,16,7,7,-10,-12,-13,-14,7,7,7,7,7,7,-15,-16,-17,30,-8,-11,16,-18,16,16,16,16,16,16,-9,-19,]),'TENS':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,31,32,],[8,-11,17,8,8,-10,-12,-13,-14,8,8,8,8,8,8,-15,-16,-17,-20,-8,-11,17,-18,17,17,17,17,17,17,-9,-19,]),'BIGTENS':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,31,32,],[9,-11,18,9,9,-10,-12,-13,-14,9,9,9,9,9,9,-15,-16,-17,-20,-8,-11,18,-18,18,18,18,18,18,18,-9,-19,]),'$end':([1,2,3,6,7,8,9,16,17,18,19,20,21,23,24,25,26,27,28,29,31,32,],[0,-11,-2,-10,-12,-13,-14,-15,-16,-17,-20,-8,-11,-18,-1,-3,-4,-5,-6,-7,-9,-19,]),'EQUALS':([2,],[10,]),'PLUS':([2,3,6,7,8,9,16,17,18,19,20,21,22,23,24,25,26,27,28,29,31,32,],[-11,11,-10,-12,-13,-14,-15,-16,-17,-20,-8,-11,11,-18,11,-3,-4,-5,-6,-7,-9,-19,]),'TIMES':([2,3,6,7,8,9,16,17,18,19,20,21,22,23,24,25,26,27,28,29,31,32,],[-11,13,-10,-12,-13,-14,-15,-16,-17,-20,-8,-11,13,-18,13,13,13,-5,-6,-7,-9,-19,]),'DIVIDE':([2,3,6,7,8,9,16,17,18,19,20,21,22,23,24,25,26,27,28,29,31,32,],[-11,14,-10,-12,-13,-14,-15,-16,-17,-20,-8,-11,14,-18,14,14,14,-5,-6,-7,-9,-19,]),'EXP':([2,3,6,7,8,9,16,17,18,19,20,21,22,23,24,25,26,27,28,29,31,32,],[-11,15,-10,-12,-13,-14,-15,-16,-17,-20,-8,-11,15,-18,15,15,15,15,15,-7,-9,-19,]),'THOUSAND':([2,3,6,7,8,9,16,17,18,19,20,21,22,23,24,25,26,27,28,29,31,32,],[-11,19,-10,-12,-13,-14,-15,-16,-17,-20,-8,-11,19,-18,19,19,19,19,19,19,-9,-19,]),'RPAREN':([6,7,8,9,16,17,18,19,20,21,22,23,25,26,27,28,29,31,32,],[-10,-12,-13,-14,-15,-16,-17,-20,-8,-11,31,-18,-3,-4,-5,-6,-7,-9,-19,]),'HUNDRED':([7,30,],[23,32,]),}
+_lr_action_items = {'NAME':([0,5,6,11,12,13,14,15,16,17,18,19,20,21,],[2,25,25,25,25,25,25,25,25,25,25,25,25,25,]),'MINUS':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,],[5,-30,13,18,5,5,-29,-31,-32,-33,5,5,5,5,5,5,5,5,5,5,5,-37,-25,-26,-30,13,18,-35,-34,13,18,-5,-15,-6,-16,-7,-17,-8,-18,-9,-19,-10,-20,-11,-21,-12,-22,-13,-23,-14,-24,-38,-27,-28,-36,]),'LPAREN':([0,5,6,11,12,13,14,15,16,17,18,19,20,21,],[6,6,6,6,6,6,6,6,6,6,6,6,6,6,]),'NUMBER':([0,5,6,11,12,13,14,15,16,17,18,19,20,21,],[7,7,7,7,7,7,7,7,7,7,7,7,7,7,]),'SNUMBER':([0,5,6,10,11,12,13,14,15,16,17,18,19,20,21,22,28,],[8,8,8,29,8,8,8,8,8,8,8,8,8,8,8,8,8,]),'TENS':([0,5,6,11,12,13,14,15,16,17,18,19,20,21,22,28,],[9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,]),'BIGTENS':([0,5,6,11,12,13,14,15,16,17,18,19,20,21,22,28,],[10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,]),'$end':([1,2,3,4,7,8,9,10,22,23,24,25,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,],[0,-30,-3,-4,-29,-31,-32,-33,-37,-25,-26,-30,-35,-34,-1,-2,-5,-15,-6,-16,-7,-17,-8,-18,-9,-19,-10,-20,-11,-21,-12,-22,-13,-23,-14,-24,-38,-27,-28,-36,]),'EQUALS':([2,],[11,]),'PLUS':([2,3,4,7,8,9,10,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,],[-30,12,17,-29,-31,-32,-33,-37,-25,-26,-30,12,17,-35,-34,12,17,-5,-15,-6,-16,-7,-17,-8,-18,-9,-19,-10,-20,-11,-21,-12,-22,-13,-23,-14,-24,-38,-27,-28,-36,]),'TIMES':([2,3,4,7,8,9,10,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,],[-30,14,19,-29,-31,-32,-33,-37,-25,-26,-30,14,19,-35,-34,14,19,14,19,14,19,-7,-17,-8,-18,-9,-19,19,14,19,14,-12,-22,-13,-23,-14,-24,-38,-27,-28,-36,]),'DIVIDE':([2,3,4,7,8,9,10,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,],[-30,15,20,-29,-31,-32,-33,-37,-25,-26,-30,15,20,-35,-34,15,20,15,20,15,20,-7,-17,-8,-18,-9,-19,20,15,20,15,-12,-22,-13,-23,-14,-24,-38,-27,-28,-36,]),'EXP':([2,3,4,7,8,9,10,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,],[-30,16,21,-29,-31,-32,-33,-37,-25,-26,-30,16,21,-35,-34,16,21,16,21,16,21,16,21,16,21,-9,-19,21,16,21,16,21,16,21,16,-14,-24,-38,-27,-28,-36,]),'THOUSAND':([4,8,9,10,22,24,27,28,29,31,33,35,37,39,41,42,44,46,48,50,52,55,],[22,-31,-32,-33,-37,22,22,-35,-34,22,22,22,22,22,22,22,22,22,22,22,-38,22,]),'RPAREN':([7,8,9,10,22,23,24,25,26,27,28,29,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,],[-29,-31,-32,-33,-37,-25,-26,-30,53,54,-35,-34,-5,-15,-6,-16,-7,-17,-8,-18,-9,-19,-10,-20,-11,-21,-12,-22,-13,-23,-14,-24,-38,-27,-28,-36,]),'HUNDRED':([8,],[28,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'statement':([0,],[1,]),'expression':([0,4,5,10,11,12,13,14,15,],[3,20,22,24,25,26,27,28,29,]),}
+_lr_goto_items = {'statement':([0,],[1,]),'expression':([0,5,6,11,12,13,14,15,16,17,18,19,20,21,],[3,23,26,30,32,34,36,38,40,43,45,47,49,51,]),'sexpr':([0,5,6,11,12,13,14,15,16,17,18,19,20,21,22,28,],[4,24,27,31,33,35,37,39,41,42,44,46,48,50,52,55,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,24 +26,42 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> statement","S'",1,None,None,None),
-  ('statement -> NAME EQUALS expression','statement',3,'p_statement_assign','calculator.py',129),
-  ('statement -> expression','statement',1,'p_statement_expr','calculator.py',133),
-  ('expression -> expression PLUS expression','expression',3,'p_expression_binop','calculator.py',138),
-  ('expression -> expression MINUS expression','expression',3,'p_expression_binop','calculator.py',139),
-  ('expression -> expression TIMES expression','expression',3,'p_expression_binop','calculator.py',140),
-  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binop','calculator.py',141),
-  ('expression -> expression EXP expression','expression',3,'p_expression_binop','calculator.py',142),
-  ('expression -> MINUS expression','expression',2,'p_expression_uminus','calculator.py',157),
-  ('expression -> LPAREN expression RPAREN','expression',3,'p_expression_group','calculator.py',161),
-  ('expression -> NUMBER','expression',1,'p_expression_number','calculator.py',165),
-  ('expression -> NAME','expression',1,'p_expression_name','calculator.py',169),
-  ('expression -> SNUMBER','expression',1,'p_snumber','calculator.py',178),
-  ('expression -> TENS','expression',1,'p_tens','calculator.py',185),
-  ('expression -> BIGTENS','expression',1,'p_bigtens','calculator.py',192),
-  ('expression -> expression SNUMBER','expression',2,'p_expression_snumber','calculator.py',199),
-  ('expression -> expression TENS','expression',2,'p_expression_tens','calculator.py',206),
-  ('expression -> expression BIGTENS','expression',2,'p_expression_bigtens','calculator.py',213),
-  ('expression -> SNUMBER HUNDRED','expression',2,'p_snumber_hundred','calculator.py',220),
-  ('expression -> expression THOUSAND SNUMBER HUNDRED','expression',4,'p_expression_hundred','calculator.py',227),
-  ('expression -> expression THOUSAND','expression',2,'p_expression_thousand','calculator.py',237),
+  ('statement -> NAME EQUALS expression','statement',3,'p_statement_assign','calculator.py',130),
+  ('statement -> NAME EQUALS sexpr','statement',3,'p_statement_assign','calculator.py',131),
+  ('statement -> expression','statement',1,'p_statement_expr','calculator.py',137),
+  ('statement -> sexpr','statement',1,'p_statement_expr','calculator.py',138),
+  ('expression -> expression PLUS expression','expression',3,'p_expression_binop','calculator.py',144),
+  ('expression -> expression MINUS expression','expression',3,'p_expression_binop','calculator.py',145),
+  ('expression -> expression TIMES expression','expression',3,'p_expression_binop','calculator.py',146),
+  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binop','calculator.py',147),
+  ('expression -> expression EXP expression','expression',3,'p_expression_binop','calculator.py',148),
+  ('expression -> sexpr PLUS sexpr','expression',3,'p_expression_binop','calculator.py',149),
+  ('expression -> sexpr MINUS sexpr','expression',3,'p_expression_binop','calculator.py',150),
+  ('expression -> sexpr TIMES sexpr','expression',3,'p_expression_binop','calculator.py',151),
+  ('expression -> sexpr DIVIDE sexpr','expression',3,'p_expression_binop','calculator.py',152),
+  ('expression -> sexpr EXP sexpr','expression',3,'p_expression_binop','calculator.py',153),
+  ('expression -> expression PLUS sexpr','expression',3,'p_expression_binop','calculator.py',154),
+  ('expression -> expression MINUS sexpr','expression',3,'p_expression_binop','calculator.py',155),
+  ('expression -> expression TIMES sexpr','expression',3,'p_expression_binop','calculator.py',156),
+  ('expression -> expression DIVIDE sexpr','expression',3,'p_expression_binop','calculator.py',157),
+  ('expression -> expression EXP sexpr','expression',3,'p_expression_binop','calculator.py',158),
+  ('expression -> sexpr PLUS expression','expression',3,'p_expression_binop','calculator.py',159),
+  ('expression -> sexpr MINUS expression','expression',3,'p_expression_binop','calculator.py',160),
+  ('expression -> sexpr TIMES expression','expression',3,'p_expression_binop','calculator.py',161),
+  ('expression -> sexpr DIVIDE expression','expression',3,'p_expression_binop','calculator.py',162),
+  ('expression -> sexpr EXP expression','expression',3,'p_expression_binop','calculator.py',163),
+  ('expression -> MINUS expression','expression',2,'p_expression_uminus','calculator.py',183),
+  ('expression -> MINUS sexpr','expression',2,'p_expression_uminus','calculator.py',184),
+  ('expression -> LPAREN expression RPAREN','expression',3,'p_expression_group','calculator.py',190),
+  ('expression -> LPAREN sexpr RPAREN','expression',3,'p_expression_group','calculator.py',191),
+  ('expression -> NUMBER','expression',1,'p_expression_number','calculator.py',196),
+  ('expression -> NAME','expression',1,'p_expression_name','calculator.py',200),
+  ('sexpr -> SNUMBER','sexpr',1,'p_snumber_tens_bigtens','calculator.py',209),
+  ('sexpr -> TENS','sexpr',1,'p_snumber_tens_bigtens','calculator.py',210),
+  ('sexpr -> BIGTENS','sexpr',1,'p_snumber_tens_bigtens','calculator.py',211),
+  ('sexpr -> BIGTENS SNUMBER','sexpr',2,'p_bigtens_snumber','calculator.py',218),
+  ('sexpr -> SNUMBER HUNDRED','sexpr',2,'p_snumber_hundred','calculator.py',236),
+  ('sexpr -> SNUMBER HUNDRED sexpr','sexpr',3,'p_snumber_hundred_expr','calculator.py',253),
+  ('sexpr -> sexpr THOUSAND','sexpr',2,'p_expression_thousand','calculator.py',272),
+  ('sexpr -> sexpr THOUSAND sexpr','sexpr',3,'p_expression_thousand_expr','calculator.py',282),
 ]
