@@ -162,7 +162,7 @@ def p_expression_binop(p):
               | sexpr DIVIDE expression
               | sexpr EXP expression
     """
-    print('plus', [repr(p[i]) for i in range(0,4)])
+    # print('plus', [repr(p[i]) for i in range(0,4)])
 
     try:
         if p[2] == '+':
@@ -210,28 +210,28 @@ def p_snumber_tens_bigtens(p):
             | TENS
             | BIGTENS
     '''
-    print("snum", [repr(p[i]) for i in range(0,2)])
+    # print("snum", [repr(p[i]) for i in range(0,2)])
     p[0] = string_to_int[p[1]]
 
 def p_bigtens_snumber(p):
     '''
     sexpr : BIGTENS SNUMBER
     '''
-    print("exp snum", [repr(p[i]) for i in range(0,3)])
+    # print("exp snum", [repr(p[i]) for i in range(0,3)])
     p[0] = string_to_int[p[1]] + string_to_int[p[2]]
 
 def p_snumber_hundred(p):
     '''
     sexpr : SNUMBER HUNDRED
     '''
-    print('hundred', [repr(p[i]) for i in range(0,3)])
+    # print('hundred', [repr(p[i]) for i in range(0,3)])
     p[0] = string_to_int[p[1]]*100
 
 def p_snumber_hundred_expr(p):
     '''
     sexpr : SNUMBER HUNDRED sexpr
     '''
-    print('hundred', [repr(p[i]) for i in range(0,3)])
+    # print('hundred', [repr(p[i]) for i in range(0,3)])
     if not isinstance(p[3], int) or (p[3] > 99 or p[3] < -99):
         print('syntax error at HUNDRED')
     p[0] = string_to_int[p[1]]*100 + p[3]
@@ -240,7 +240,7 @@ def p_expression_thousand(p):
     '''
     sexpr : sexpr THOUSAND
     '''
-    print('thousand', [repr(p[i]) for i in range(0,3)])
+    # print('thousand', [repr(p[i]) for i in range(0,3)])
     if not isinstance(p[1], int) or (p[1] > 99 or p[1] < -99):
         print('syntax error at THOUSAND')
     else:
@@ -250,7 +250,7 @@ def p_expression_thousand_expr(p):
     '''
     sexpr : sexpr THOUSAND sexpr
     '''
-    print('thousand', [repr(p[i]) for i in range(0,3)])
+    # print('thousand', [repr(p[i]) for i in range(0,3)])
     if not isinstance(p[1], int) or (p[1] > 99 or p[1] < -99):
         print('syntax error at THOUSAND')
     else:
